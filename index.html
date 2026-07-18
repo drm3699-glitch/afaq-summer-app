@@ -415,7 +415,6 @@ footer .l2{color:var(--amber);font-weight:800;font-size:1.3rem;font-family:'Balo
 <!-- ============ GROUPS DISPLAY ============ -->
 <section class="tabpane" id="pane-groups">
   <h2 class="display" style="color:var(--navy);font-size:1.6rem;margin-bottom:4px">👥 ترتيب المجموعات</h2>
-  <p class="hint" id="gHint">مجموع المجموعة = نقاط أفرادها + النقاط الجماعية المرصودة لها.</p>
   <div class="compare"><div class="barwrap" id="compareBar"></div></div>
   <div class="gcards" id="gCards"></div>
 </section>
@@ -492,6 +491,16 @@ footer .l2{color:var(--amber);font-weight:800;font-size:1.3rem;font-family:'Balo
     <h2><span class="dot" style="background:var(--orange)"></span> إعدادات الدوريات</h2>
     <p class="hint">حدّد نقاط الفوز والتعادل والخسارة لكل دوري. تُعاد حسبة جداول الترتيب تلقائيًا.</p>
     <div id="leagueSettings"></div>
+  </div>
+
+  <div class="card">
+    <h2><span class="dot" style="background:#F5A623"></span> نقاط ترتيب فقرة مواهب</h2>
+    <p class="hint">المشرفون يرصدون تقييمًا لكل مجموعة في قسم «مواهب» (أي عدد من البنود)، ومجموع تلك التقييمات يحدّد ترتيب المجموعات الثلاث فقط — وتُمنح كل مرتبة النقاط الثابتة أدناه بدل جمع التقييمات مباشرة، بغض النظر عن عدد المشرفين الذين شاركوا في الرصد.</p>
+    <div class="row">
+      <div class="field"><label>🥇 المركز الأول</label><input type="number" id="talentB1"></div>
+      <div class="field"><label>🥈 المركز الثاني</label><input type="number" id="talentB2"></div>
+      <div class="field"><label>🥉 المركز الثالث</label><input type="number" id="talentB3"></div>
+    </div>
   </div>
   </div><!-- /settingsGeneralArea -->
 
@@ -656,7 +665,7 @@ const DEFAULT_STATE = {
     // قيم
     {id:'c27', sec:'قيم', name:'الطالب المشارك بقيمة (3 طلاب فقط)', pts:15, scope:'فرد'},
     // مواهب
-    {id:'c28', sec:'مواهب', name:'مشاركة موهبة', pts:10, scope:'فرد'},
+    {id:'c28', sec:'مواهب', name:'تقييم عرض الموهبة', pts:10, scope:'مجموعة'},
   ],
   entries: [] // {id, ts, label, sec, pts, type:'student'|'group', targets:[ids]}
 };
@@ -774,6 +783,8 @@ function ensureSports(){
   if(!state.football.pts) state.football.pts={win:3,draw:1,loss:0};
   if(!state.volley)   state.volley={pts:{win:2,draw:0,loss:0}, rounds:defaultRounds()};
   if(!state.volley.pts) state.volley.pts={win:2,draw:0,loss:0};
+  if(!Array.isArray(state.talentBonus) || state.talentBonus.length!==3) state.talentBonus=[20,15,10];
+  (state.criteria||[]).forEach(c=>{ if(c.sec==='مواهب' && c.scope!=='مجموعة') c.scope='مجموعة'; });
 }
 let editFB=null, editVB=null; // 'round-index' للمباراة المفتوحة للتعديل
 
@@ -1182,9 +1193,32 @@ function studentGroupPoints(sid){
   for(const e of state.entries) if(e.type==='student' && e.targets.includes(sid) && !ex.includes(e.sec)) t+=e.pts;
   return t;
 }
+/* مجموع تقييمات المشرفين الخام لكل مجموعة في قسم مواهب (قبل التحويل إلى نقاط ترتيب) */
+function talentRawSum(gid){
+  let t=0;
+  for(const e of state.entries) if(e.type==='group' && e.sec==='مواهب' && e.targets.includes(gid)) t+=e.pts;
+  return t;
+}
+/* تحويل مجموع تقييمات كل مجموعة في مواهب إلى نقاط ثابتة حسب الترتيب (20/15/10 افتراضيًا)،
+   بغض النظر عن عدد المشرفين الذين شاركوا في الرصد. التعادل يأخذ نفس نقاط أعلى مرتبة مشتركة. */
+function talentRanks(){
+  const bonusTable = state.talentBonus || [20,15,10];
+  const rows = state.groups.map(g=>({gid:g.id, sum:talentRawSum(g.id)}))
+    .sort((a,b)=> b.sum-a.sum);
+  const out={};
+  let rank=0;
+  rows.forEach((r,i)=>{
+    if(i===0 || r.sum!==rows[i-1].sum) rank=i;
+    out[r.gid] = r.sum>0 ? {rank:rank+1, sum:r.sum, bonus:bonusTable[rank]||0} : {rank:null, sum:0, bonus:0};
+  });
+  return out;
+}
 function groupOwnPoints(gid){
   let t=0;
-  for(const e of state.entries) if(e.type==='group' && e.targets.includes(gid)) t+=e.pts;
+  /* نقاط مواهب الخام لا تُجمع مباشرة — تُستبدل بنقاط الترتيب الثابتة أدناه */
+  for(const e of state.entries) if(e.type==='group' && e.targets.includes(gid) && e.sec!=='مواهب') t+=e.pts;
+  const tr=talentRanks()[gid];
+  if(tr) t += tr.bonus;
   return t;
 }
 function groupTotal(gid){
@@ -1457,14 +1491,12 @@ function renderLbFilter(){
 
 /* =================== عرض المجموعات =================== */
 function renderGroups(){
-  const ex=noGroupSecs();
-  const hint=document.getElementById('gHint');
-  if(hint) hint.textContent='مجموع المجموعة = نقاط أفرادها + النقاط الجماعية المرصودة لها.' +
-    (ex.length? ' ملاحظة: نقاط قسم «'+ex.join('» و«')+'» تبقى للفرد فقط ولا تدخل في مجموع المجموعات.' : '');
+  const tRanks = talentRanks();
   const data = state.groups.map(g=>({
     ...g,
     own: groupOwnPoints(g.id),
     total: groupTotal(g.id),
+    talent: tRanks[g.id],
     members: state.students.filter(s=>s.g===g.id).map(s=>({...s, pts:studentGroupPoints(s.id)})).sort((a,b)=>b.pts-a.pts)
   }));
   const max = Math.max(...data.map(d=>d.total), 1);
@@ -1482,9 +1514,13 @@ function renderGroups(){
 
   const wrap=$('#gCards'); wrap.innerHTML='';
   const sorted=[...data].sort((a,b)=>b.total-a.total);
+  const rankWord=['🥇 الأولى','🥈 الثانية','🥉 الثالثة'];
   sorted.forEach((d,idx)=>{
     const card=document.createElement('div'); card.className='gcard';
     const indiv = d.total - d.own;
+    const talentLine = d.talent && d.talent.rank
+      ? `<span>🎭 مواهب: ${rankWord[d.talent.rank-1]||('المركز '+arNum(d.talent.rank))} (+${arNum(d.talent.bonus)})</span>`
+      : `<span>🎭 مواهب: لا تقييم بعد</span>`;
     card.innerHTML=`
       <div class="top" style="background:linear-gradient(135deg, ${d.color}, ${d.color}CC)">
         ${idx===0 && d.total>0 ? '<span class="crown">👑</span>':''}
@@ -1495,6 +1531,9 @@ function renderGroups(){
       <div class="breakdown">
         <span>👤 نقاط الأفراد: ${arNum(indiv)}</span>
         <span>👥 نقاط جماعية: ${arNum(d.own)}</span>
+      </div>
+      <div class="breakdown" style="border-top:none;padding-top:0">
+        ${talentLine}
       </div>`;
     const ul=document.createElement('ul');
     d.members.forEach(m=>{
@@ -1505,6 +1544,18 @@ function renderGroups(){
     card.appendChild(ul);
     wrap.appendChild(card);
   });
+}
+
+function renderTalentBonusSettings(){
+  const b1=document.getElementById('talentB1'), b2=document.getElementById('talentB2'), b3=document.getElementById('talentB3');
+  if(!b1||!b2||!b3) return;
+  const bt=state.talentBonus||[20,15,10];
+  b1.value=bt[0]; b2.value=bt[1]; b3.value=bt[2];
+  const save=()=>{
+    state.talentBonus=[Number(b1.value)||0, Number(b2.value)||0, Number(b3.value)||0];
+    saveState(); renderAll(); toast('✅ حُدّثت نقاط ترتيب المواهب');
+  };
+  b1.onchange=save; b2.onchange=save; b3.onchange=save;
 }
 
 /* =================== الإعدادات =================== */
@@ -1772,6 +1823,7 @@ function renderAll(){
   renderSettingsGroups();
   renderCritSettings();
   renderLeagueSettings();
+  renderTalentBonusSettings();
   renderNoGroupSettings();
   renderAdminsList();
   updateLockIcons();
