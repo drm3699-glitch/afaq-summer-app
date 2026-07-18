@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مسابقة الاسم المستعار | نادي آفاق الصيفي 2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@500;600;700;800&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --teal:#2a5f63; --teal-dark:#1e474b; --teal-ink:#173a3d;
+  --cream:#f6ecd8; --cream-2:#efe0c2; --card:#fbf4e6;
+  --orange:#ec7f2b; --red-orange:#e04f24;
+  --gold:#f4b942; --gold-soft:#f8cf78;
+  --sage:#a9bc8f; --sage-soft:#c3d1ac;
+  --salmon:#f3a686; --salmon-soft:#f8c4ad;
+  --ink:#21393b; --muted:#5d6f6a;
+  --ok:#3e8e5a; --bad:#c23a2b;
+  --radius:18px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Tajawal',sans-serif; color:var(--ink);
+  background:var(--cream);
+  background-image:
+    radial-gradient(circle at 8% 12%, rgba(244,185,66,.14) 0 140px, transparent 141px),
+    radial-gradient(circle at 92% 85%, rgba(169,188,143,.18) 0 160px, transparent 161px),
+    radial-gradient(circle at 90% 8%, rgba(243,166,134,.15) 0 120px, transparent 121px);
+  min-height:100vh;
+}
+h1,h2,h3,.display{font-family:'Baloo Bhaijaan 2',cursive}
+
+/* ===== Header ===== */
+header{
+  background:linear-gradient(180deg,var(--teal) 0%, var(--teal-dark) 100%);
+  color:var(--cream); padding:26px 16px 0; position:relative; overflow:hidden;
+}
+header .dots{position:absolute;inset-inline-start:18px;top:18px;width:44px;height:44px;opacity:.5;
+  background-image:radial-gradient(var(--gold) 2.4px, transparent 2.6px);background-size:12px 12px}
+header .dots.b{inset-inline-start:auto;inset-inline-end:18px;top:auto;bottom:52px}
+.head-inner{max-width:980px;margin:0 auto;text-align:center;position:relative;z-index:1}
+.club-badge{
+  display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,.08);
+  border:1.5px solid rgba(246,236,216,.35);border-radius:999px;padding:6px 18px;
+  font-family:'Baloo Bhaijaan 2';font-weight:700;font-size:15px;letter-spacing:.3px;
+}
+.club-badge .sun{width:18px;height:18px;border-radius:50%;background:var(--gold);
+  box-shadow:0 0 0 3px rgba(244,185,66,.28)}
+.logo-card{display:inline-block;background:var(--cream);border-radius:22px;
+  padding:12px 20px;box-shadow:0 4px 0 rgba(0,0,0,.18)}
+.logo-card img{display:block;height:120px;width:auto}
+.footer-logo{margin-bottom:10px}
+.footer-logo img{display:inline-block;height:64px;width:auto;background:var(--cream);
+  border-radius:14px;padding:8px 12px}
+h1.title{font-size:clamp(30px,6vw,52px);font-weight:800;margin:14px 0 4px;line-height:1.15}
+h1.title .spark{color:var(--gold)}
+.subtitle{color:var(--gold-soft);font-family:'Baloo Bhaijaan 2';font-weight:600;font-size:clamp(15px,2.6vw,20px)}
+.motto{margin:14px auto 22px;max-width:560px;font-size:14px;color:rgba(246,236,216,.85);line-height:1.9}
+.wave{display:block;width:100%;height:46px;margin-bottom:-1px}
+
+/* ===== Nav ===== */
+nav{max-width:980px;margin:-23px auto 0;padding:0 16px;position:relative;z-index:5;
+  display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.tab-btn{
+  font-family:'Baloo Bhaijaan 2';font-weight:700;font-size:16px;cursor:pointer;
+  border:2.5px solid var(--teal);background:var(--card);color:var(--teal);
+  padding:10px 22px;border-radius:999px;box-shadow:0 3px 0 var(--teal);
+  transition:transform .12s, box-shadow .12s;
+}
+.tab-btn:hover{transform:translateY(-1px)}
+.tab-btn.active{background:var(--orange);border-color:var(--red-orange);color:#fff;box-shadow:0 3px 0 var(--red-orange)}
+.tab-btn:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+
+main{max-width:980px;margin:0 auto;padding:26px 16px 60px}
+.view{display:none;animation:pop .25s ease}
+.view.show{display:block}
+@keyframes pop{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* ===== Cards ===== */
+.card{background:var(--card);border:2px solid var(--teal);border-radius:var(--radius);
+  padding:22px;box-shadow:0 5px 0 rgba(42,95,99,.25);margin-bottom:20px}
+.card h2{color:var(--teal);font-size:24px;margin-bottom:6px;display:flex;align-items:center;gap:10px}
+.card h2 .chip{width:14px;height:14px;border-radius:4px;background:var(--orange);flex:0 0 auto}
+.card p.hint{color:var(--muted);font-size:14px;margin-bottom:14px;line-height:1.8}
+
+/* ===== Schedule-style table (signature) ===== */
+.table-wrap{overflow-x:auto;border-radius:14px;border:2.5px solid var(--teal)}
+table{width:100%;border-collapse:collapse;min-width:560px;background:var(--card)}
+thead th{
+  background:var(--teal);color:var(--cream);font-family:'Baloo Bhaijaan 2';
+  font-weight:700;font-size:16px;padding:13px 12px;border:1px solid rgba(246,236,216,.25)
+}
+tbody td{padding:11px 12px;border:1px solid rgba(42,95,99,.3);font-size:15px;text-align:center;font-weight:500}
+tr.top3 td{background:#fdf0c4 !important}
+td.medal-cell .medal{font-size:19px;margin-inline-end:6px}
+tr.eliminated td{background:var(--salmon-soft) !important;color:var(--bad)}
+tr.eliminated td .owner-name{font-weight:800}
+tr.eliminated td.balance{text-decoration:line-through;opacity:.75}
+td .captures{color:var(--red-orange);font-size:13px;font-weight:700}
+td.country-cell{font-weight:800;font-family:'Baloo Bhaijaan 2';font-size:16px}
+.balance{font-family:'Baloo Bhaijaan 2';font-weight:800;font-size:17px;color:var(--teal-ink)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:12px;font-size:13px;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:14px;height:14px;border-radius:4px;display:inline-block}
+
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:20px}
+.stat{border-radius:14px;padding:14px;text-align:center;border:2px solid var(--teal)}
+.stat b{display:block;font-family:'Baloo Bhaijaan 2';font-size:28px;font-weight:800;color:var(--teal-ink)}
+.stat span{font-size:13px;font-weight:700;color:var(--teal)}
+.stat.s1{background:var(--sage-soft)} .stat.s2{background:var(--gold-soft)} .stat.s3{background:var(--salmon-soft)}
+
+/* ===== Forms ===== */
+label{display:block;font-weight:800;font-size:14px;color:var(--teal);margin:12px 0 6px}
+input,select,textarea{
+  width:100%;padding:11px 14px;border-radius:12px;border:2px solid var(--teal);
+  background:#fff;font-family:'Tajawal';font-size:15px;color:var(--ink)
+}
+input:focus,select:focus,textarea:focus{outline:3px solid rgba(244,185,66,.55);border-color:var(--orange)}
+.btn{
+  font-family:'Baloo Bhaijaan 2';font-weight:700;font-size:16px;cursor:pointer;border:none;
+  padding:12px 26px;border-radius:999px;margin-top:16px;transition:transform .12s;
+}
+.btn:hover{transform:translateY(-1px)}
+.btn:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+.btn-orange{background:var(--orange);color:#fff;box-shadow:0 3px 0 var(--red-orange)}
+.btn-teal{background:var(--teal);color:var(--cream);box-shadow:0 3px 0 var(--teal-dark)}
+.btn-ghost{background:transparent;border:2px solid var(--teal);color:var(--teal);box-shadow:none}
+.btn-danger{background:var(--red-orange);color:#fff;box-shadow:0 3px 0 #a83a17}
+.btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:640px){.grid-2{grid-template-columns:1fr}}
+
+.msg{border-radius:12px;padding:12px 16px;margin-top:14px;font-weight:700;font-size:14px;line-height:1.8;display:none}
+.msg.show{display:block;animation:pop .25s ease}
+.msg.ok{background:#e4efe2;border:2px solid var(--ok);color:#2c6b44}
+.msg.bad{background:#fbe3dc;border:2px solid var(--bad);color:var(--bad)}
+.msg.info{background:var(--gold-soft);border:2px solid var(--gold);color:#7a5a10}
+
+/* ===== Player dashboard ===== */
+.player-band{
+  background:linear-gradient(135deg,var(--teal),var(--teal-dark));color:var(--cream);
+  border-radius:var(--radius);padding:20px 22px;display:flex;align-items:center;
+  justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:20px;
+  border:2px solid var(--teal-dark)
+}
+.player-band .who{font-family:'Baloo Bhaijaan 2';font-size:22px;font-weight:800}
+.player-band .who small{display:block;font-family:'Tajawal';font-size:13px;color:var(--gold-soft);font-weight:500}
+.player-band .pts{background:var(--gold);color:var(--teal-ink);border-radius:14px;padding:10px 20px;
+  font-family:'Baloo Bhaijaan 2';font-weight:800;font-size:24px;text-align:center}
+.player-band .pts small{display:block;font-size:12px;font-family:'Tajawal';font-weight:700}
+.step-badge{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;
+  border-radius:50%;background:var(--orange);color:#fff;font-family:'Baloo Bhaijaan 2';font-weight:800;flex:0 0 auto}
+.q-text{background:#fff;border:2px dashed var(--orange);border-radius:14px;padding:16px;
+  font-size:17px;font-weight:800;color:var(--teal-ink);margin:10px 0;line-height:1.9}
+.choice{display:block;width:100%;text-align:start;cursor:pointer;margin-top:10px;
+  background:#fff;border:2.5px solid var(--teal);border-radius:14px;padding:13px 16px;
+  font-family:'Tajawal';font-weight:800;font-size:16px;color:var(--teal-ink);
+  transition:transform .1s}
+.choice:hover{transform:translateY(-1px)}
+.choice.selected{background:var(--gold-soft);border-color:var(--orange);
+  box-shadow:0 0 0 3px rgba(236,127,43,.25)}
+.choice:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.result-banner{display:none;border-radius:var(--radius);padding:18px 20px;margin-bottom:20px;
+  font-family:'Baloo Bhaijaan 2';font-weight:800;font-size:18px;line-height:1.9;
+  animation:pop .3s ease}
+.result-banner.show{display:block}
+.result-banner.ok{background:#e4efe2;border:3px solid var(--ok);color:#2c6b44}
+.result-banner.bad{background:#fbe3dc;border:3px solid var(--bad);color:var(--bad)}
+footer{background:var(--teal-dark);color:rgba(246,236,216,.8);text-align:center;
+  padding:20px 16px;font-size:13px;line-height:2}
+footer b{color:var(--gold)}
+.storage-warn{display:none;background:var(--salmon-soft);border:2px solid var(--red-orange);
+  color:#8c2f12;border-radius:12px;padding:10px 16px;margin:0 16px 14px;font-size:13px;font-weight:700;
+  max-width:948px;margin-inline:auto}
+.small-note{font-size:12.5px;color:var(--muted);margin-top:8px;line-height:1.8}
+.admin-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:9px 0;border-bottom:1px dashed rgba(42,95,99,.3);font-size:14px}
+.admin-row .nm{font-weight:800;min-width:130px}
+.admin-row input{width:90px;padding:6px 8px;font-size:13px}
+.admin-row .btn{margin-top:0;padding:6px 14px;font-size:13px}
+.arch-item{border:2px solid var(--teal);border-radius:14px;margin-bottom:10px;overflow:hidden}
+.arch-head{background:var(--card);padding:12px 16px;cursor:pointer;display:flex;
+  justify-content:space-between;align-items:center;gap:10px;font-weight:800;font-size:14px}
+.arch-head:hover{background:var(--gold-soft)}
+.arch-body{display:none;padding:6px 16px 14px}
+.arch-body.open{display:block}
+.arch-time{color:var(--muted);font-size:12.5px;font-family:'Tajawal';font-weight:700;min-width:130px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="dots"></div><div class="dots b"></div>
+  <div class="head-inner">
+    <div class="logo-card"><img src="data:image/png;base64,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" alt="شعار نادي آفاق الصيفي 2"></div>
+    <h1 class="title">مسابقة <span class="spark">الاسم المستعار</span></h1>
+    <div class="subtitle">خمّن أصحاب الدول… واستولِ على أرصدتهم!</div>
+    <p class="motto">إذا غامَرْتَ في شَرَفٍ مَرُومِ .. فلا تَقنَعْ بما دونَ النّجومِ</p>
+  </div>
+  <svg class="wave" viewBox="0 0 1440 46" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0,20 C120,44 240,-4 360,20 C480,44 600,-4 720,20 C840,44 960,-4 1080,20 C1200,44 1320,-4 1440,20 L1440,46 L0,46 Z" fill="#f6ecd8"/>
+  </svg>
+</header>
+
+<nav>
+  <button class="tab-btn active" data-view="board">🏆 قائمة الدول</button>
+  <button class="tab-btn" data-view="player">🎯 دخول المتسابق</button>
+  <button class="tab-btn" data-view="rules">📜 طريقة اللعب</button>
+  <button class="tab-btn" data-view="admin">🛡️ المشرف</button>
+</nav>
+
+<div class="storage-warn" id="storageWarn">
+  تعذّر الاتصال بقاعدة البيانات. تأكد من اتصالك بالإنترنت ومن تفعيل Firestore في مشروع Firebase، ثم حدّث الصفحة.
+</div>
+
+<main>
+
+  <!-- ============ الرئيسية / قائمة الدول ============ -->
+  <section class="view show" id="view-board">
+    <div class="stats-row">
+      <div class="stat s1"><b id="statActive">—</b><span>دولة في المنافسة</span></div>
+      <div class="stat s3"><b id="statOut">—</b><span>خرجوا من المنافسة</span></div>
+      <div class="stat s2"><b id="statTop">—</b><span>أعلى رصيد</span></div>
+    </div>
+    <div class="card">
+      <h2><span class="chip"></span>الجولة الحالية</h2>
+      <p class="hint" id="roundLabel"></p>
+      <div class="table-wrap">
+        <table aria-label="جدول الدول والأرصدة">
+          <thead><tr><th style="width:56%">الاسم المستعار</th><th>الرصيد</th></tr></thead>
+          <tbody id="boardBody"></tbody>
+        </table>
+      </div>
+      <div class="legend">
+        <span><i style="background:#fdf0c4;border:1px solid var(--gold)"></i> أعلى ٣ أرصدة</span>
+        <span><i style="background:var(--salmon-soft)"></i> خرج من المنافسة</span>
+        <span style="color:var(--red-orange);font-weight:700">(بين الأقواس بالأحمر: دول استولى عليها)</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ المتسابق ============ -->
+  <section class="view" id="view-player">
+
+    <div id="authBox">
+      <div class="card">
+        <h2><span class="chip"></span>تفعيل حسابك لأول مرة</h2>
+        <p class="hint">اختر دولتك المسندة إليك سرًّا، واختر اسمك من قائمة المشاركين، ثم حدّد رقمًا سريًّا للدخول لاحقًا. القائمتان تعرضان الجميع دائمًا — فلا أحد يعرف من فعّل حسابه.</p>
+        <div class="grid-2">
+          <div>
+            <label for="claimCountry">دولتك (اسمك المستعار)</label>
+            <select id="claimCountry"></select>
+          </div>
+          <div>
+            <label for="claimName">اسمك من قائمة المشاركين</label>
+            <select id="claimName"></select>
+          </div>
+        </div>
+        <label for="claimPin">رقمك السري (4 أرقام أو أكثر)</label>
+        <input id="claimPin" type="password" inputmode="numeric" placeholder="••••">
+        <button class="btn btn-orange" id="btnClaim">تفعيل الحساب</button>
+        <div class="msg" id="claimMsg"></div>
+      </div>
+
+      <div class="card">
+        <h2><span class="chip" style="background:var(--sage)"></span>الدخول إلى حسابك</h2>
+        <div class="grid-2">
+          <div>
+            <label for="loginCountry">دولتك</label>
+            <select id="loginCountry"></select>
+          </div>
+          <div>
+            <label for="loginPin">رقمك السري</label>
+            <input id="loginPin" type="password" inputmode="numeric" placeholder="••••">
+          </div>
+        </div>
+        <button class="btn btn-teal" id="btnLogin">دخول</button>
+        <div class="msg" id="loginMsg"></div>
+      </div>
+    </div>
+
+    <div id="dashBox" style="display:none">
+      <div class="player-band">
+        <div class="who" id="dashWho">—<small id="dashName"></small></div>
+        <div class="pts"><span id="dashPts">٠</span><small>نقطة</small></div>
+      </div>
+
+      <div class="result-banner" id="resultBanner"></div>
+
+      <div class="card" id="questionCard">
+        <h2><span class="step-badge">١</span> السؤال اليومي</h2>
+        <div id="qArea"></div>
+        <div class="msg" id="qMsg"></div>
+      </div>
+
+      <div class="card" id="guessCard" style="display:none">
+        <h2><span class="step-badge">٢</span> خمّن صاحب دولة</h2>
+        <p class="hint">إجابتك صحيحة! اختر دولة منافسة واكتب اسم صاحبها الذي تظنه. إن أصبت، يخرج من المنافسة وتنتقل نقاطه كاملة إلى رصيدك. محاولة واحدة فقط لليوم — خمّن بحكمة!</p>
+        <div class="grid-2">
+          <div>
+            <label for="guessCountry">الدولة المستهدفة</label>
+            <select id="guessCountry"></select>
+          </div>
+          <div>
+            <label for="guessName">من تظن صاحبها؟</label>
+            <select id="guessName"></select>
+          </div>
+        </div>
+        <button class="btn btn-orange" id="btnGuess">🎯 إطلاق التخمين</button>
+        <div class="msg" id="guessMsg"></div>
+      </div>
+
+      <button class="btn btn-ghost" id="btnLogout">تسجيل الخروج</button>
+    </div>
+  </section>
+
+  <!-- ============ طريقة اللعب ============ -->
+  <section class="view" id="view-rules">
+    <div class="card">
+      <h2><span class="chip"></span>طريقة اللعب</h2>
+      <p class="hint" style="font-size:15px">
+        ١ — لكل متسابق دولةٌ هي «اسمه المستعار»، ولا يعرف أحدٌ صاحبها.<br>
+        ٢ — يدخل المتسابق يوميًّا ويجيب على السؤال اليومي.<br>
+        ٣ — الإجابة الصحيحة تمنحه نقاطَ السؤال + فرصةَ تخمينٍ واحدة.<br>
+        ٤ — يختار دولةً منافسة ويخمّن اسم صاحبها؛ فإن أصاب خرجت الدولة من المنافسة وانتقل رصيدُها كاملًا إليه.<br>
+        ٥ — التخمين الخاطئ يُحرق فرصة اليوم، فاجمع القرائن قبل أن تُطلق سهمك!<br>
+        ٦ — الفائز آخر من يبقى… أو صاحب أعلى رصيد عند إعلان نهاية المسابقة.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ المشرف ============ -->
+  <section class="view" id="view-admin">
+    <div class="card" id="adminGate">
+      <h2><span class="chip"></span>دخول المشرف</h2>
+      <label for="adminPass">كلمة مرور المشرف</label>
+      <input id="adminPass" type="password" placeholder="••••••">
+      <button class="btn btn-teal" id="btnAdmin">دخول</button>
+      <div class="msg" id="adminMsg"></div>
+    </div>
+
+    <div id="adminPanel" style="display:none">
+      <div class="card">
+        <h2><span class="chip"></span>السؤال اليومي</h2>
+        <label for="admQ">نص السؤال</label>
+        <textarea id="admQ" rows="2" placeholder="مثال: ما اسم القيمة التي تناولها لقاء الإثراء اليوم؟"></textarea>
+        <label>الخيارات الثلاثة</label>
+        <input id="admOpt1" placeholder="الخيار الأول" autocomplete="off" style="margin-bottom:8px">
+        <input id="admOpt2" placeholder="الخيار الثاني" autocomplete="off" style="margin-bottom:8px">
+        <input id="admOpt3" placeholder="الخيار الثالث" autocomplete="off">
+        <div class="grid-2">
+          <div>
+            <label for="admCorrect">الإجابة الصحيحة</label>
+            <select id="admCorrect">
+              <option value="0">الخيار الأول</option>
+              <option value="1">الخيار الثاني</option>
+              <option value="2">الخيار الثالث</option>
+            </select>
+          </div>
+          <div>
+            <label for="admR">نقاط الإجابة الصحيحة</label>
+            <input id="admR" type="number" value="100" min="0" step="50">
+          </div>
+        </div>
+        <button class="btn btn-orange" id="btnSaveQ">نشر سؤال اليوم</button>
+        <div class="msg" id="admQMsg"></div>
+        <p class="small-note" id="admQCurrent"></p>
+      </div>
+
+      <div class="card">
+        <h2><span class="chip" style="background:var(--gold)"></span>متابعة إجابات اليوم</h2>
+        <p class="hint" id="answersSummary"></p>
+        <div id="answersList"></div>
+      </div>
+
+      <div class="card">
+        <h2><span class="chip" style="background:var(--orange)"></span>متابعة التخمينات اليوم</h2>
+        <p class="hint" id="guessesSummary"></p>
+        <div id="guessesList"></div>
+      </div>
+
+      <div class="card">
+        <h2><span class="chip" style="background:var(--salmon)"></span>أرشيف الأسئلة اليومية</h2>
+        <p class="hint">جميع الأسئلة السابقة وإجابات المتسابقين عليها، مرتبة من الأحدث. اضغط أي سؤال لعرض تفاصيله.</p>
+        <div id="archiveList"></div>
+      </div>
+
+      <div class="card">
+        <h2><span class="chip" style="background:var(--sage)"></span>إدارة الدول</h2>
+        <p class="hint">🟢 حساب مفعَّل · ⚪ لم يفعَّل بعد · 🔴 خرج من المنافسة. يمكنك تعديل الأرصدة، الإقصاء اليدوي، أو تصفير حساب متسابق نسي رقمه السري.</p>
+        <button class="btn btn-ghost" id="btnTogglePins" style="margin-top:0">🔑 إظهار الأرقام السرية</button>
+        <div style="display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap;margin-bottom:8px">
+          <div style="flex:1;min-width:180px">
+            <label for="admBulkBal">توحيد رصيد جميع المتنافسين</label>
+            <input id="admBulkBal" type="number" value="100" step="50">
+          </div>
+          <button class="btn btn-teal" id="btnBulkBal" style="margin-top:0">تطبيق على الجميع</button>
+        </div>
+        <div id="adminList"></div>
+        <div class="grid-2" style="margin-top:16px">
+          <div><label for="admNewCountry">إضافة دولة جديدة</label><input id="admNewCountry" placeholder="اسم الدولة"></div>
+          <div><label for="admNewOwner">اسم صاحبها المسجَّل (سرّي)</label><input id="admNewOwner" placeholder="الاسم كما في النموذج"></div>
+        </div>
+        <label for="admNewBal">رصيدها الابتدائي</label>
+        <input id="admNewBal" type="number" value="100" step="50">
+        <button class="btn btn-teal" id="btnAddCountry">إضافة الدولة</button>
+      </div>
+
+      <div class="card">
+        <h2><span class="chip" style="background:var(--salmon)"></span>إعدادات</h2>
+        <div class="grid-2">
+          <div>
+            <label for="admRound">عنوان الجولة الظاهر أعلى الجدول</label>
+            <input id="admRound" placeholder="مثال: الجولة 1">
+          </div>
+          <div>
+            <label for="admNewPass">تغيير كلمة مرور المشرف</label>
+            <input id="admNewPass" type="password" placeholder="اتركها فارغة إن لم ترد التغيير">
+          </div>
+        </div>
+        <button class="btn btn-teal" id="btnSaveSettings">حفظ الإعدادات</button>
+        <button class="btn btn-orange" id="btnToggleGuess">🎯 …</button>
+        <button class="btn btn-danger" id="btnResetAttempts">إعادة فتح محاولات اليوم للجميع</button>
+        <p class="small-note" id="guessStatusNote"></p>
+        <div class="msg" id="admSetMsg"></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="footer-logo"><img src="data:image/png;base64,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" alt="شعار جمعية آفاق الشبابية"></div>
+  <b>جمعية آفاق الشبابية</b> - نادي آفاق الصيفي 2<br>
+  صيفٌ يشعّ حياة ☀️
+</footer>
+
+<script type="module">
+/* ================= Firebase ================= */
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
+import { getFirestore, doc, getDoc, setDoc, onSnapshot, runTransaction } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAAkbF6xKttjKfFps8VNPQ4t2S1_viadgw",
+  authDomain: "afaq-421fe.firebaseapp.com",
+  projectId: "afaq-421fe",
+  storageBucket: "afaq-421fe.firebasestorage.app",
+  messagingSenderId: "692881995733",
+  appId: "1:692881995733:web:e4b1550aec8a83ceb52f5c"
+};
+const fbApp = initializeApp(firebaseConfig);
+const db = getFirestore(fbApp);
+const GAME_DOC = doc(db, "afaq-alias", "game-round-1");
+
+/* ============ بيانات المسجّلين (39 متسابقًا — الجولة 1) ============
+   الأسماء مشفَّرة حمايةً لسرّية أصحاب الدول من فضوليّي "عرض المصدر" 🤫 */
+const BLOB="W3siYyI6ICLYrNin2YXYp9mK2YPYpyIsICJvIjogItijLyDYpdio2LHYp9mH2YrZhSDYstmD2YrYsSJ9LCB7ImMiOiAi2KfZhNio2LHYp9iy2YrZhCIsICJvIjogItij2KjZiNio2YPYsSDYudin2K/ZhCJ9LCB7ImMiOiAi2KfZhNmK2YXZhiIsICJvIjogItij2K3ZhdivINij2KjZiNi32KfZhNioIn0sIHsiYyI6ICLYqti02KfYryIsICJvIjogItij2K3ZhdivINin2YTZhdit2YXYp9iv2YoifSwgeyJjIjogItin2YTYo9ix2KzZhtiq2YrZhiIsICJvIjogItij2K3ZhdivINin2YTYo9it2YXYr9mKIn0sIHsiYyI6ICLZhdi12LEiLCAibyI6ICLYo9iz2KfZhdipINmK2YjYs9mBIn0sIHsiYyI6ICLZhNin2KrZgdmK2KciLCAibyI6ICLYoy8g2KPYs9in2YXZhyDYp9mE2YXYsdit2KjZiiJ9LCB7ImMiOiAi2YXZitin2YbZhdin2LEiLCAibyI6ICLYo9mG2LMg2KPYqNmI2LfYp9mE2KgifSwgeyJjIjogItij2LPYqtix2KfZhNmK2KciLCAibyI6ICLYo9mG2LMg2KfZhNmF2K3Zhdin2K/ZiiJ9LCB7ImMiOiAi2LPYp9it2YQg2KfZhNi52KfYrCIsICJvIjogItio2LPYp9mFINin2YTYtNmF2LHYp9mG2YoifSwgeyJjIjogItiq2LHZg9mF2KfZhtiz2KrYp9mGIiwgIm8iOiAi2KMvINiq2LHZg9mKINin2YTZg9mG2KfZhtmKIn0sIHsiYyI6ICLYqNix2YjZhtin2YoiLCAibyI6ICLYoy8g2KrYsdmD2Yog2KjZhiDYrdmK2K/YsdmHIn0sIHsiYyI6ICLYpdix2YrYqtix2YrYpyIsICJvIjogItijLyDYr9mK2YfZiNmFINin2YTYtNmF2LHYp9mG2YoifSwgeyJjIjogItmE2YjZg9iz2YXYqNmI2LHYuiIsICJvIjogItix2KfZg9in2YYg2KfZhNiz2K3Yp9ix2YoifSwgeyJjIjogItio2YrYsdmIIiwgIm8iOiAi2LHZitin2YYg2YbYp9i42YUifSwgeyJjIjogItmE2YrYqNmK2KciLCAibyI6ICLYs9mE2LfYp9mGINin2YTYudmI2YTZgtmKIn0sIHsiYyI6ICLYp9mE2KjZiNiz2YbYqSDZiNin2YTZh9ix2LPZgyIsICJvIjogItiz2YTZitmF2KfZhiDYp9mE2LPZhNmK2YXYp9mG2YoifSwgeyJjIjogItmD2YjYsdmK2Kcg2KfZhNis2YbZiNio2YrYqSIsICJvIjogIti32KfYsdmCINin2YTYrdin2LLZhdmKIn0sIHsiYyI6ICLYrNmI2LHYrNmK2KciLCAibyI6ICLYt9mE2KfZhCDYp9mE2LnZiNmE2YLZiiJ9LCB7ImMiOiAi2KfZhNmH2YbYryIsICJvIjogItijLyDYudio2K/Yp9mE2LHYstin2YIg2KfZhNio2YTYp9mE2YoifSwgeyJjIjogItin2YTYqti02YrZgyIsICJvIjogIti52KjYr9in2YTYudiy2YrYsiDYp9mE2YLYp9iv2YjZhSJ9LCB7ImMiOiAi2YHZhtmE2YbYr9inIiwgIm8iOiAi2LnYqNiv2KfZhNi52LLZitiyINin2YTZh9is2KfYsdmKIn0sIHsiYyI6ICLYqNmI2KrYp9mGIiwgIm8iOiAi2LnYqNiv2KfZhNmE2Ycg2YXZiNmE2YjZiiJ9LCB7ImMiOiAi2KrZiNmG2LrYpyIsICJvIjogIti52KjYr9in2YTZhdmE2YMg2KfZhNi62KfZhdiv2YoifSwgeyJjIjogItiq2YjZgdin2YTZiCIsICJvIjogIti52LXYp9mFINin2YTZhtmH2K/ZiiJ9LCB7ImMiOiAi2KPZiNi62YbYr9inIiwgIm8iOiAi2KMvINi52LXYp9mFINin2YTYs9mE2YXZiiJ9LCB7ImMiOiAi2YXYp9mE2KfZiNmKIiwgIm8iOiAi2LnZhdin2K8g2KfZhNis2KfYqNix2YoifSwgeyJjIjogItmC2YrYsdi62YrYstiz2KrYp9mGIiwgIm8iOiAi2LnZhdixINin2YTZitin2YHYudmKIn0sIHsiYyI6ICLYs9mE2YjZgdmK2YbZitinIiwgIm8iOiAi2LnZhdixINin2YTYs9mE2YrZhdin2YbZiiJ9LCB7ImMiOiAi2YHYp9mG2YjYp9iq2YgiLCAibyI6ICLZgti12Yog2KfZhNiz2YTZitmF2KfZhtmKIn0sIHsiYyI6ICLZgdmG2LLZiNmK2YTYpyIsICJvIjogItmF2K3ZhdivINiy2YrZhNi5In0sIHsiYyI6ICLYp9mE2LPYudmI2K/ZitipIiwgIm8iOiAi2YXYrdmF2K8g2KfZhNi02YrYrtmKIn0sIHsiYyI6ICLYqNmE2YrYsiIsICJvIjogItmF2K3ZhdmI2K8g2KLYr9mFIn0sIHsiYyI6ICLYs9mK2LHYp9mE2YrZiNmGIiwgIm8iOiAi2YXYtNi52YQg2KfZhNis2YfZhtmKIn0sIHsiYyI6ICLZhdmI2LHZiti02YrZiNizIiwgIm8iOiAi2YbZiNin2YEg2KfZhNmG2YfYr9mKIn0sIHsiYyI6ICLZhdiv2LrYtNmC2LEiLCAibyI6ICLZh9in2LTZhSDYp9mE2LPZhNmF2YoifSwgeyJjIjogItio2YjYsdmD2YrZhtinINmB2KfYs9mIIiwgIm8iOiAi2YjYs9in2YUg2YXZh9iv2YoifSwgeyJjIjogItio2KfZhNin2YgiLCAibyI6ICLZitiy2YYg2KfZhNis2K/Yudin2YbZiiJ9LCB7ImMiOiAi2YPZitix2YrYqNin2KrZiiIsICJvIjogItio2LPYp9mFINmD2YTZgdmI2K8ifV0=";
+function decodeBlob(b){
+  const bin=atob(b), bytes=new Uint8Array(bin.length);
+  for(let i=0;i<bin.length;i++) bytes[i]=bin.charCodeAt(i);
+  return JSON.parse(new TextDecoder("utf-8").decode(bytes));
+}
+const START_BALANCE=100;
+function buildSeed(){
+  return {
+    round:"الجولة 1",
+    adminPass:"afaq2026",
+    question:null,
+    countries: decodeBlob(BLOB).map(p=>({
+      name:p.c, ownerName:p.o, balance:START_BALANCE, captures:[],
+      eliminated:false, claimed:false, pin:"",
+      lastQDate:"", solvedDate:"", guessDate:""
+    }))
+  };
+}
+
+/* ================= التخزين (Firestore) ================= */
+let STATE=null, memoryOnly=false;
+function migrateCaptures(st){
+  let changed=false;
+  for(const c of st.countries){
+    if(!c.eliminated) continue;
+    if(c.capturedBy!==undefined && c.capturedBy!==null) continue;
+    // ابحث عن كل من يدّعي أنه استحوذ على هذه الدولة (نظام قديم) واختر الأقرب زمنيًا/أبجديًا كحلّ حاسم
+    const claimers=st.countries.filter(z=>Array.isArray(z.captures)&&z.captures.includes(c.name));
+    if(claimers.length){
+      claimers.sort((a,b)=>a.name.localeCompare(b.name,"ar"));
+      c.capturedBy=claimers[0].name; changed=true;
+    }else{
+      c.capturedBy=null;
+    }
+  }
+  return changed;
+}
+async function loadState(){
+  try{
+    const snap=await getDoc(GAME_DOC);
+    if(snap.exists()){
+      STATE=JSON.parse(snap.data().json);
+      if(migrateCaptures(STATE)) await saveState();
+    }else{
+      STATE=buildSeed();
+      await setDoc(GAME_DOC,{json:JSON.stringify(STATE),updated:Date.now()});
+    }
+    startLiveSync();
+  }catch(err){
+    console.error("firestore load failed",err);
+    STATE=buildSeed(); memoryOnly=true;
+    document.getElementById("storageWarn").style.display="block";
+  }
+}
+async function saveState(){
+  if(memoryOnly) return;
+  try{ await setDoc(GAME_DOC,{json:JSON.stringify(STATE),updated:Date.now()}); }
+  catch(err){ console.error("save failed",err); }
+}
+async function refresh(){
+  if(memoryOnly) return;
+  try{
+    const snap=await getDoc(GAME_DOC);
+    if(snap.exists()) STATE=JSON.parse(snap.data().json);
+  }catch(e){}
+}
+/* مزامنة لحظية: أي تحديث من متسابق آخر يظهر للجميع فورًا */
+function startLiveSync(){
+  onSnapshot(GAME_DOC,(snap)=>{
+    if(!snap.exists()) return;
+    STATE=JSON.parse(snap.data().json);
+    // لا نعيد رسم لوحة المتسابق إن كان يكتب داخل حقل حتى لا يفقد ما كتبه
+    const typing=document.activeElement &&
+      ["INPUT","TEXTAREA","SELECT"].includes(document.activeElement.tagName);
+    renderBoard(); 
+    if(!typing){ renderAuthSelects(); if(ME)renderDash(); if(ADMIN)renderAdmin(); }
+  },(err)=>console.error("sync error",err));
+}
+
+/* ================= أدوات ================= */
+const AR_D="٠١٢٣٤٥٦٧٨٩";
+const toAr=n=>String(n).replace(/\d/g,d=>AR_D[d]);
+const today=()=>new Date().toLocaleDateString("en-CA",{timeZone:"Asia/Riyadh"});
+const fmtTime=(ts)=>new Date(ts).toLocaleTimeString("ar-SA",{timeZone:"Asia/Riyadh",hour:"2-digit",minute:"2-digit"});
+const fmtDate=(d)=>new Date(d+"T12:00:00").toLocaleDateString("ar-SA-u-ca-gregory",{timeZone:"Asia/Riyadh",day:"numeric",month:"long"});
+function normalize(s){
+  return (s||"").replace(/[أإآٱ]/g,"ا").replace(/ة/g,"ه").replace(/ى/g,"ي")
+    .replace(/[ًٌٍَُِّْـ]/g,"").replace(/\bا\s*\/\s*/g," ").replace(/[^\u0600-\u06FF\s]/g," ")
+    .replace(/\s+/g," ").trim();
+}
+function nameMatch(guess,owner){
+  const g=normalize(guess), o=normalize(owner);
+  if(!g||!o) return false;
+  if(g===o) return true;
+  const gw=g.split(" "), ow=o.split(" ");
+  if(gw.length<2) return false;
+  const hits=gw.filter(w=>ow.includes(w)).length;
+  return hits>=Math.min(2,ow.length) && hits>=gw.length-1;
+}
+function answerMatch(guess,ans){
+  const g=normalize(guess), a=normalize(ans);
+  return g && a && (g===a || g.includes(a) || a.includes(g));
+}
+const byName=n=>STATE.countries.find(x=>x.name===n);
+function show(el,txt,cls){el.textContent=txt;el.className="msg show "+cls}
+
+/* ================= التنقل ================= */
+document.querySelectorAll(".tab-btn").forEach(b=>{
+  b.addEventListener("click",()=>{
+    document.querySelectorAll(".tab-btn").forEach(x=>x.classList.remove("active"));
+    b.classList.add("active");
+    document.querySelectorAll(".view").forEach(v=>v.classList.remove("show"));
+    document.getElementById("view-"+b.dataset.view).classList.add("show");
+    renderAll();
+  });
+});
+
+/* ================= العرض ================= */
+function renderBoard(){
+  const tb=document.getElementById("boardBody"); tb.innerHTML="";
+  const sorted=[...STATE.countries].sort((a,b)=>{
+    if(a.eliminated!==b.eliminated) return a.eliminated?1:-1;
+    return b.balance-a.balance || a.name.localeCompare(b.name,"ar");
+  });
+  const act=STATE.countries.filter(x=>!x.eliminated);
+  const allTied=act.length&&act.every(a=>a.balance===act[0].balance);
+  const MEDALS=["🥇","🥈","🥉"];
+  let rank=0;
+  for(const x of sorted){
+    const tr=document.createElement("tr");
+    let medal="";
+    if(x.eliminated){ tr.className="eliminated"; }
+    else{
+      if(rank<3&&!allTied){ tr.className="top3"; medal=`<span class="medal">${MEDALS[rank]}</span>`; }
+      rank++;
+    }
+    const capList=STATE.countries.filter(c=>c.eliminated&&c.capturedBy===x.name).map(c=>c.name);
+    const caps=capList.length?` <span class="captures">(${capList.join(" + ")})</span>`:"";
+    const owner=x.eliminated?` <span class="owner-name">(${x.ownerName})</span>`:"";
+    tr.innerHTML=`<td class="country-cell medal-cell">${medal}${x.name}${caps}${owner}</td>
+      <td class="balance">${toAr(x.balance)}</td>`;
+    tb.appendChild(tr);
+  }
+  document.getElementById("statActive").textContent=toAr(act.length);
+  document.getElementById("statOut").textContent=toAr(STATE.countries.length-act.length);
+  document.getElementById("statTop").textContent=toAr(act.length?Math.max(...act.map(x=>x.balance)):0);
+  document.getElementById("roundLabel").textContent=
+    `${STATE.round} — جدول الأرصدة محدَّث لحظيًا. الصفوف الوردية دولٌ كُشف أصحابها وخرجوا من المنافسة.`;
+}
+function fillSelect(sel,list,ph){
+  sel.innerHTML=`<option value="">${ph}</option>`+list.map(x=>`<option value="${x.name}">${x.name}</option>`).join("");
+}
+function fillNameSelect(sel,names,ph){
+  sel.innerHTML=`<option value="">${ph}</option>`+names.map(n=>`<option value="${n}">${n}</option>`).join("");
+}
+const abc=(a,b)=>a.name.localeCompare(b.name,"ar");
+function renderAuthSelects(){
+  fillSelect(document.getElementById("claimCountry"),
+    STATE.countries.filter(x=>!x.eliminated).sort(abc),"— اختر دولتك —");
+  fillNameSelect(document.getElementById("claimName"),
+    STATE.countries.filter(x=>!x.eliminated).map(x=>x.ownerName)
+      .sort((a,b)=>a.localeCompare(b,"ar")),"— اختر اسمك —");
+  fillSelect(document.getElementById("loginCountry"),
+    STATE.countries.filter(x=>!x.eliminated).sort(abc),"— اختر دولتك —");
+}
+
+/* ================= المتسابق ================= */
+let ME=null;
+document.getElementById("btnClaim").addEventListener("click",async()=>{
+  await refresh();
+  const cn=document.getElementById("claimCountry").value,
+        nm=document.getElementById("claimName").value,
+        pin=document.getElementById("claimPin").value.trim(),
+        msg=document.getElementById("claimMsg");
+  if(!cn||!nm||pin.length<4) return show(msg,"اختر دولتك واسمك، والرقم السري ٤ أرقام على الأقل.","bad");
+  const x=byName(cn);
+  if(!x||x.eliminated) return show(msg,"هذه الدولة غير متاحة.","bad");
+  if(x.claimed) return show(msg,"هذا الحساب مفعَّل مسبقًا. إن كنت صاحبه ونسيت رقمك السري راجع المشرف.","bad");
+  if((x.activationFails||0)>=5) return show(msg,"تجاوزت عدد محاولات التفعيل لهذه الدولة. راجع المشرف.","bad");
+  if(nm!==x.ownerName){
+    x.activationFails=(x.activationFails||0)+1;
+    await saveState();
+    return show(msg,"الاختيار غير صحيح. تأكد من دولتك واسمك — المحاولات محدودة! 🕵️","bad");
+  }
+  x.claimed=true; x.pin=pin; x.activationFails=0;
+  await saveState();
+  show(msg,`تم تفعيل «${cn}» بنجاح. هويتك سرّية ولا تظهر لأحد. سجّل دخولك الآن!`,"ok");
+  renderAuthSelects();
+});
+document.getElementById("btnLogin").addEventListener("click",async()=>{
+  await refresh();
+  const cn=document.getElementById("loginCountry").value,
+        pin=document.getElementById("loginPin").value.trim(),
+        msg=document.getElementById("loginMsg");
+  const x=byName(cn);
+  if(!x) return show(msg,"اختر دولتك.","bad");
+  if(x.eliminated) return show(msg,"للأسف، هذه الدولة خرجت من المنافسة. 🌊","bad");
+  if(!x.claimed||x.pin!==pin) return show(msg,"بيانات الدخول غير صحيحة. إن لم تفعّل حسابك بعد فابدأ بالتفعيل أعلاه.","bad");
+  ME=cn;
+  const rb=document.getElementById("resultBanner"); rb.className="result-banner"; rb.textContent="";
+  renderDash();
+});
+document.getElementById("btnLogout").addEventListener("click",()=>{
+  ME=null;
+  const rb=document.getElementById("resultBanner"); rb.className="result-banner"; rb.textContent="";
+  document.getElementById("dashBox").style.display="none";
+  document.getElementById("authBox").style.display="block";
+});
+
+function renderDash(){
+  const x=byName(ME); if(!x) return;
+  document.getElementById("authBox").style.display="none";
+  document.getElementById("dashBox").style.display="block";
+  document.getElementById("dashWho").firstChild.textContent="🏳️ "+x.name;
+  document.getElementById("dashName").textContent="مرحبًا "+normalize(x.ownerName).split(" ")[0]+"، هويتك بأمان 🤫";
+  document.getElementById("dashPts").textContent=toAr(x.balance);
+  renderQuestion(x);
+}
+function renderQuestion(x){
+  const qa=document.getElementById("qArea"),
+        guessCard=document.getElementById("guessCard"),
+        t=today(), q=STATE.question;
+  guessCard.style.display="none";
+  if(!q||q.date!==t||!q.options){
+    qa.innerHTML=`<p class="hint">لم يُنشر سؤال اليوم بعد. عُد لاحقًا بعد فقرة الإثراء! ⏳</p>`; return;
+  }
+  const solved=x.solvedDate===t, tried=x.lastQDate===t, guessed=x.guessDate===t;
+  if(solved){
+    const gOpen=!!STATE.guessingOpen;
+    let note=" — انتقل للتخمين بالأسفل!";
+    if(guessed) note=" واستخدمت تخمينك. نراك غدًا!";
+    else if(!gOpen) note=" وأُضيفت نقاطك. التخمين مغلق حاليًا — ترقّب فتحه قريبًا! 🔒";
+    qa.innerHTML=`<p class="hint" style="color:var(--ok);font-weight:800">✔ أجبت إجابة صحيحة اليوم${note}</p>`;
+    if(!guessed&&gOpen){ guessCard.style.display="block"; renderGuessSelect(); }
+    return;
+  }
+  if(tried){
+    qa.innerHTML=`<p class="hint" style="color:var(--bad);font-weight:800">✘ إجابتك اليوم لم تكن صحيحة، وحُرقت محاولة اليوم. استعد لسؤال الغد!</p>`; return;
+  }
+  qa.innerHTML=`<div class="q-text">${q.text}</div>
+    <p class="hint" style="margin-bottom:0">اختر إجابتك ثم اضغط إرسال — محاولة واحدة فقط!</p>
+    <div id="choices"></div>
+    <button class="btn btn-orange" id="btnAnswer" disabled>إرسال الإجابة</button>`;
+  let picked=null;
+  const box=document.getElementById("choices");
+  q.options.forEach((opt,i)=>{
+    const b=document.createElement("button");
+    b.type="button"; b.className="choice"; b.textContent=opt;
+    b.addEventListener("click",()=>{
+      picked=i;
+      box.querySelectorAll(".choice").forEach(c=>c.classList.remove("selected"));
+      b.classList.add("selected");
+      document.getElementById("btnAnswer").disabled=false;
+    });
+    box.appendChild(b);
+  });
+  document.getElementById("btnAnswer").addEventListener("click",(e)=>{
+    e.target.disabled=true;
+    submitAnswer(picked);
+  });
+}
+async function submitAnswer(picked){
+  const t=today();
+  let outcome=null;
+  try{
+    await runTransaction(db, async(tx)=>{
+      const snap=await tx.get(GAME_DOC);
+      if(!snap.exists()) throw new Error("no-data");
+      const st=JSON.parse(snap.data().json);
+      const me=st.countries.find(c=>c.name===ME);
+      const q=st.question;
+      if(!me||me.eliminated){ outcome={type:"kicked"}; return; }
+      if(picked===null||!q||q.date!==t||!q.options){ outcome={type:"stale"}; return; }
+      if(me.lastQDate===t){ outcome={type:"used"}; return; }
+      me.lastQDate=t; me.lastChoice=picked; me.lastAnswerTime=Date.now();
+      st.answerLog=st.answerLog||{};
+      st.answerLog[t]=st.answerLog[t]||{};
+      st.answerLog[t][me.name]={choice:picked, correct:picked===q.correct, ts:Date.now()};
+      if(picked===q.correct){
+        me.solvedDate=t; me.balance+=Number(q.reward)||0;
+        outcome={type:"right", reward:q.reward, guessingOpen:st.guessingOpen};
+      }else{
+        outcome={type:"wrong", correctText:q.options[q.correct]};
+      }
+      tx.set(GAME_DOC,{json:JSON.stringify(st),updated:Date.now()});
+    });
+  }catch(err){
+    console.error("answer transaction failed",err);
+    renderDash();
+    return;
+  }
+  switch(outcome && outcome.type){
+    case "kicked": ME=null; return location.reload();
+    case "used": showResult("استخدمت محاولتك اليوم بالفعل.","bad"); break;
+    case "stale": break;
+    case "right":
+      showResult(outcome.guessingOpen
+        ?`✅ إجابة صحيحة! أُضيفت ${toAr(outcome.reward)} نقطة إلى رصيدك، وفُتحت لك فرصة التخمين بالأسفل 🎯`
+        :`✅ إجابة صحيحة! أُضيفت ${toAr(outcome.reward)} نقطة إلى رصيدك 🌟`,"ok");
+      break;
+    case "wrong":
+      showResult(`❌ إجابة غير صحيحة — الإجابة كانت: «${outcome.correctText}». حُرقت محاولة اليوم، جهّز نفسك للغد!`,"bad");
+      break;
+  }
+  await refresh(); renderDash(); renderBoard();
+}
+function showResult(txt,cls){
+  const b=document.getElementById("resultBanner");
+  b.textContent=txt; b.className="result-banner show "+cls;
+  b.scrollIntoView({behavior:"smooth",block:"center"});
+}
+function renderGuessSelect(){
+  fillSelect(document.getElementById("guessCountry"),
+    STATE.countries.filter(y=>!y.eliminated&&y.name!==ME).sort(abc),"— اختر الدولة —");
+  const me=byName(ME);
+  fillNameSelect(document.getElementById("guessName"),
+    STATE.countries.filter(y=>!y.eliminated&&y.ownerName!==(me?me.ownerName:""))
+      .map(y=>y.ownerName).sort((a,b)=>a.localeCompare(b,"ar")),"— اختر الاسم —");
+}
+document.getElementById("btnGuess").addEventListener("click",async()=>{
+  const msg=document.getElementById("guessMsg"), t=today();
+  const tn=document.getElementById("guessCountry").value,
+        gn=document.getElementById("guessName").value;
+  if(!tn||!gn) return show(msg,"اختر الدولة والاسم من القائمتين.","bad");
+  const btn=document.getElementById("btnGuess"); btn.disabled=true;
+  let outcome=null;
+  try{
+    await runTransaction(db, async(tx)=>{
+      const snap=await tx.get(GAME_DOC);
+      if(!snap.exists()) throw new Error("no-data");
+      const st=JSON.parse(snap.data().json);
+      const me=st.countries.find(c=>c.name===ME);
+      const target=st.countries.find(c=>c.name===tn);
+      if(!me||me.eliminated){ outcome={type:"kicked"}; return; }
+      if(!st.guessingOpen){ outcome={type:"closed"}; return; }
+      if(me.solvedDate!==t){ outcome={type:"notsolved"}; return; }
+      if(me.guessDate===t){ outcome={type:"used"}; return; }
+      if(!target||target.eliminated){ outcome={type:"gone"}; return; }
+      me.guessDate=t;
+      const hit=(gn===target.ownerName);
+      st.guessLog=st.guessLog||{};
+      st.guessLog[t]=st.guessLog[t]||{};
+      st.guessLog[t][me.name]={target:tn, guessedName:gn, hit, ts:Date.now()};
+      if(hit){
+        const loot=target.balance;
+        target.eliminated=true; target.balance=0; target.capturedBy=me.name;
+        me.balance+=loot;
+        outcome={type:"hit", country:tn, owner:target.ownerName, loot};
+      }else{
+        outcome={type:"miss", country:tn};
+      }
+      tx.set(GAME_DOC,{json:JSON.stringify(st),updated:Date.now()});
+    });
+  }catch(err){
+    console.error("guess transaction failed",err);
+    btn.disabled=false;
+    return show(msg,"تعذّر تنفيذ التخمين، أعد المحاولة.","bad");
+  }
+  btn.disabled=false;
+  switch(outcome && outcome.type){
+    case "kicked": ME=null; return location.reload();
+    case "closed": return show(msg,"التخمين مغلق حاليًا من إدارة المسابقة.","info");
+    case "notsolved": return show(msg,"التخمين يُفتح بعد إجابة صحيحة على سؤال اليوم.","info");
+    case "used": return show(msg,"استخدمت تخمين اليوم.","info");
+    case "gone": return show(msg,"هذه الدولة خرجت بالفعل — اختر غيرها.","bad");
+    case "hit":
+      showResult(`🎉 تخمين صائب! «${outcome.country}» كانت لـ ${outcome.owner} — خرج من المنافسة وانتقل رصيده (${toAr(outcome.loot)} نقطة) إليك!`,"ok");
+      break;
+    case "miss":
+      showResult(`🕵️ تخمين غير صحيح… «${outcome.country}» ما زالت لغزًا. فرصتك القادمة غدًا!`,"bad");
+      break;
+    default:
+      show(msg,"تعذّر تنفيذ التخمين، أعد المحاولة.","bad"); return;
+  }
+  await refresh(); renderDash(); renderBoard();
+});
+
+/* ================= المشرف ================= */
+let ADMIN=false;
+document.getElementById("btnAdmin").addEventListener("click",async()=>{
+  await refresh();
+  const p=document.getElementById("adminPass").value,
+        msg=document.getElementById("adminMsg");
+  if(p!==STATE.adminPass) return show(msg,"كلمة المرور غير صحيحة.","bad");
+  ADMIN=true;
+  document.getElementById("adminGate").style.display="none";
+  document.getElementById("adminPanel").style.display="block";
+  renderAdmin();
+});
+let SHOW_PINS=false;
+document.getElementById("btnTogglePins").addEventListener("click",()=>{
+  SHOW_PINS=!SHOW_PINS;
+  document.getElementById("btnTogglePins").textContent=SHOW_PINS?"🔒 إخفاء الأرقام السرية":"🔑 إظهار الأرقام السرية";
+  renderAdmin();
+});
+function renderAdmin(){
+  if(!ADMIN) return;
+  const q=STATE.question, cur=document.getElementById("admQCurrent");
+  cur.innerHTML=(q&&q.options)?`السؤال المنشور (${q.date===today()?"اليوم":q.date}): «${q.text}» — الخيارات: ${q.options.join(" / ")} — الصحيح: <b>${q.options[q.correct]}</b> — النقاط: ${toAr(q.reward)}`:"لا يوجد سؤال منشور.";
+  document.getElementById("admRound").value=STATE.round;
+  const gOpen=!!STATE.guessingOpen;
+  document.getElementById("btnToggleGuess").textContent=gOpen?"🔒 إغلاق التخمين":"🎯 فتح التخمين";
+  document.getElementById("guessStatusNote").innerHTML=gOpen
+    ?"حالة التخمين: <b style='color:var(--ok)'>مفتوح</b> — الإجابة الصحيحة تمنح فرصة تخمين."
+    :"حالة التخمين: <b style='color:var(--bad)'>مغلق</b> — المتسابقون يجيبون على السؤال اليومي ويجمعون النقاط فقط.";
+  // ===== متابعة إجابات اليوم =====
+  const t0=today(), qq=STATE.question, hasQ=qq&&qq.date===t0&&qq.options;
+  const aSum=document.getElementById("answersSummary"),
+        aList=document.getElementById("answersList");
+  aList.innerHTML="";
+  if(!hasQ){
+    aSum.textContent="لا يوجد سؤال منشور لليوم بعد.";
+  }else{
+    const act=STATE.countries.filter(x=>!x.eliminated);
+    const right=act.filter(x=>x.solvedDate===t0),
+          wrong=act.filter(x=>x.lastQDate===t0&&x.solvedDate!==t0),
+          none=act.filter(x=>x.lastQDate!==t0);
+    aSum.innerHTML=`سؤال اليوم: «${qq.text}» — <b style="color:var(--ok)">أجاب صح: ${toAr(right.length)}</b> · <b style="color:var(--bad)">أجاب خطأ: ${toAr(wrong.length)}</b> · لم يجب بعد: ${toAr(none.length)}`;
+    const groups=[["✅ أجابوا صحيحًا",right,"var(--ok)"],["❌ أجابوا خطأ",wrong,"var(--bad)"],["⏳ لم يجيبوا بعد",none,"var(--muted)"]];
+    for(const [title,arr,color] of groups){
+      if(!arr.length) continue;
+      const h=document.createElement("div");
+      h.innerHTML=`<b style="color:${color};font-size:15px">${title} (${toAr(arr.length)})</b>`;
+      h.style.margin="12px 0 4px"; aList.appendChild(h);
+      for(const x of arr.sort((a,b)=>a.name.localeCompare(b.name,"ar"))){
+        const row=document.createElement("div"); row.className="admin-row";
+        const choice=(x.lastQDate===t0&&typeof x.lastChoice==="number"&&qq.options[x.lastChoice]!==undefined)
+          ?`<span style="color:${color}">اختار: ${qq.options[x.lastChoice]}</span>`:"";
+        const guessed=x.guessDate===t0?`<span style="color:var(--orange);font-weight:800">🎯 استخدم تخمينه</span>`:"";
+        const timeTxt=(x.lastQDate===t0&&x.lastAnswerTime)?`<span class="arch-time">🕒 ${fmtTime(x.lastAnswerTime)}</span>`:"";
+        row.innerHTML=`<span class="nm">${x.name}</span>
+          <span style="color:var(--muted);min-width:150px">${x.ownerName||"—"}</span>
+          ${choice} ${timeTxt} ${guessed}`;
+        aList.appendChild(row);
+      }
+    }
+  }
+  renderGuessesTracking();
+  renderArchive();
+  const list=document.getElementById("adminList"); list.innerHTML="";
+  const sorted=[...STATE.countries].sort((a,b)=>(a.eliminated-b.eliminated)||a.name.localeCompare(b.name,"ar"));
+  for(const x of sorted){
+    const row=document.createElement("div"); row.className="admin-row";
+    const pinInfo=SHOW_PINS?`<span style="color:var(--red-orange);font-weight:800;min-width:80px" dir="ltr">🔑 ${x.claimed?(x.pin||"—"):"—"}</span>`:"";
+    const lockWarn=(x.activationFails||0)>=5?` <span style="color:var(--bad)">⛔ موقوف التفعيل</span>`:"";
+    const capturerSelect=x.eliminated?`
+      <select class="bCapturerSel" style="width:170px" aria-label="الدولة المستحوذة على ${x.name}">
+        <option value="">— بلا مستحوذ —</option>
+        ${STATE.countries.filter(z=>z.name!==x.name).sort((a,b)=>a.name.localeCompare(b.name,"ar"))
+          .map(z=>`<option value="${z.name}" ${x.capturedBy===z.name?"selected":""}>${z.name}</option>`).join("")}
+      </select>
+      <button class="btn btn-ghost bCapturerSave">حفظ المستحوذ</button>`:"";
+    row.innerHTML=`
+      <span class="nm">${x.eliminated?"🔴":x.claimed?"🟢":"⚪"} ${x.name}</span>
+      <span style="color:var(--muted);min-width:160px">${x.ownerName||"—"}${lockWarn}</span>
+      ${pinInfo}
+      <input type="number" value="${x.balance}" step="50" aria-label="رصيد ${x.name}">
+      <button class="btn btn-teal bSave">حفظ</button>
+      ${!x.eliminated?`<button class="btn btn-danger bOut">إقصاء</button>`:`<button class="btn btn-ghost bBack">إرجاع</button>`}
+      ${!x.eliminated&&(x.claimed||(x.activationFails||0)>0)?`<button class="btn btn-ghost bReset">تصفير الدخول</button>`:""}
+      ${capturerSelect}`;
+    row.querySelector(".bSave").addEventListener("click",async()=>{
+      await refresh(); const y=byName(x.name);
+      y.balance=Number(row.querySelector("input").value)||0;
+      await saveState(); renderAll();
+    });
+    const bOut=row.querySelector(".bOut");
+    if(bOut) bOut.addEventListener("click",async()=>{
+      if(!confirm(`إقصاء «${x.name}» وكشف صاحبها؟`)) return;
+      await refresh(); const y=byName(x.name);
+      y.eliminated=true; y.capturedBy=null;
+      await saveState(); renderAll();
+    });
+    const bBack=row.querySelector(".bBack");
+    if(bBack) bBack.addEventListener("click",async()=>{
+      await refresh(); const y=byName(x.name);
+      y.eliminated=false; y.capturedBy=null;
+      await saveState(); renderAll();
+    });
+    const bReset=row.querySelector(".bReset");
+    if(bReset) bReset.addEventListener("click",async()=>{
+      if(!confirm(`تصفير دخول «${x.name}»؟ سيحتاج صاحبه لإعادة التفعيل باسمه.`)) return;
+      await refresh(); const y=byName(x.name);
+      y.claimed=false; y.pin=""; y.activationFails=0;
+      await saveState(); renderAll();
+    });
+    const bCapturerSave=row.querySelector(".bCapturerSave");
+    if(bCapturerSave) bCapturerSave.addEventListener("click",async()=>{
+      const sel=row.querySelector(".bCapturerSel").value;
+      await refresh(); const y=byName(x.name);
+      y.capturedBy=sel||null;
+      await saveState(); renderAll();
+    });
+    list.appendChild(row);
+  }
+}
+function renderGuessesTracking(){
+  const t0=today();
+  const sum=document.getElementById("guessesSummary"),
+        gList=document.getElementById("guessesList");
+  gList.innerHTML="";
+  const log=(STATE.guessLog&&STATE.guessLog[t0])||{};
+  const entries=Object.entries(log).sort((a,b)=>a[1].ts-b[1].ts);
+  if(!STATE.guessingOpen&&!entries.length){
+    sum.textContent="التخمين مغلق حاليًا ولم يستخدمه أحد اليوم.";
+    return;
+  }
+  const hits=entries.filter(([,r])=>r.hit).length, misses=entries.length-hits;
+  sum.innerHTML=`استُخدم التخمين ${toAr(entries.length)} مرة اليوم — <b style="color:var(--ok)">إصابات: ${toAr(hits)}</b> · <b style="color:var(--bad)">إخفاقات: ${toAr(misses)}</b>`;
+  for(const [countryName,rec] of entries){
+    const c=byName(countryName);
+    const row=document.createElement("div"); row.className="admin-row";
+    const color=rec.hit?"var(--ok)":"var(--bad)";
+    row.innerHTML=`<span class="nm">${countryName}</span>
+      <span style="color:var(--muted);min-width:150px">${c?c.ownerName:"—"}</span>
+      <span style="color:${color}">${rec.hit?"🎯 أصاب":"❌ أخطأ"}: خمّن «${rec.target}» = ${rec.guessedName}</span>
+      <span class="arch-time">🕒 ${fmtTime(rec.ts)}</span>`;
+    gList.appendChild(row);
+  }
+  if(!entries.length) sum.innerHTML+=" — لم يستخدمه أحد بعد اليوم.";
+}
+let OPEN_ARCH=null;
+function renderArchive(){
+  const box=document.getElementById("archiveList"); box.innerHTML="";
+  const all=[...(STATE.questionArchive||[])];
+  if(STATE.question&&STATE.question.date) all.push(STATE.question);
+  if(!all.length){ box.innerHTML=`<p class="hint">لا توجد أسئلة منشورة بعد.</p>`; return; }
+  const sorted=[...all].sort((a,b)=>b.date.localeCompare(a.date));
+  for(const q of sorted){
+    const item=document.createElement("div"); item.className="arch-item";
+    const isOpen=OPEN_ARCH===q.date;
+    const log=(STATE.answerLog&&STATE.answerLog[q.date])||{};
+    const answered=Object.keys(log).length;
+    item.innerHTML=`
+      <div class="arch-head">
+        <span>📅 ${fmtDate(q.date)} — «${q.text}»</span>
+        <span style="color:var(--teal);white-space:nowrap">أجاب ${toAr(answered)} · ${isOpen?"▲":"▼"}</span>
+      </div>
+      <div class="arch-body ${isOpen?"open":""}">
+        <p class="small-note" style="margin-bottom:10px">الخيارات: ${q.options.join(" / ")} — الصحيح: <b>${q.options[q.correct]}</b> — النقاط: ${toAr(q.reward)}</p>
+      </div>`;
+    const body=item.querySelector(".arch-body");
+    if(isOpen){
+      const entries=Object.entries(log).sort((a,b)=>a[1].ts-b[1].ts);
+      if(!entries.length){
+        body.innerHTML+=`<p class="hint">لم يجب أحد على هذا السؤال.</p>`;
+      }else{
+        for(const [countryName,rec] of entries){
+          const c=byName(countryName);
+          const row=document.createElement("div"); row.className="admin-row";
+          const color=rec.correct?"var(--ok)":"var(--bad)";
+          row.innerHTML=`<span class="nm">${countryName}</span>
+            <span style="color:var(--muted);min-width:150px">${c?c.ownerName:"—"}</span>
+            <span style="color:${color}">${rec.correct?"✅ صحيح":"❌ خطأ"}: ${q.options[rec.choice]!==undefined?q.options[rec.choice]:"—"}</span>
+            <span class="arch-time">🕒 ${fmtTime(rec.ts)}</span>`;
+          body.appendChild(row);
+        }
+      }
+      const glog=(STATE.guessLog&&STATE.guessLog[q.date])||{};
+      const gEntries=Object.entries(glog).sort((a,b)=>a[1].ts-b[1].ts);
+      if(gEntries.length){
+        const h2=document.createElement("div");
+        h2.innerHTML=`<b style="color:var(--orange);font-size:14px">🎯 التخمينات في هذا اليوم (${toAr(gEntries.length)})</b>`;
+        h2.style.margin="12px 0 4px"; body.appendChild(h2);
+        for(const [countryName,rec] of gEntries){
+          const c=byName(countryName);
+          const row=document.createElement("div"); row.className="admin-row";
+          const color=rec.hit?"var(--ok)":"var(--bad)";
+          row.innerHTML=`<span class="nm">${countryName}</span>
+            <span style="color:var(--muted);min-width:150px">${c?c.ownerName:"—"}</span>
+            <span style="color:${color}">${rec.hit?"🎯 أصاب":"❌ أخطأ"}: خمّن «${rec.target}» = ${rec.guessedName}</span>
+            <span class="arch-time">🕒 ${fmtTime(rec.ts)}</span>`;
+          body.appendChild(row);
+        }
+      }
+    }
+    item.querySelector(".arch-head").addEventListener("click",()=>{
+      OPEN_ARCH=isOpen?null:q.date;
+      renderArchive();
+    });
+    box.appendChild(item);
+  }
+}
+document.getElementById("btnSaveQ").addEventListener("click",async()=>{
+  await refresh();
+  const t=document.getElementById("admQ").value.trim(),
+        o1=document.getElementById("admOpt1").value.trim(),
+        o2=document.getElementById("admOpt2").value.trim(),
+        o3=document.getElementById("admOpt3").value.trim(),
+        correct=Number(document.getElementById("admCorrect").value),
+        r=Number(document.getElementById("admR").value)||0,
+        msg=document.getElementById("admQMsg");
+  if(!t||!o1||!o2||!o3) return show(msg,"اكتب السؤال والخيارات الثلاثة كاملة.","bad");
+  STATE.questionArchive=STATE.questionArchive||[];
+  if(STATE.question&&STATE.question.date){
+    STATE.questionArchive=STATE.questionArchive.filter(q=>q.date!==STATE.question.date);
+    STATE.questionArchive.push(STATE.question);
+  }
+  STATE.question={text:t,options:[o1,o2,o3],correct,reward:r,date:today()};
+  await saveState();
+  show(msg,"نُشر سؤال اليوم بنجاح! ✅","ok");
+  renderAdmin();
+});
+document.getElementById("btnToggleGuess").addEventListener("click",async()=>{
+  await refresh();
+  STATE.guessingOpen=!STATE.guessingOpen;
+  await saveState(); renderAdmin();
+});
+document.getElementById("btnBulkBal").addEventListener("click",async()=>{
+  const v=Number(document.getElementById("admBulkBal").value)||0;
+  if(!confirm(`توحيد رصيد جميع المتنافسين (غير المُقصَين) إلى ${v}؟`)) return;
+  await refresh();
+  for(const x of STATE.countries) if(!x.eliminated) x.balance=v;
+  await saveState(); renderAll();
+});
+document.getElementById("btnAddCountry").addEventListener("click",async()=>{
+  await refresh();
+  const n=document.getElementById("admNewCountry").value.trim(),
+        o=document.getElementById("admNewOwner").value.trim(),
+        b=Number(document.getElementById("admNewBal").value)||0;
+  if(!n||byName(n)) return alert("اكتب اسم دولة جديدًا غير مكرر.");
+  if(o.split(/\s+/).length<2) return alert("اكتب اسم صاحبها الثنائي على الأقل.");
+  STATE.countries.push({name:n, ownerName:o, balance:b, captures:[],
+    eliminated:false, claimed:false, pin:"",
+    lastQDate:"", solvedDate:"", guessDate:""});
+  await saveState();
+  document.getElementById("admNewCountry").value="";
+  document.getElementById("admNewOwner").value="";
+  renderAll();
+});
+document.getElementById("btnSaveSettings").addEventListener("click",async()=>{
+  await refresh();
+  const r=document.getElementById("admRound").value.trim(),
+        p=document.getElementById("admNewPass").value.trim(),
+        msg=document.getElementById("admSetMsg");
+  if(r) STATE.round=r;
+  if(p){ if(p.length<6) return show(msg,"كلمة المرور الجديدة ٦ خانات على الأقل.","bad"); STATE.adminPass=p; }
+  await saveState();
+  show(msg,"تم حفظ الإعدادات.","ok");
+  renderAll();
+});
+document.getElementById("btnResetAttempts").addEventListener("click",async()=>{
+  if(!confirm("إعادة فتح محاولات اليوم لجميع المتسابقين؟")) return;
+  await refresh();
+  for(const x of STATE.countries){ x.lastQDate=""; x.solvedDate=""; x.guessDate=""; }
+  await saveState();
+  show(document.getElementById("admSetMsg"),"أُعيد فتح المحاولات للجميع.","ok");
+});
+
+/* ================= تشغيل ================= */
+function renderAll(){ renderBoard(); renderAuthSelects(); if(ME)renderDash(); if(ADMIN)renderAdmin(); }
+(async()=>{ await loadState(); renderAll(); })();
+</script>
+</body>
+</html>
