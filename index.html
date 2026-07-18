@@ -144,6 +144,10 @@ table{width:100%;border-collapse:collapse;font-size:.92rem}
 th,td{padding:8px 10px;text-align:right;border-bottom:1px solid var(--line)}
 th{color:var(--navy);background:var(--cream-2);font-weight:800}
 td .del{background:none;border:none;color:#E14D4D;cursor:pointer;font-size:1.05rem}
+td select.byChip{
+  background:var(--cream-2);border:2px solid var(--teal);color:var(--teal-deep);
+  font-weight:800;border-radius:999px;padding:3px 12px;
+}
 .scrolltable{max-height:380px;overflow:auto;border:1px solid var(--line);border-radius:14px}
 
 /* ===== leaderboard (individuals) ===== */
@@ -195,6 +199,13 @@ td .del{background:none;border:none;color:#E14D4D;cursor:pointer;font-size:1.05r
 .compare .seg{display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:.85rem;transition:width .6s ease;white-space:nowrap;overflow:hidden}
 
 /* ===== settings ===== */
+.adminrow{display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+.adminrow .anum{
+  width:30px;height:30px;border-radius:50%;background:var(--teal);color:#fff;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-weight:800;font-family:'Baloo Bhaijaan 2','Cairo',sans-serif;font-size:.85rem;
+}
+.adminrow input[type=text]{flex:2;min-width:140px}
+.adminrow input.code{flex:1;min-width:90px;text-align:center;font-weight:800;letter-spacing:2px}
 .set-stud{display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap}
 .set-stud input[type=text]{flex:1;min-width:150px}
 .set-stud select{width:auto}
@@ -316,7 +327,7 @@ footer .l2{color:var(--amber);font-weight:800;font-size:1.3rem;font-family:'Balo
   <div class="card lockcard">
     <div class="lockicon">🔒</div>
     <h2>دخول المشرف</h2>
-    <p class="hint">هذه الصفحة مخصّصة للمشرف فقط. أدخل رمز الدخول للمتابعة.</p>
+    <p class="hint">أدخل رمزك الخاص للمتابعة. سيُتعرّف على اسمك تلقائيًا من الرمز، ويُسجَّل مع كل نقاط تُدخلها.</p>
     <div class="field">
       <input type="password" id="pinInput" inputmode="numeric" autocomplete="off" placeholder="••••" aria-label="رمز الدخول">
     </div>
@@ -327,6 +338,15 @@ footer .l2{color:var(--amber);font-weight:800;font-size:1.3rem;font-family:'Balo
 
 <!-- ============ ADMIN ============ -->
 <section class="tabpane" id="pane-admin">
+  <div class="card" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+    <div style="font-weight:800;color:var(--navy)">👋 مرحبًا، <span id="whoAmI" style="color:var(--teal-deep)"></span></div>
+    <button class="btn ghost small" id="logoutBtnAdmin">🔒 تسجيل الخروج</button>
+  </div>
+  <div class="card" id="myCodeArea1"></div>
+  <div class="card" id="noPermPoints" style="display:none;text-align:center;color:#B32B2B">
+    🚫 لا تملك صلاحية إدخال نقاط المسابقة العامة. تواصل مع مدير الموقع إن كنت تحتاج هذه الصلاحية.
+  </div>
+  <div id="pointsEntryArea">
   <div class="card">
     <h2><span class="dot" style="background:var(--teal)"></span> إدخال نقاط جديدة</h2>
     <p class="hint">اختر البند ثم حدّد المستفيدين (أفراد أو مجموعة) واضغط «رصد النقاط». يمكن تعديل قيمة النقاط قبل الرصد.</p>
@@ -370,11 +390,12 @@ footer .l2{color:var(--amber);font-weight:800;font-size:1.3rem;font-family:'Balo
     <p class="hint">يمكن حذف أي عملية رصد خاطئة وسيُخصم أثرها تلقائيًا.</p>
     <div class="scrolltable">
       <table>
-        <thead><tr><th>التاريخ</th><th>البند</th><th>المستفيد</th><th>النقاط</th><th></th></tr></thead>
+        <thead><tr><th>التاريخ</th><th>البند</th><th>المستفيد</th><th>النقاط</th><th>رصدها</th><th></th></tr></thead>
         <tbody id="logBody"></tbody>
       </table>
     </div>
   </div>
+  </div><!-- /pointsEntryArea -->
 </section>
 
 <!-- ============ INDIVIDUAL DISPLAY ============ -->
@@ -441,6 +462,13 @@ footer .l2{color:var(--amber);font-weight:800;font-size:1.3rem;font-family:'Balo
 <!-- ============ SETTINGS ============ -->
 <section class="tabpane" id="pane-settings">
 
+  <div class="card" id="myCodeArea2"></div>
+
+  <div class="card" id="noPermSettings" style="display:none;text-align:center;color:#B32B2B">
+    🚫 لا تملك صلاحية تعديل الإعدادات. تواصل مع مدير الموقع إن كنت تحتاج هذه الصلاحية.
+  </div>
+
+  <div id="settingsGeneralArea">
   <div class="card">
     <h2><span class="dot" style="background:var(--blue)"></span> المجموعات والمتسابقون</h2>
     <p class="hint">عدّل الأسماء مباشرة في الحقول، وانقل أي متسابق بين المجموعات، أو أضف واحذف كما تشاء. التعديلات تُحفظ تلقائيًا.</p>
@@ -465,17 +493,15 @@ footer .l2{color:var(--amber);font-weight:800;font-size:1.3rem;font-family:'Balo
     <p class="hint">حدّد نقاط الفوز والتعادل والخسارة لكل دوري. تُعاد حسبة جداول الترتيب تلقائيًا.</p>
     <div id="leagueSettings"></div>
   </div>
+  </div><!-- /settingsGeneralArea -->
 
+  <div id="ownerOnlyArea" style="display:none">
   <div class="card">
-    <h2><span class="dot" style="background:var(--teal)"></span> رمز دخول المشرف</h2>
-    <p class="hint">هذا الرمز يحمي تبويبَي «إدخال النقاط» و«الإعدادات». الرمز الافتراضي هو 2026 — يُنصح بتغييره بعد أول دخول.</p>
-    <div class="row">
-      <div class="field"><label>الرمز الجديد</label><input type="text" id="newCode" inputmode="numeric" autocomplete="off" placeholder="مثال: 4581"></div>
-      <div class="field"><label>تأكيد الرمز</label><input type="text" id="newCode2" inputmode="numeric" autocomplete="off" placeholder="أعد كتابة الرمز"></div>
-    </div>
-    <div style="display:flex;gap:10px;flex-wrap:wrap">
-      <button class="btn teal small" id="saveCodeBtn">💾 حفظ الرمز الجديد</button>
-      <button class="btn ghost small" id="logoutBtn">🔒 تسجيل الخروج</button>
+    <h2><span class="dot" style="background:var(--teal)"></span> حسابات المشرفين</h2>
+    <p class="hint">لكل مشرف اسم ورمز دخول خاص به — يدخل بالرمز فقط دون اختيار اسمه، ويُتعرّف عليه تلقائيًا. حدّد صلاحياته من القائمة، وأضف أو احذف مشرفين بحرية. هذه البطاقة مرئية لمدير الموقع فقط.</p>
+    <div id="adminsList"></div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px">
+      <button class="btn teal small" id="addAdminBtn">＋ إضافة مشرف جديد</button>
     </div>
   </div>
 
@@ -489,6 +515,11 @@ footer .l2{color:var(--amber);font-weight:800;font-size:1.3rem;font-family:'Balo
       <button class="btn orange small" id="resetPtsBtn">🧹 تصفير جميع النقاط</button>
       <button class="btn danger small" id="resetAllBtn">⚠️ إعادة ضبط كاملة</button>
     </div>
+  </div>
+  </div><!-- /ownerOnlyArea -->
+
+  <div class="card">
+    <button class="btn ghost small" id="logoutBtn">🔒 تسجيل الخروج</button>
   </div>
 </section>
 
@@ -523,9 +554,21 @@ const CLOUD_COLLECTION = 'afaq-summer2-general';
 const CLOUD_DOC = 'state';
 
 /* =================== البيانات الافتراضية =================== */
-const DEFAULT_ADMIN_CODE = '2026';
+const DEFAULT_ADMIN_CODE = '2026'; /* يبقى كرمز احتياطي قديم عند استيراد نسخ سابقة */
+const DEFAULT_OWNER = {name:'محمد ناظم', code:'2026'};
+const PERM_KEYS = ['points','football','volleyball','settings'];
+function defaultPerms(){ return {points:true, football:false, volleyball:false, settings:false}; }
+function defaultAdmins(){
+  return Array.from({length:9}, (_,i)=>({
+    id:'admin'+(i+1),
+    name:'مشرف '+(i+1),
+    code:String(1000+i*111).slice(-4), /* أرقام مبدئية مختلفة، غيّرها من الإعدادات */
+    perms:defaultPerms()
+  }));
+}
 const DEFAULT_STATE = {
-  adminCode: DEFAULT_ADMIN_CODE,
+  owner: {...DEFAULT_OWNER},
+  admins: defaultAdmins(),
   groups: [
     {id:'g1', name:'الشموخ', color:'#17A2A6'},
     {id:'g2', name:'البواسل', color:'#1D5EA8'},
@@ -646,7 +689,20 @@ function saveState(){
   cloudSave();
 }
 let state = loadState();
-if(!state.adminCode) state.adminCode = DEFAULT_ADMIN_CODE;
+function upgradeAdmins(st){
+  if(!st.owner || !st.owner.code) st.owner = {...DEFAULT_OWNER};
+  if(!Array.isArray(st.admins) || st.admins.length===0){
+    st.admins = defaultAdmins();
+    /* إن كان هناك رمز موحّد قديم، اجعله رمز أول مشرف تسهيلًا على المستخدم */
+    if(st.adminCode) st.admins[0].code = String(st.adminCode);
+  }
+  st.admins.forEach(a=>{
+    if(!a.id) a.id='x'+Date.now().toString(36)+Math.random().toString(36).slice(2,7);
+    if(!a.perms) a.perms=defaultPerms();
+    PERM_KEYS.forEach(k=>{ if(typeof a.perms[k]!=='boolean') a.perms[k]=defaultPerms()[k]; });
+  });
+}
+upgradeAdmins(state);
 
 /* =================== المزامنة السحابية (Firestore) =================== */
 let cloudSet = null;        // دالة الكتابة بعد نجاح الاتصال
@@ -697,7 +753,7 @@ async function initCloud(){
       const rj = JSON.stringify(remote);
       if(rj === JSON.stringify(state)){ setStatus('online'); return; }
       state = remote;
-      if(!state.adminCode) state.adminCode = DEFAULT_ADMIN_CODE;
+      upgradeAdmins(state);
       try{ localStorage.setItem(KEY, rj); }catch(e){}
       renderAll();
       setStatus('online');
@@ -768,7 +824,7 @@ function scorerSide(m, s){
 
 function renderRounds(sport, elId, scoreLabel){
   const wrap=document.getElementById(elId); wrap.innerHTML='';
-  const unlocked=isUnlocked();
+  const canEdit = hasPerm(sport==='football'? 'football':'volleyball');
   const editKeyRef = sport==='football'? editFB : editVB;
   state[sport].rounds.forEach((r, ri)=>{
     const card=document.createElement('div'); card.className='roundcard';
@@ -781,7 +837,7 @@ function renderRounds(sport, elId, scoreLabel){
         ? `<span class="score">${arNum(m.sa)} — ${arNum(m.sb)}</span>`
         : `<span class="score pending">لم تُلعب</span>`;
       row.innerHTML=`<span class="team" style="background:${ga?ga.color:'#999'}">${ga?ga.name:'—'}</span>${score}<span class="team" style="background:${gb?gb.color:'#999'}">${gb?gb.name:'—'}</span>`;
-      if(unlocked){
+      if(canEdit){
         const eb=document.createElement('button'); eb.className='editbtn'; eb.title='تعديل المباراة'; eb.textContent='✏️';
         eb.onclick=()=>{
           const key=ri+'-'+mi;
@@ -804,7 +860,7 @@ function renderRounds(sport, elId, scoreLabel){
           <div class="gcol b">${listB.length? '⚽ '+listB.join('<br>⚽ ') : ''}</div>`;
         card.appendChild(cols);
       }
-      if(unlocked && editKeyRef===ri+'-'+mi){
+      if(canEdit && editKeyRef===ri+'-'+mi){
         card.appendChild(buildMatchEditor(sport, ri, mi, scoreLabel));
       }
     });
@@ -985,7 +1041,7 @@ function renderFbScorers(){
 }
 function renderFbPotr(){
   const box=document.getElementById('fbPotr'); box.innerHTML='';
-  const unlocked=isUnlocked();
+  const unlocked=hasPerm('football');
   state.football.potr.forEach((sid, ri)=>{
     const row=document.createElement('div'); row.className='potr-row';
     const lbl=document.createElement('span'); lbl.className='rlbl'; lbl.textContent='الجولة '+arNum(ri+1)+':';
@@ -1015,8 +1071,8 @@ function renderFbPotr(){
 }
 function renderLeagues(){
   ensureSports();
-  document.getElementById('fbNote').style.display = isUnlocked()? 'block':'none';
-  document.getElementById('vbNote').style.display = isUnlocked()? 'block':'none';
+  document.getElementById('fbNote').style.display = hasPerm('football')? 'block':'none';
+  document.getElementById('vbNote').style.display = hasPerm('volleyball')? 'block':'none';
   renderStandings('football','fbTable','الأهداف');
   renderStandings('volley','vbTable','الأشواط');
   renderRounds('football','fbRounds','أهداف');
@@ -1070,18 +1126,31 @@ function renderLeagueSettings(){
 
 /* =================== قفل المشرف =================== */
 let pendingTab = null;
-function isUnlocked(){
-  try{ if(sessionStorage.getItem('afaq-admin-ok')==='1') return true; }catch(e){}
-  return window.__adminOk === true;
+function currentAdmin(){
+  let id=null;
+  try{ id = sessionStorage.getItem('afaq-admin-id'); }catch(e){ id = window.__adminId||null; }
+  if(!id) return null;
+  if(id==='owner') return {id:'owner', name:state.owner.name, isOwner:true, perms:null};
+  const a = state.admins.find(a=>a.id===id);
+  return a? {...a, isOwner:false} : null;
 }
-function setUnlocked(v){
-  window.__adminOk = v;
-  try{ v? sessionStorage.setItem('afaq-admin-ok','1') : sessionStorage.removeItem('afaq-admin-ok'); }catch(e){}
+function isUnlocked(){ return !!currentAdmin(); }
+function isOwner(){ const c=currentAdmin(); return !!c && c.isOwner; }
+function hasPerm(key){
+  const c=currentAdmin(); if(!c) return false;
+  if(c.isOwner) return true;
+  return !!(c.perms && c.perms[key]);
+}
+function setUnlocked(adminId){
+  window.__adminId = adminId;
+  try{ adminId? sessionStorage.setItem('afaq-admin-id', adminId) : sessionStorage.removeItem('afaq-admin-id'); }catch(e){}
   updateLockIcons();
 }
 function updateLockIcons(){
   document.querySelectorAll('nav.tabs button[data-locked] .lockico')
     .forEach(el=> el.textContent = isUnlocked()? '🔓' : '🔒');
+  const w=document.getElementById('whoAmI');
+  if(w){ const a=currentAdmin(); w.textContent = a? (a.name + (a.isOwner? ' (مدير الموقع)':'')) : ''; }
 }
 
 /* =================== أدوات =================== */
@@ -1094,6 +1163,7 @@ function toast(msg){
 }
 function groupById(id){ return state.groups.find(g=>g.id===id); }
 function studentById(id){ return state.students.find(s=>s.id===id); }
+function adminById(id){ return state.admins.find(a=>a.id===id); }
 
 function studentPoints(sid){
   let t=0;
@@ -1147,13 +1217,23 @@ document.querySelectorAll('nav.tabs button').forEach(btn=>{
 });
 function tryUnlock(){
   const v = $('#pinInput').value.trim();
-  if(v === String(state.adminCode)){
-    setUnlocked(true);
+  if(state.owner && v === String(state.owner.code)){
+    setUnlocked('owner');
     $('#lockMsg').textContent='';
     const target = pendingTab || 'admin';
     showPane(target);
     renderAll();
-    toast('🔓 أهلًا بك أيها المشرف');
+    toast(`🔓 أهلًا بك، ${state.owner.name} (مدير الموقع)`);
+    return;
+  }
+  const a = state.admins.find(x=> String(x.code)===v);
+  if(a){
+    setUnlocked(a.id);
+    $('#lockMsg').textContent='';
+    const target = pendingTab || 'admin';
+    showPane(target);
+    renderAll();
+    toast(`🔓 أهلًا بك، ${a.name}`);
   }else{
     $('#lockMsg').textContent='رمز الدخول غير صحيح، حاول مرة أخرى.';
     $('#pinInput').value='';
@@ -1162,6 +1242,13 @@ function tryUnlock(){
 }
 $('#unlockBtn').addEventListener('click', tryUnlock);
 $('#pinInput').addEventListener('keydown', e=>{ if(e.key==='Enter') tryUnlock(); });
+function doLogout(){
+  setUnlocked(null);
+  document.querySelectorAll('nav.tabs button').forEach(b=>b.classList.remove('active'));
+  document.querySelector('nav.tabs button[data-tab="individual"]').classList.add('active');
+  showPane('individual'); renderAll();
+  toast('🔒 تم تسجيل الخروج');
+}
 
 /* =================== شاشة الإدخال =================== */
 let currentSection = SECTIONS[0].name;
@@ -1266,15 +1353,17 @@ $('#applyBtn').onclick=()=>{
     label = $('#customLabel').value.trim() || 'بند مخصص';
     sec = 'مخصص';
   }
+  const admin = currentAdmin();
+  const by = admin? admin.name : 'غير معروف';
   const scope = currentScope();
   if(scope==='فرد'){
     if(selected.size===0){ toast('⚠️ حدّد متسابقًا واحدًا على الأقل'); return; }
-    state.entries.unshift({id:uid(), ts:Date.now(), label, sec, pts, type:'student', targets:[...selected]});
+    state.entries.unshift({id:uid(), ts:Date.now(), label, sec, pts, type:'student', targets:[...selected], by});
     toast(`✅ رُصدت ${arNum(pts)} نقطة لـ ${arNum(selected.size)} متسابقًا`);
     selected.clear();
   }else{
     if(!selectedGroup){ toast('⚠️ اختر مجموعة'); return; }
-    state.entries.unshift({id:uid(), ts:Date.now(), label, sec, pts, type:'group', targets:[selectedGroup]});
+    state.entries.unshift({id:uid(), ts:Date.now(), label, sec, pts, type:'group', targets:[selectedGroup], by});
     toast(`✅ رُصدت ${arNum(pts)} نقطة لمجموعة ${groupById(selectedGroup).name}`);
     selectedGroup=null;
   }
@@ -1284,7 +1373,7 @@ $('#applyBtn').onclick=()=>{
 function renderLog(){
   const tb=$('#logBody'); tb.innerHTML='';
   if(state.entries.length===0){
-    tb.innerHTML='<tr><td colspan="5" class="empty">لا توجد عمليات رصد بعد — ابدأ بإدخال أول نقاط! 🌊</td></tr>';
+    tb.innerHTML='<tr><td colspan="6" class="empty">لا توجد عمليات رصد بعد — ابدأ بإدخال أول نقاط! 🌊</td></tr>';
     return;
   }
   state.entries.slice(0,120).forEach(e=>{
@@ -1298,6 +1387,18 @@ function renderLog(){
       who = names.length<=2? names.join('، ') : `${names[0]} + ${arNum(names.length-1)} آخرون`;
     }
     tr.innerHTML=`<td>${when}</td><td>${e.label}</td><td>${who}</td><td><b style="color:var(--orange)">${arNum(e.pts)}</b></td>`;
+    // عمود المشرف — قابل للتعديل بمرونة لتصحيح من رصد العملية
+    const byTd=document.createElement('td');
+    const bySel=document.createElement('select');
+    bySel.className='byChip';
+    bySel.style.cssText='padding:3px 12px;font-size:.85rem;width:auto';
+    bySel.add(new Option('— غير محدد —',''));
+    state.admins.forEach(a=> bySel.add(new Option(a.name, a.name)));
+    if(e.by && ![...bySel.options].some(o=>o.value===e.by)) bySel.add(new Option(e.by, e.by));
+    bySel.value = e.by || '';
+    bySel.onchange=()=>{ e.by=bySel.value; saveState(); toast('✏️ حُدّث اسم من رصد العملية'); };
+    byTd.appendChild(bySel);
+    tr.appendChild(byTd);
     const td=document.createElement('td');
     const del=document.createElement('button'); del.className='del'; del.title='حذف'; del.textContent='🗑️';
     del.onclick=()=>{
@@ -1495,22 +1596,68 @@ $('#addCritBtn').onclick=()=>{
   saveState(); renderCritSettings(); renderCritSelect(); toast('✅ أُضيف بند جديد — عدّل بياناته');
 };
 
-/* =================== رمز الدخول =================== */
-$('#saveCodeBtn').onclick=()=>{
-  const a=$('#newCode').value.trim(), b=$('#newCode2').value.trim();
-  if(a.length<4){ toast('⚠️ اجعل الرمز 4 خانات على الأقل'); return; }
-  if(a!==b){ toast('⚠️ الرمزان غير متطابقين'); return; }
-  state.adminCode=a; saveState();
-  $('#newCode').value=''; $('#newCode2').value='';
-  toast('✅ حُفظ رمز الدخول الجديد');
+/* =================== حسابات المشرفين =================== */
+function renderAdminsList(){
+  const box=document.getElementById('adminsList'); if(!box) return;
+  box.innerHTML='';
+  /* أمان: لا تُعرض أسماء المشرفين ولا رموزهم في DOM إطلاقًا إلا لمدير الموقع */
+  if(!isOwner()) return;
+  const codeCount={};
+  state.admins.forEach(a=>{ const c=String(a.code); codeCount[c]=(codeCount[c]||0)+1; });
+  const PERM_LABELS={points:'إدخال النقاط', football:'دوري القدم', volleyball:'دوري الطائرة', settings:'الإعدادات'};
+  state.admins.forEach((a,i)=>{
+    const wrap=document.createElement('div');
+    wrap.style.cssText='border:1px solid var(--line);border-radius:14px;padding:8px 10px;margin-bottom:10px;background:var(--cream-2)';
+    const row=document.createElement('div'); row.className='adminrow'; row.style.marginBottom='6px';
+    const num=document.createElement('span'); num.className='anum'; num.textContent=arNum(i+1);
+    const nm=document.createElement('input'); nm.type='text'; nm.value=a.name;
+    nm.onchange=()=>{ a.name=nm.value.trim()||a.name; saveState(); renderAll(); toast('✅ حُدّث اسم المشرف'); };
+    const code=document.createElement('input'); code.type='text'; code.className='code'; code.inputMode='numeric'; code.value=a.code;
+    if(codeCount[String(a.code)]>1){ code.style.borderColor='#E14D4D'; code.title='⚠️ هذا الرمز مكرر مع مشرف آخر'; }
+    code.onchange=()=>{
+      const v=code.value.trim();
+      if(v.length<4){ toast('⚠️ اجعل الرمز 4 خانات على الأقل'); code.value=a.code; return; }
+      const dup=state.admins.some(x=>x!==a && String(x.code)===v);
+      a.code=v; saveState(); renderAdminsList();
+      toast(dup? `⚠️ حُفظ الرمز لكن هو مكرر مع مشرف آخر — غيّره لتفادي الالتباس` : `✅ حُدّث رمز ${a.name}`);
+    };
+    const del=document.createElement('button'); del.className='iconbtn'; del.title='حذف هذا المشرف'; del.textContent='🗑️';
+    del.onclick=()=>{
+      if(state.admins.length<=1){ toast('⚠️ لا يمكن حذف آخر مشرف'); return; }
+      if(confirm(`حذف حساب «${a.name}»؟ العمليات التي رصدها سابقًا تبقى في السجل باسمه.`)){
+        const wasMe = currentAdmin() && currentAdmin().id===a.id;
+        state.admins = state.admins.filter(x=>x.id!==a.id);
+        saveState();
+        if(wasMe) doLogout(); else renderAll();
+        toast('🗑️ حُذف المشرف');
+      }
+    };
+    row.append(num, nm, code, del);
+    wrap.appendChild(row);
+    // صلاحيات هذا المشرف
+    const permRow=document.createElement('div'); permRow.className='pills'; permRow.style.margin='0';
+    PERM_KEYS.forEach(k=>{
+      const b=document.createElement('button'); b.type='button';
+      b.className='pill'+(a.perms[k]?' active':''); b.dataset.color='teal';
+      b.style.fontSize='.82rem'; b.style.padding='4px 14px';
+      b.textContent=(a.perms[k]?'✅ ':'▫️ ')+PERM_LABELS[k];
+      b.onclick=()=>{ a.perms[k]=!a.perms[k]; saveState(); renderAdminsList(); toast(`تم ${a.perms[k]?'منح':'سحب'} صلاحية «${PERM_LABELS[k]}» لـ ${a.name}`); };
+      permRow.appendChild(b);
+    });
+    wrap.appendChild(permRow);
+    box.appendChild(wrap);
+  });
+}
+document.getElementById('addAdminBtn').onclick=()=>{
+  if(!isOwner()){ toast('🚫 هذا الإجراء لمدير الموقع فقط'); return; }
+  const n=state.admins.length+1;
+  const newCode = String(1000+Math.floor(Math.random()*9000));
+  state.admins.push({id:uid(), name:'مشرف '+n, code:newCode, perms:defaultPerms()});
+  saveState(); renderAdminsList();
+  toast('✅ أُضيف مشرف جديد — عدّل اسمه ورمزه وصلاحياته');
 };
-$('#logoutBtn').onclick=()=>{
-  setUnlocked(false);
-  document.querySelectorAll('nav.tabs button').forEach(b=>b.classList.remove('active'));
-  document.querySelector('nav.tabs button[data-tab="individual"]').classList.add('active');
-  showPane('individual'); renderAll();
-  toast('🔒 تم تسجيل الخروج');
-};
+$('#logoutBtn').onclick=doLogout;
+$('#logoutBtnAdmin').onclick=doLogout;
 
 /* =================== البيانات =================== */
 $('#exportBtn').onclick=()=>{
@@ -1529,7 +1676,7 @@ $('#importFile').addEventListener('change', e=>{
     try{
       const data=JSON.parse(r.result);
       if(!data.groups||!data.students||!data.criteria||!data.entries) throw 0;
-      if(!data.adminCode) data.adminCode = state.adminCode || DEFAULT_ADMIN_CODE;
+      upgradeAdmins(data);
       state=data; saveState(); renderAll(); toast('✅ اُستوردت البيانات بنجاح');
     }catch{ toast('⚠️ الملف غير صالح'); }
   };
@@ -1549,6 +1696,68 @@ $('#resetAllBtn').onclick=()=>{
 };
 
 /* =================== التصيير العام =================== */
+function buildMyCodeCard(container){
+  const identity = currentAdmin();
+  if(!identity){ container.innerHTML=''; container.dataset.builtFor=''; return; }
+  /* لا تُعِد البناء إن كانت البطاقة مبنية أصلًا لنفس الهوية — حتى لا يُمسح ما يكتبه المشرف أثناء وصول تحديث من المزامنة */
+  if(container.dataset.builtFor===identity.id && container.childElementCount) return;
+  container.dataset.builtFor=identity.id;
+  container.innerHTML='';
+  const h=document.createElement('h2');
+  h.innerHTML='<span class="dot" style="background:var(--teal)"></span> رمز الدخول الخاص بي';
+  container.appendChild(h);
+  const hint=document.createElement('p'); hint.className='hint';
+  hint.textContent = 'غيّر رمز دخولك الشخصي في أي وقت — لن يظهر لأي مشرف آخر، ويصبح ساري المفعول من محاولة الدخول القادمة.';
+  container.appendChild(hint);
+  const row=document.createElement('div'); row.className='row';
+  const f1=document.createElement('div'); f1.className='field'; f1.innerHTML='<label>الرمز الجديد</label>';
+  const in1=document.createElement('input'); in1.type='text'; in1.inputMode='numeric'; in1.autocomplete='off'; in1.placeholder='مثال: 4581';
+  f1.appendChild(in1);
+  const f2=document.createElement('div'); f2.className='field'; f2.innerHTML='<label>تأكيد الرمز</label>';
+  const in2=document.createElement('input'); in2.type='text'; in2.inputMode='numeric'; in2.autocomplete='off'; in2.placeholder='أعد كتابة الرمز';
+  f2.appendChild(in2);
+  row.append(f1,f2);
+  container.appendChild(row);
+  const btn=document.createElement('button'); btn.className='btn teal small'; btn.textContent='💾 حفظ رمزي الجديد';
+  btn.onclick=()=>{
+    const a=in1.value.trim(), b=in2.value.trim();
+    if(a.length<4){ toast('⚠️ اجعل الرمز 4 خانات على الأقل'); return; }
+    if(a!==b){ toast('⚠️ الرمزان غير متطابقين'); return; }
+    const me = currentAdmin();
+    if(!me) return;
+    if(me.isOwner){
+      state.owner.code=a;
+    }else{
+      const target = state.admins.find(x=>x.id===me.id);
+      if(!target) return;
+      const dup = state.admins.some(x=>x.id!==me.id && String(x.code)===a);
+      target.code=a;
+      if(dup) toast('⚠️ تنبيه: هذا الرمز يطابق رمز مشرف آخر — يفضّل اختيار رمز مختلف');
+    }
+    saveState();
+    in1.value=''; in2.value='';
+    toast('✅ حُفظ رمزك الجديد بنجاح');
+  };
+  container.appendChild(btn);
+}
+
+function applyPermVisibility(){
+  const canPoints = hasPerm('points');
+  const noP = document.getElementById('noPermPoints');
+  const pArea = document.getElementById('pointsEntryArea');
+  if(noP && pArea){ noP.style.display = canPoints? 'none':'block'; pArea.style.display = canPoints? 'block':'none'; }
+
+  const canSettings = hasPerm('settings');
+  const noS = document.getElementById('noPermSettings');
+  const sArea = document.getElementById('settingsGeneralArea');
+  if(noS && sArea){ noS.style.display = canSettings? 'none':'block'; sArea.style.display = canSettings? 'block':'none'; }
+
+  const ownerArea = document.getElementById('ownerOnlyArea');
+  if(ownerArea) ownerArea.style.display = isOwner()? 'block':'none';
+
+  const c1=document.getElementById('myCodeArea1'); if(c1) buildMyCodeCard(c1);
+  const c2=document.getElementById('myCodeArea2'); if(c2) buildMyCodeCard(c2);
+}
 function renderAll(){
   ensureSports();
   renderSectionPills();
@@ -1564,6 +1773,9 @@ function renderAll(){
   renderCritSettings();
   renderLeagueSettings();
   renderNoGroupSettings();
+  renderAdminsList();
+  updateLockIcons();
+  applyPermVisibility();
 }
 updateLockIcons();
 renderAll();
