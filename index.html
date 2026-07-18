@@ -214,6 +214,43 @@ td select.byChip{
 .iconbtn{background:none;border:none;cursor:pointer;font-size:1.15rem}
 
 /* ===== leagues ===== */
+/* ===== rules tab ===== */
+.rulesGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px}
+.ruleCard{background:var(--white);border-radius:20px;box-shadow:var(--shadow);overflow:hidden;border:1px solid var(--line)}
+.ruleCard .rhead3{
+  display:flex;align-items:center;gap:8px;padding:12px 18px;color:#fff;font-weight:800;font-size:1.15rem;
+  font-family:'Baloo Bhaijaan 2','Cairo',sans-serif;
+}
+.ruleCard ul{list-style:none;padding:10px 16px 14px}
+.ruleCard li{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:7px 2px;border-bottom:1px dashed var(--line);font-size:.95rem}
+.ruleCard li:last-child{border-bottom:none}
+.ruleCard li .rname{flex:1}
+.ruleCard li .rmeta{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.ruleCard li .rscope{font-size:.68rem;font-weight:800;border-radius:999px;padding:1px 10px;background:var(--cream-2);color:var(--navy);border:1px solid var(--line)}
+.ruleCard li .rpts{font-weight:800;color:var(--orange);font-family:'Baloo Bhaijaan 2','Cairo',sans-serif;min-width:44px;text-align:left}
+
+/* ===== expandable point details ===== */
+.lb-item{cursor:pointer}
+.lb-item:hover{box-shadow:0 4px 14px rgba(26,52,97,.12)}
+.lb-item .chev{color:#98a2b5;font-size:.8rem;transition:transform .2s}
+.lb-item.open .chev{transform:rotate(180deg)}
+.detailPanel{background:var(--cream-2);border:1px dashed var(--line);border-radius:14px;padding:8px 14px;margin:-2px 0 8px}
+.detailEmpty{color:#98a2b5;font-size:.85rem;text-align:center;padding:8px}
+.detailList{list-style:none}
+.detailList li{display:flex;justify-content:space-between;gap:8px;padding:5px 2px;border-bottom:1px dashed var(--line);font-size:.85rem;flex-wrap:wrap}
+.detailList li:last-child{border-bottom:none}
+.detailList .dlabel{flex:1;min-width:120px;font-weight:700;color:var(--ink)}
+.detailList .dsec{color:#7a869c;font-size:.78rem}
+.detailList .dpts{font-weight:800;color:var(--orange);font-family:'Baloo Bhaijaan 2','Cairo',sans-serif}
+.detailList .ddate{color:#98a2b5;font-size:.78rem}
+.gcard li{cursor:pointer}
+.gcard li:hover{background:var(--cream-2)}
+.gcard .memberDetail{background:var(--cream-2);border-radius:10px;padding:4px 10px;margin:2px 0 6px}
+.groupDetailToggle{
+  background:none;border:none;color:#fff;opacity:.85;font-size:.78rem;font-weight:700;cursor:pointer;
+  text-decoration:underline;padding:0;margin-top:4px;
+}
+
 .leaguenote{
   background:#F2FBFB;border:2px dashed var(--teal);border-radius:14px;
   padding:8px 16px;font-weight:700;color:var(--teal-deep);font-size:.9rem;margin:10px 0 16px;
@@ -314,6 +351,7 @@ footer .l2{color:var(--amber);font-weight:800;font-size:1.3rem;font-family:'Balo
 <nav class="tabs" role="tablist">
   <button class="active" data-tab="individual" role="tab">🏅 عرض الأفراد</button>
   <button data-tab="groups" role="tab">👥 عرض المجموعات</button>
+  <button data-tab="rules" role="tab">📋 بنود المسابقة</button>
   <button data-tab="football" role="tab">⚽ دوري القدم</button>
   <button data-tab="volley" role="tab">🏐 دوري الطائرة</button>
   <button data-tab="admin" data-locked="1" role="tab"><span class="lockico">🔒</span> إدخال النقاط</button>
@@ -409,6 +447,7 @@ footer .l2{color:var(--amber);font-weight:800;font-size:1.3rem;font-family:'Balo
     </div>
   </div>
   <div class="podium" id="podium"></div>
+  <p class="hint" style="margin-top:-4px">💡 اضغط على أي اسم لعرض تفاصيل نقاطه.</p>
   <div class="lb-list" id="lbList"></div>
 </section>
 
@@ -417,6 +456,13 @@ footer .l2{color:var(--amber);font-weight:800;font-size:1.3rem;font-family:'Balo
   <h2 class="display" style="color:var(--navy);font-size:1.6rem;margin-bottom:4px">👥 ترتيب المجموعات</h2>
   <div class="compare"><div class="barwrap" id="compareBar"></div></div>
   <div class="gcards" id="gCards"></div>
+</section>
+
+<!-- ============ RULES / بنود المسابقة ============ -->
+<section class="tabpane" id="pane-rules">
+  <h2 class="display" style="color:var(--navy);font-size:1.6rem;margin-bottom:4px">📋 بنود المسابقة العامة</h2>
+  <p class="hint">دليل نقاط جميع فقرات المسابقة — يتحدّث تلقائيًا فور أي إضافة أو تعديل من الإعدادات.</p>
+  <div class="rulesGrid" id="rulesGrid"></div>
 </section>
 
 <!-- ============ FOOTBALL ============ -->
@@ -1446,6 +1492,59 @@ function renderLog(){
 }
 
 /* =================== عرض الأفراد =================== */
+/* =================== تبويب بنود المسابقة =================== */
+const SECTION_COLOR = {
+  'روحًا':'#17A2A6', 'إثراء':'#F26B3A', 'مهارة':'#1D5EA8', 'نافس':'#F5A623',
+  'المهرجان الرياضي':'#0E7F84', 'قيم':'#E14D4D', 'مواهب':'#1A3461', 'مخصص':'#7a869c'
+};
+const SECTION_ICON = {
+  'روحًا':'📖', 'إثراء':'💡', 'مهارة':'🎓', 'نافس':'🏆',
+  'المهرجان الرياضي':'⚽', 'قيم':'❤️', 'مواهب':'🎤', 'مخصص':'⭐'
+};
+function renderRulesTab(){
+  const box=document.getElementById('rulesGrid'); if(!box) return;
+  box.innerHTML='';
+  const order = SECTIONS.map(s=>s.name).filter(n=>n!=='بند مخصص');
+  const secsInData = [...new Set(state.criteria.map(c=>c.sec))];
+  const finalOrder = [...order.filter(n=>secsInData.includes(n)), ...secsInData.filter(n=>!order.includes(n))];
+  finalOrder.forEach(sec=>{
+    const items = state.criteria.filter(c=>c.sec===sec);
+    if(!items.length) return;
+    const color = SECTION_COLOR[sec] || '#7a869c';
+    const icon = SECTION_ICON[sec] || '⭐';
+    const card=document.createElement('div'); card.className='ruleCard';
+    const head=document.createElement('div'); head.className='rhead3'; head.style.background=color;
+    head.innerHTML=`<span>${icon}</span><span>${sec}</span>`;
+    card.appendChild(head);
+    const ul=document.createElement('ul');
+    items.forEach(c=>{
+      const li=document.createElement('li');
+      li.innerHTML=`<span class="rname">${c.name}</span>
+        <span class="rmeta">
+          <span class="rscope">${c.scope==='فرد'?'فردي':'مجموعة'}</span>
+          <span class="rpts">${arNum(c.pts)}</span>
+        </span>`;
+      ul.appendChild(li);
+    });
+    card.appendChild(ul);
+    box.appendChild(card);
+  });
+  if(!box.children.length) box.innerHTML='<div class="empty">لا توجد بنود بعد — أضفها من الإعدادات ← بنود النقاط.</div>';
+}
+
+/* =================== تفاصيل النقاط (قابلة للطي) =================== */
+let expandedStudents = new Set();
+let expandedGroupsDetail = new Set();
+function entryDetailHTML(filterFn){
+  const list = state.entries.filter(filterFn).sort((a,b)=> b.ts-a.ts);
+  if(!list.length) return '<div class="detailEmpty">لا توجد نقاط مسجلة بعد</div>';
+  return '<ul class="detailList">' + list.map(e=>{
+    const d=new Date(e.ts);
+    const when=d.toLocaleDateString('ar-SA',{month:'short',day:'numeric'});
+    return `<li><span class="dlabel">${e.label}</span><span class="dsec">${e.sec}</span><span class="dpts">+${arNum(e.pts)}</span><span class="ddate">${when}</span></li>`;
+  }).join('') + '</ul>';
+}
+
 function renderIndividual(){
   const filter = $('#lbFilter').value || 'all';
   let list = state.students.filter(s=>groupById(s.g)).map(s=>({...s, pts:studentPoints(s.id)}));
@@ -1473,12 +1572,23 @@ function renderIndividual(){
   if(list.length===0){ box.innerHTML='<div class="empty">لا يوجد متسابقون</div>'; return; }
   list.forEach((s,i)=>{
     const ch=chipOf(s);
-    const d=document.createElement('div'); d.className='lb-item';
+    const open = expandedStudents.has(s.id);
+    const d=document.createElement('div'); d.className='lb-item'+(open?' open':'');
     d.innerHTML=`<span class="rank">${arNum(i+1)}</span>
       <span class="nm">${s.name}${s.role?` <span class="role" style="font-size:.68rem;background:var(--amber);color:var(--navy);border-radius:999px;padding:0 8px;font-weight:800">${s.role}</span>`:''}</span>
       <span class="grp" style="background:${ch.c}">${ch.t}</span>
-      <span class="pts">${arNum(s.pts)}</span>`;
+      <span class="pts">${arNum(s.pts)}</span>
+      <span class="chev">▾</span>`;
+    d.onclick=()=>{
+      if(expandedStudents.has(s.id)) expandedStudents.delete(s.id); else expandedStudents.add(s.id);
+      renderIndividual();
+    };
     box.appendChild(d);
+    if(open){
+      const panel=document.createElement('div'); panel.className='detailPanel';
+      panel.innerHTML = entryDetailHTML(e=> e.type==='student' && e.targets.includes(s.id));
+      box.appendChild(panel);
+    }
   });
 }
 $('#lbFilter').addEventListener('change', renderIndividual);
@@ -1521,12 +1631,14 @@ function renderGroups(){
     const talentLine = d.talent && d.talent.rank
       ? `<span>🎭 مواهب: ${rankWord[d.talent.rank-1]||('المركز '+arNum(d.talent.rank))} (+${arNum(d.talent.bonus)})</span>`
       : `<span>🎭 مواهب: لا تقييم بعد</span>`;
+    const gOpen = expandedGroupsDetail.has(d.id);
     card.innerHTML=`
       <div class="top" style="background:linear-gradient(135deg, ${d.color}, ${d.color}CC)">
         ${idx===0 && d.total>0 ? '<span class="crown">👑</span>':''}
         <h3>${d.name}</h3>
         <div class="total">${arNum(d.total)}</div>
         <div class="lbl">مجموع النقاط</div>
+        <button type="button" class="groupDetailToggle" data-gid="${d.id}">${gOpen? '▲ إخفاء تفاصيل النقاط الجماعية':'▾ عرض تفاصيل النقاط الجماعية'}</button>
       </div>
       <div class="breakdown">
         <span>👤 نقاط الأفراد: ${arNum(indiv)}</span>
@@ -1535,11 +1647,32 @@ function renderGroups(){
       <div class="breakdown" style="border-top:none;padding-top:0">
         ${talentLine}
       </div>`;
+    if(gOpen){
+      const gPanel=document.createElement('div'); gPanel.className='detailPanel'; gPanel.style.margin='0 16px 10px';
+      gPanel.innerHTML = entryDetailHTML(e=> e.type==='group' && e.targets.includes(d.id));
+      card.appendChild(gPanel);
+    }
+    card.querySelector('.groupDetailToggle').onclick=()=>{
+      if(expandedGroupsDetail.has(d.id)) expandedGroupsDetail.delete(d.id); else expandedGroupsDetail.add(d.id);
+      renderGroups();
+    };
     const ul=document.createElement('ul');
     d.members.forEach(m=>{
+      const mOpen = expandedStudents.has(m.id);
       const li=document.createElement('li');
       li.innerHTML=`<span>${m.name}${m.role?`<span class="role">${m.role}</span>`:''}</span><b>${arNum(m.pts)}</b>`;
+      li.onclick=()=>{
+        if(expandedStudents.has(m.id)) expandedStudents.delete(m.id); else expandedStudents.add(m.id);
+        renderGroups();
+      };
       ul.appendChild(li);
+      if(mOpen){
+        const mp=document.createElement('li'); mp.style.cursor='default'; mp.style.borderBottom='none';
+        const inner=document.createElement('div'); inner.className='memberDetail';
+        inner.innerHTML = entryDetailHTML(e=> e.type==='student' && e.targets.includes(m.id));
+        mp.appendChild(inner);
+        ul.appendChild(mp);
+      }
     });
     card.appendChild(ul);
     wrap.appendChild(card);
@@ -1819,6 +1952,7 @@ function renderAll(){
   renderLbFilter();
   renderIndividual();
   renderGroups();
+  renderRulesTab();
   renderLeagues();
   renderSettingsGroups();
   renderCritSettings();
