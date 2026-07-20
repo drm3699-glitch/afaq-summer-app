@@ -214,6 +214,33 @@ td select.byChip{
 .iconbtn{background:none;border:none;cursor:pointer;font-size:1.15rem}
 
 /* ===== leagues ===== */
+/* ===== performance card ===== */
+.perfCard{
+  background:linear-gradient(160deg,#FFF7E6,#FFFFFF);border:2px solid #F0D9A0;border-radius:20px;
+  padding:16px;margin-bottom:14px;box-shadow:var(--shadow);
+}
+.perfTop{text-align:center;margin-bottom:12px}
+.perfAvatar{
+  width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--amber),#E0521F);
+  display:flex;align-items:center;justify-content:center;font-size:1.8rem;margin:0 auto 8px;
+  box-shadow:0 4px 10px rgba(224,82,31,.3);
+}
+.perfStarsRow{display:flex;justify-content:center;gap:4px}
+.perfStar{
+  font-size:2rem;line-height:1;
+  background:linear-gradient(to right, #F5A623 var(--pct,0%), #D8DEE8 var(--pct,0%));
+  -webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;
+  filter:drop-shadow(0 1px 1px rgba(0,0,0,.08));
+}
+.perfStarsLbl{font-size:.78rem;color:#9A6A00;font-weight:800;margin-top:2px}
+.perfStatsGrid{display:grid;grid-template-columns:1fr;gap:8px}
+.perfStat{
+  display:flex;justify-content:space-between;align-items:center;background:#FFF3D6;border-radius:12px;
+  padding:8px 14px;
+}
+.perfStat .pv{font-weight:800;color:#7A4A00;font-family:'Baloo Bhaijaan 2','Cairo',sans-serif}
+.perfStat .pl{font-size:.82rem;color:#B08234;font-weight:700}
+
 /* ===== rules tab ===== */
 .rulesGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px}
 .ruleCard{background:var(--white);border-radius:20px;box-shadow:var(--shadow);overflow:hidden;border:1px solid var(--line)}
@@ -284,19 +311,37 @@ td select.byChip{
 }
 
 /* ===== weekly schedule ===== */
-.weekTableWrap{overflow-x:auto;border-radius:20px;box-shadow:var(--shadow);border:1px solid var(--line)}
-table.weekTable{width:100%;border-collapse:collapse;min-width:560px;background:var(--white)}
-table.weekTable th{background:var(--navy);color:#fff;padding:12px 14px;font-weight:800;font-size:.92rem;white-space:nowrap}
-table.weekTable td{padding:12px 14px;text-align:center;border-bottom:1px solid var(--line);font-weight:700;color:var(--ink);font-size:.92rem}
-table.weekTable td.dayname{background:var(--cream-2);color:var(--navy);font-family:'Baloo Bhaijaan 2','Cairo',sans-serif;font-weight:800;white-space:nowrap}
+.weekDaysGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.weekDayCard{background:var(--white);border:2px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:14px 16px}
+.weekDayCard.today{border-color:var(--amber);box-shadow:0 0 0 3px rgba(245,166,35,.18), var(--shadow)}
+.weekDayCard .wdHead{font-family:'Baloo Bhaijaan 2','Cairo',sans-serif;font-weight:800;color:var(--navy);font-size:1.15rem;display:flex;align-items:center;gap:8px}
+.weekDayCard .wdTodayTag{background:var(--amber);color:var(--navy);font-size:.68rem;font-weight:800;border-radius:999px;padding:1px 10px}
+.weekDayCard .wdDate{color:#7a869c;font-size:.8rem;font-weight:700;margin-top:1px}
+.slotRow.small{padding:8px 12px}
+.slotRow.small .stime{min-width:96px;font-size:.85rem;padding:4px 10px}
+.slotRow.small .slabel{font-size:.92rem}
+
+.weekTableWrap{overflow-x:auto;border-radius:20px;box-shadow:var(--shadow)}
+table.weekTable{width:100%;border-collapse:collapse;min-width:560px;background:var(--white);border:2px solid var(--navy)}
+table.weekTable th{background:var(--navy);color:#fff;padding:12px 14px;font-weight:800;font-size:.92rem;white-space:nowrap;border-left:1px solid rgba(255,255,255,.25);text-align:center!important}
+table.weekTable th:last-child{border-left:none}
+table.weekTable td{padding:12px 14px;text-align:center;border-bottom:1px solid var(--line);border-left:1px solid var(--line);font-weight:700;color:var(--ink);font-size:.92rem}
+table.weekTable td:last-child{border-left:none}
+table.weekTable td.dayname{background:var(--cream-2);color:var(--navy);font-family:'Baloo Bhaijaan 2','Cairo',sans-serif;font-weight:800;white-space:nowrap;border-left:2px solid var(--navy);text-align:center!important}
 table.weekTable tr:last-child td{border-bottom:none}
 table.weekTable tr:nth-child(even) td:not(.dayname){background:#FAFCFC}
+table.weekTable .cellTime{font-size:.72rem;color:var(--teal-deep);font-weight:800;margin-bottom:2px}
+table.weekTable .cellLabel{font-weight:700}
 
 /* ===== schedule settings editor ===== */
 .schedRow{display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap}
 .schedRow input[type=text]{flex:1;min-width:120px}
 .schedRow input.stimeInput{flex:0 0 130px}
 .colChipsRow{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.archWeekRow{display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap;background:var(--cream-2);border:1px solid var(--line);border-radius:12px;padding:8px 12px}
+.archWeekRow input[type=text]{flex:1;min-width:140px}
+.archWeekRow .ainfo{font-size:.78rem;color:#7a869c;white-space:nowrap}
+
 .dayEditCard{border:1px solid var(--line);border-radius:14px;padding:10px 12px;margin-bottom:10px;background:var(--cream-2)}
 .dayEditCard .dhead{display:flex;align-items:center;gap:8px;margin-bottom:8px}
 .dayEditCard .dhead input{flex:1;font-weight:800}
@@ -405,6 +450,7 @@ footer .l2{color:var(--amber);font-weight:800;font-size:1.3rem;font-family:'Balo
   <button data-tab="rules" role="tab">📋 بنود المسابقة</button>
   <button data-tab="weekly" role="tab">🗓️ الجدول الأسبوعي</button>
   <button data-tab="daily" role="tab">📅 الجدول اليومي</button>
+  <button data-tab="master" role="tab">🗂️ الجدول العام</button>
   <button data-tab="football" role="tab">⚽ دوري القدم</button>
   <button data-tab="volley" role="tab">🏐 دوري الطائرة</button>
   <button data-tab="admin" data-locked="1" role="tab"><span class="lockico">🔒</span> إدخال النقاط</button>
@@ -486,6 +532,22 @@ footer .l2{color:var(--amber);font-weight:800;font-size:1.3rem;font-family:'Balo
       </table>
     </div>
   </div>
+
+  <div class="card">
+    <h2><span class="dot" style="background:#F5A623"></span> 🎲 قرعة المتسابقين الأوائل</h2>
+    <p class="hint">أضف أسماء المتسابقين المرشّحين ثم اضغط «سحب القرعة» لاختيار فائز عشوائيًا.</p>
+    <div style="text-align:center;margin-bottom:16px">
+      <div id="raffleWinnerBox"></div>
+      <button class="btn orange" id="drawRaffleBtn" style="margin-top:10px">🎲 سحب القرعة</button>
+    </div>
+    <label style="font-weight:800;color:var(--navy);display:block;margin-bottom:6px">قائمة الأسماء</label>
+    <p class="hint" id="raffleEditHint">هذه القائمة يديرها من يملك صلاحية الإعدادات فقط.</p>
+    <div id="raffleNamesEditor"></div>
+    <div class="row" id="raffleAddRow">
+      <div class="field" style="flex:2"><input type="text" id="raffleNewName" placeholder="اكتب اسمًا وأضفه للقرعة…"></div>
+      <button class="btn teal small" id="raffleAddBtn" style="align-self:flex-end">＋ إضافة</button>
+    </div>
+  </div>
   </div><!-- /pointsEntryArea -->
 </section>
 
@@ -530,6 +592,14 @@ footer .l2{color:var(--amber);font-weight:800;font-size:1.3rem;font-family:'Balo
   <h2 class="display" style="color:var(--navy);font-size:1.6rem;margin-bottom:4px">📅 الجدول اليومي</h2>
   <div id="dailyMottoBox"></div>
   <div id="dailyScheduleWrap"></div>
+</section>
+
+<!-- ============ MASTER SCHEDULE (4 WEEKS) ============ -->
+<section class="tabpane" id="pane-master">
+  <h2 class="display" style="color:var(--navy);font-size:1.6rem;margin-bottom:4px">🗂️ الجدول العام لأربعة أسابيع</h2>
+  <p class="hint">هذا هو المصدر الوحيد لكل من الجدول الأسبوعي واليومي — أي تعديل هنا ينعكس عليهما تلقائيًا فور حفظه. حدّد تاريخ كل يوم ليُنشر جدوله تلقائيًا في وقته.</p>
+  <div id="masterNote" class="leaguenote" style="display:none">✏️ أنت في وضع المشرف — يمكنك التعديل والإضافة والحذف مباشرة.</div>
+  <div id="masterScheduleEditor"></div>
 </section>
 
 <!-- ============ FOOTBALL ============ -->
@@ -596,31 +666,14 @@ footer .l2{color:var(--amber);font-weight:800;font-size:1.3rem;font-family:'Balo
 
   <div class="card">
     <h2><span class="dot" style="background:var(--teal)"></span> شعار الأسبوع</h2>
-    <p class="hint">النص الظاهر في المربع الكبير أعلى تبويبَي الجدول الأسبوعي واليومي.</p>
+    <p class="hint">النص الظاهر في المربع الكبير أعلى تبويبَي الجدول الأسبوعي واليومي. لتعديل مواعيد الأيام والفترات، استخدم تبويب «🗂️ الجدول العام».</p>
     <div class="field"><label>الشعار</label><input type="text" id="mottoInput" placeholder="مثال: الإحسان"></div>
   </div>
 
   <div class="card">
-    <h2><span class="dot" style="background:var(--blue)"></span> الجدول اليومي</h2>
-    <p class="hint">عدّل اسم اليوم والتاريخ الهجري ومواعيد الأنشطة والعبارة التحفيزية أسفل الجدول. أضف أو احذف مواعيد بحرية.</p>
-    <div class="row">
-      <div class="field"><label>اسم اليوم</label><input type="text" id="dailyDayName" placeholder="مثال: الأحد"></div>
-      <div class="field"><label>التاريخ الهجري</label><input type="text" id="dailyHijri" placeholder="مثال: 28 / 01 / 1448هـ"></div>
-    </div>
-    <div id="dailySlotsEditor"></div>
-    <button class="btn navy small" id="addDailySlotBtn" style="margin:8px 0">＋ إضافة موعد</button>
-    <div class="field"><label>العبارة التحفيزية أسفل الجدول</label><textarea id="dailyQuote" rows="2" placeholder="مثال: إذا غامرتَ في شرفٍ مرومٍ فلا تقنع بما دون النجوم"></textarea></div>
-  </div>
-
-  <div class="card">
-    <h2><span class="dot" style="background:var(--orange)"></span> الجدول الأسبوعي</h2>
-    <p class="hint">حدّد أعمدة الفترات الزمنية أولًا، ثم أضف أيام الأسبوع ونشاط كل يوم في كل فترة. أضف أو احذف أعمدة وأيامًا بحرية.</p>
-    <label style="font-weight:800;color:var(--navy);display:block;margin-bottom:6px">أعمدة الفترات الزمنية</label>
-    <div id="weekColsEditor" class="colChipsRow"></div>
-    <button class="btn navy small" id="addWeekColBtn" style="margin-bottom:14px">＋ إضافة عمود فترة</button>
-    <label style="font-weight:800;color:var(--navy);display:block;margin-bottom:6px">أيام الأسبوع</label>
-    <div id="weekDaysEditor"></div>
-    <button class="btn teal small" id="addWeekDayBtn" style="margin-top:8px">＋ إضافة يوم</button>
+    <h2><span class="dot" style="background:#7a869c"></span> إظهار / إخفاء النقاط</h2>
+    <p class="hint">عند التفعيل، يرى المتسابقون العاديون رسالة «سيُعلن عنها قريبًا» بدل الترتيب في تبويبَي «عرض الأفراد» و«عرض المجموعات»، بينما يبقى الترتيب الحقيقي ظاهرًا لك ولأي مشرف مسجّل دخوله — مفيد لبناء التشويق قبل إعلان النتائج.</p>
+    <div class="pills" id="hideScoresToggle"></div>
   </div>
 
   <div class="card">
@@ -644,6 +697,15 @@ footer .l2{color:var(--amber);font-weight:800;font-size:1.3rem;font-family:'Balo
       <div class="field"><label>🥉 المركز الثالث</label><input type="number" id="talentB3"></div>
     </div>
   </div>
+
+  <div class="card">
+    <h2><span class="dot" style="background:#0E7F84"></span> 📦 أرشيف الأسابيع</h2>
+    <p class="hint">نتائج الأسابيع المنتهية كما أُرشفت وقتها.</p>
+    <div class="field" style="max-width:320px">
+      <select id="archiveWeekSelect"></select>
+    </div>
+    <div id="archiveContent" style="margin-top:16px"></div>
+  </div>
   </div><!-- /settingsGeneralArea -->
 
   <div id="ownerOnlyArea" style="display:none">
@@ -653,6 +715,33 @@ footer .l2{color:var(--amber);font-weight:800;font-size:1.3rem;font-family:'Balo
     <div id="adminsList"></div>
     <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px">
       <button class="btn teal small" id="addAdminBtn">＋ إضافة مشرف جديد</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><span class="dot" style="background:#F5A623"></span> بطاقة الأداء الأسبوعي</h2>
+    <p class="hint">النقاط المطلوبة من الفرد أسبوعيًا لتلوين نجمة ذلك الأسبوع بالكامل في بطاقته. النجوم الجزئية تُلوَّن حسب نسبة ما حقّقه من الهدف.</p>
+    <div class="field" style="max-width:220px"><label>🎯 الهدف الأسبوعي (نقطة)</label><input type="number" id="weeklyTargetInput" min="1"></div>
+  </div>
+
+  <div class="card">
+    <h2><span class="dot" style="background:#0E7F84"></span> أرشفة الأسبوع ونتيجة المسابقة</h2>
+    <p class="hint">تُؤرشف <b>نقاط الأفراد فقط</b> وتُصفَّر ليبدأ عدادهم من جديد كل أسبوع (من الأحد إلى السبت). أما <b>نقاط المجموعات</b> فتبقى تراكمية دائمًا ولا تتأثر بالأرشفة إطلاقًا حتى نهاية المسابقة.</p>
+    <div class="row">
+      <div class="field"><label>اسم الأسبوع الحالي</label><input type="text" id="weekLabelInput"></div>
+      <div class="field"><label>أرشفة نقاط الأفراد حتى نهاية يوم (اختياري)</label><input type="date" id="archiveCutoffInput"></div>
+    </div>
+    <p class="hint">اتركه فارغًا لأرشفة كل نقاط الأفراد المسجّلة حاليًا، أو حدّد تاريخًا (مثل السبت الماضي) لأرشفة ما قبله فقط وإبقاء اللاحق في الأسبوع الحالي — مفيد لفصل أسبوع سابق بأثر رجعي.</p>
+    <button class="btn teal small" id="archiveWeekBtn">📦 أرشفة نقاط الأفراد وتصفير عدادهم</button>
+
+    <div style="margin-top:18px">
+      <label style="font-weight:800;color:var(--navy);display:block;margin-bottom:8px">الأسابيع المؤرشفة</label>
+      <div id="archivedWeeksList"></div>
+    </div>
+
+    <div style="margin-top:18px;border-top:1px dashed var(--line);padding-top:14px">
+      <p class="hint">عند إنهاء المسابقة نهائيًا، تُجمع نقاط الأفراد لكل الأسابيع المؤرشفة مع الأسبوع الحالي في تبويب «عرض الأفراد» لعرض النتيجة الكلية (نقاط المجموعات تراكمية أصلًا فلا تتغيّر). يمكن التراجع في أي وقت.</p>
+      <div class="pills" id="competitionEndToggle"></div>
     </div>
   </div>
 
@@ -811,26 +900,54 @@ const DEFAULT_STATE = {
   ],
   entries: [], // {id, ts, label, sec, pts, type:'student'|'group', targets:[ids]}
   weeklyMotto: 'الإحسان',
-  dailySchedule: {
-    dayName: 'الأحد',
-    hijriDate: '',
-    slots: [
-      {time:'4:15 – 5:30', label:'روحًا'},
-      {time:'5:45 – 7:00', label:'كأس آفاق لكرة الطائرة'},
-      {time:'7:30 – 8:15', label:'إثراء (الاستقامة)'},
-      {time:'8:15 – 9:00', label:'مشروع فكرة'}
-    ],
-    quote: 'إذا غامرتَ في شرفٍ مرومٍ فلا تقنع بما دون النجوم'
-  },
-  weeklySchedule: {
-    columns: ['فترة العصر: 4:15 – 5:30', 'فترة العصر: 5:45 – 7:00', 'بين المغرب والعشاء: 7:30 – 9:00'],
-    days: [
-      {name:'الأحد', cells:['روحًا','كأس آفاق لكرة الطائرة','إثراء - مشروع فكرة']},
-      {name:'الاثنين', cells:['روحًا','تحدي','نافس']},
-      {name:'الثلاثاء', cells:['روحًا','مهارة','المستطيل الأخضر']},
-      {name:'الأربعاء', cells:['روحًا + قيم','مهرجان رياضي','مواهب']}
+  /* الجدول العام لأربعة أسابيع — المصدر الوحيد لكل من الجدول الأسبوعي واليومي.
+     كل يوم له تاريخ ميلادي صريح (لمطابقة "اليوم" تلقائيًا) وعدد حر من الفترات. */
+  masterSchedule: {
+    weeks: [
+      {
+        id:'w1', label:'الأسبوع 1', startDate:'2026-07-12',
+        days:[
+          {name:'الأحد', date:'2026-07-12', hijri:'', periods:[{time:'4:15 – 5:30',label:'روحًا'}, {time:'5:45 – 7:00',label:'كأس آفاق لكرة الطائرة'}, {time:'7:30 – 9:00',label:'إثراء - مشروع فكرة'}]},
+          {name:'الاثنين', date:'2026-07-13', hijri:'', periods:[{time:'4:15 – 5:30',label:'روحًا'}, {time:'5:45 – 7:00',label:'تحدي'}, {time:'7:30 – 9:00',label:'نافس'}]},
+          {name:'الثلاثاء', date:'2026-07-14', hijri:'', periods:[{time:'4:15 – 5:30',label:'روحًا'}, {time:'5:45 – 7:00',label:'مهارة'}, {time:'7:30 – 9:00',label:'المستطيل الأخضر'}]},
+          {name:'الأربعاء', date:'2026-07-15', hijri:'', periods:[{time:'4:15 – 5:30',label:'روحًا + قيم'}, {time:'5:45 – 7:00',label:'مهرجان رياضي'}, {time:'7:30 – 9:00',label:'مواهب'}]}
+        ]
+      },
+      {
+        id:'w2', label:'الأسبوع 2', startDate:'2026-07-19',
+        days:[
+          {name:'الأحد', date:'2026-07-19', hijri:'', periods:[{time:'4:15 – 5:30',label:'روحًا'}, {time:'5:45 – 7:00',label:''}, {time:'7:30 – 9:00',label:''}]},
+          {name:'الاثنين', date:'2026-07-20', hijri:'', periods:[{time:'4:15 – 5:30',label:'روحًا'}, {time:'5:45 – 7:00',label:''}, {time:'7:30 – 9:00',label:''}]},
+          {name:'الثلاثاء', date:'2026-07-21', hijri:'', periods:[{time:'4:15 – 5:30',label:'روحًا'}, {time:'5:45 – 7:00',label:''}, {time:'7:30 – 9:00',label:''}]},
+          {name:'الأربعاء', date:'2026-07-22', hijri:'', periods:[{time:'4:15 – 5:30',label:'روحًا'}, {time:'5:45 – 7:00',label:''}, {time:'7:30 – 9:00',label:''}]}
+        ]
+      },
+      {
+        id:'w3', label:'الأسبوع 3', startDate:'2026-07-26',
+        days:[
+          {name:'الأحد', date:'2026-07-26', hijri:'', periods:[{time:'4:15 – 5:30',label:'روحًا'}, {time:'5:45 – 7:00',label:''}, {time:'7:30 – 9:00',label:''}]},
+          {name:'الاثنين', date:'2026-07-27', hijri:'', periods:[{time:'4:15 – 5:30',label:'روحًا'}, {time:'5:45 – 7:00',label:''}, {time:'7:30 – 9:00',label:''}]},
+          {name:'الثلاثاء', date:'2026-07-28', hijri:'', periods:[{time:'4:15 – 5:30',label:'روحًا'}, {time:'5:45 – 7:00',label:''}, {time:'7:30 – 9:00',label:''}]},
+          {name:'الأربعاء', date:'2026-07-29', hijri:'', periods:[{time:'4:15 – 5:30',label:'روحًا'}, {time:'5:45 – 7:00',label:''}, {time:'7:30 – 9:00',label:''}]}
+        ]
+      },
+      {
+        id:'w4', label:'الأسبوع 4', startDate:'2026-08-02',
+        days:[
+          {name:'الأحد', date:'2026-08-02', hijri:'', periods:[{time:'4:15 – 5:30',label:'روحًا'}, {time:'5:45 – 7:00',label:''}, {time:'7:30 – 9:00',label:''}]},
+          {name:'الاثنين', date:'2026-08-03', hijri:'', periods:[{time:'4:15 – 5:30',label:'روحًا'}, {time:'5:45 – 7:00',label:''}, {time:'7:30 – 9:00',label:''}]},
+          {name:'الثلاثاء', date:'2026-08-04', hijri:'', periods:[{time:'4:15 – 5:30',label:'روحًا'}, {time:'5:45 – 7:00',label:''}, {time:'7:30 – 9:00',label:''}]},
+          {name:'الأربعاء', date:'2026-08-05', hijri:'', periods:[{time:'4:15 – 5:30',label:'روحًا'}, {time:'5:45 – 7:00',label:''}, {time:'7:30 – 9:00',label:''}]}
+        ]
+      }
     ]
-  }
+  },
+  currentWeekLabel: 'الأسبوع 2',
+  archivedWeeks: [], // {id,label,endedAt,entries,students,groups}
+  competitionEnded: false,
+  scoresHidden: false,
+  weeklyTarget: 50,
+  raffle: {names:[], lastWinner:null, lastWinnerAt:null}
 };
 
 const SECTIONS = [
@@ -949,24 +1066,76 @@ function ensureSports(){
   if(!Array.isArray(state.talentBonus) || state.talentBonus.length!==3) state.talentBonus=[20,15,10];
   (state.criteria||[]).forEach(c=>{ if(c.sec==='مواهب' && c.scope!=='مجموعة') c.scope='مجموعة'; });
 }
-function ensureSchedule(){
-  if(typeof state.weeklyMotto!=='string') state.weeklyMotto='الإحسان';
-  if(!state.dailySchedule || typeof state.dailySchedule!=='object'){
-    state.dailySchedule={dayName:'الأحد', hijriDate:'', slots:[], quote:''};
+function ensureMasterSchedule(){
+  if(typeof state.weeklyMotto!=='string' || !state.weeklyMotto.trim()) state.weeklyMotto = DEFAULT_STATE.weeklyMotto;
+
+  if(!state.masterSchedule || !Array.isArray(state.masterSchedule.weeks) || !state.masterSchedule.weeks.length){
+    /* أول ظهور لهذا الحقل: حاول ترحيل الجدولين القديمين (اليومي/الأسبوعي) إن وُجدا، وإلا استخدم النموذج الافتراضي */
+    if(state.weeklySchedule && Array.isArray(state.weeklySchedule.days) && state.weeklySchedule.days.length){
+      const oldDays = state.weeklySchedule.days.map(d=>({
+        name:d.name||'', date:'', hijri:'',
+        periods:(d.cells||[]).map(c=> (c&&typeof c==='object')? {time:c.time||'', label:c.label||''} : {time:'', label:c||''})
+      }));
+      state.masterSchedule = { weeks: [{id:uid(), label: state.currentWeekLabel||'الأسبوع 1', startDate:'', days: oldDays}] };
+    }else{
+      state.masterSchedule = JSON.parse(JSON.stringify(DEFAULT_STATE.masterSchedule));
+    }
+    try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){}
+    cloudSave();
   }
-  if(!Array.isArray(state.dailySchedule.slots)) state.dailySchedule.slots=[];
-  if(typeof state.dailySchedule.dayName!=='string') state.dailySchedule.dayName='';
-  if(typeof state.dailySchedule.hijriDate!=='string') state.dailySchedule.hijriDate='';
-  if(typeof state.dailySchedule.quote!=='string') state.dailySchedule.quote='';
-  if(!state.weeklySchedule || typeof state.weeklySchedule!=='object'){
-    state.weeklySchedule={columns:[], days:[]};
-  }
-  if(!Array.isArray(state.weeklySchedule.columns)) state.weeklySchedule.columns=[];
-  if(!Array.isArray(state.weeklySchedule.days)) state.weeklySchedule.days=[];
-  state.weeklySchedule.days.forEach(d=>{
-    if(!Array.isArray(d.cells)) d.cells=[];
-    while(d.cells.length<state.weeklySchedule.columns.length) d.cells.push('');
+  state.masterSchedule.weeks.forEach(w=>{
+    if(!Array.isArray(w.days)) w.days=[];
+    if(typeof w.startDate!=='string') w.startDate='';
+    w.days.forEach(d=>{
+      if(!Array.isArray(d.periods)) d.periods=[];
+      if(typeof d.date!=='string') d.date='';
+      if(typeof d.hijri!=='string') d.hijri='';
+      d.periods.forEach(p=>{ if(typeof p.time!=='string') p.time=''; if(typeof p.label!=='string') p.label=''; });
+    });
   });
+}
+/* تاريخ اليوم بصيغة yyyy-mm-dd حسب توقيت الجهاز — يُعاد حسابه دائمًا فيتغيّر تلقائيًا بعد منتصف الليل */
+function todayISO(){
+  const n=new Date();
+  return n.getFullYear()+'-'+String(n.getMonth()+1).padStart(2,'0')+'-'+String(n.getDate()).padStart(2,'0');
+}
+/* الأسبوع الحالي من الجدول العام: صاحب أقرب startDate أقل من أو يساوي اليوم، وإلا أول أسبوع */
+function currentMasterWeek(){
+  const weeks = (state.masterSchedule && state.masterSchedule.weeks) || [];
+  if(!weeks.length) return null;
+  const t = todayISO();
+  const withDate = weeks.filter(w=>w.startDate);
+  if(!withDate.length) return weeks[0];
+  const past = withDate.filter(w=> w.startDate<=t).sort((a,b)=> b.startDate.localeCompare(a.startDate));
+  return past.length? past[0] : withDate.sort((a,b)=> a.startDate.localeCompare(b.startDate))[0];
+}
+/* يوم اليوم داخل الأسبوع الحالي، بمطابقة التاريخ الميلادي الصريح لكل يوم */
+function todayMasterDay(){
+  const w = currentMasterWeek(); if(!w) return null;
+  const t = todayISO();
+  return (w.days||[]).find(d=> d.date===t) || null;
+}
+
+function ensureArchive(){
+  if(typeof state.currentWeekLabel!=='string' || !state.currentWeekLabel.trim()) state.currentWeekLabel = DEFAULT_STATE.currentWeekLabel;
+  if(!Array.isArray(state.archivedWeeks)) state.archivedWeeks=[];
+  if(typeof state.competitionEnded!=='boolean') state.competitionEnded=false;
+  if(typeof state.scoresHidden!=='boolean') state.scoresHidden=false;
+  if(!state.raffle || typeof state.raffle!=='object') state.raffle={names:[], lastWinner:null, lastWinnerAt:null};
+  if(!Array.isArray(state.raffle.names)) state.raffle.names=[];
+  if(typeof state.weeklyTarget!=='number') state.weeklyTarget=50;
+
+  /* ترحيل تلقائي لمرة واحدة: أرشفة نقاط الأفراد المسجّلة حتى 18 يوليو 2026 كـ«الأسبوع 1»،
+     تنفيذًا لطلب صريح، دون المساس بنقاط المجموعات التي تبقى تراكمية دائمًا. */
+  if(!state.week1AutoArchived){
+    state.week1AutoArchived = true;
+    const cutoff = new Date('2026-07-18T23:59:59').getTime();
+    const hasOld = state.entries.some(e=> e.type==='student' && e.ts<=cutoff);
+    if(hasOld){
+      if(!state.currentWeekLabel || state.currentWeekLabel===DEFAULT_STATE.currentWeekLabel) state.currentWeekLabel='الأسبوع 1';
+      archiveCurrentWeek(cutoff, true);
+    }
+  }
 }
 let editFB=null, editVB=null; // 'round-index' للمباراة المفتوحة للتعديل
 
@@ -1346,6 +1515,41 @@ function updateLockIcons(){
   if(w){ const a=currentAdmin(); w.textContent = a? (a.name + (a.isOwner? ' (مدير الموقع)':'')) : ''; }
 }
 
+/* =================== أرشفة الأسبوع =================== */
+/* تؤرشف نقاط الأفراد فقط (تُصفّر أسبوعيًا)، بينما نقاط المجموعات (رصدها الجماعي ومساهمات
+   الأفراد فيها) تبقى تراكمية دائمًا حتى نهاية المسابقة ولا تُلمس هنا إطلاقًا. */
+function archiveCurrentWeek(cutoffTs, silent){
+  const isBefore = e => cutoffTs? e.ts<=cutoffTs : true;
+  const toArchive = state.entries.filter(e=> e.type==='student' && isBefore(e));
+  const toKeep    = state.entries.filter(e=> !(e.type==='student' && isBefore(e)));
+  if(!toArchive.length){ if(!silent) toast('⚠️ لا توجد نقاط أفراد ضمن هذا النطاق لأرشفتها'); return; }
+  const snap = {
+    id: uid(),
+    label: (state.currentWeekLabel && state.currentWeekLabel.trim()) || ('الأسبوع '+(state.archivedWeeks.length+1)),
+    endedAt: cutoffTs || Date.now(),
+    entries: JSON.parse(JSON.stringify(toArchive)),
+    students: JSON.parse(JSON.stringify(state.students)),
+    groups: JSON.parse(JSON.stringify(state.groups))
+  };
+  state.archivedWeeks.push(snap);
+  state.entries = toKeep;
+  state.currentWeekLabel = 'الأسبوع '+(state.archivedWeeks.length+1);
+  if(silent){
+    try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){}
+    cloudSave();
+  }else{
+    saveState(); renderAll();
+    toast(`📦 أُرشفت نقاط الأفراد ضمن «${snap.label}» — نقاط المجموعات بقيت تراكمية كما هي`);
+  }
+}
+/* حساب نقاط أسبوع مؤرشف مستقل (للأفراد فقط)، بنفس منطق الاستثناءات المعتمد حاليًا */
+function computeWeekStats(entries, students, groups){
+  const ex = noGroupSecs();
+  function sPoints(sid){ let t=0; entries.forEach(e=>{ if(e.type==='student'&&e.targets.includes(sid)) t+=e.pts; }); return t; }
+  function sGroupPoints(sid){ let t=0; entries.forEach(e=>{ if(e.type==='student'&&e.targets.includes(sid)&&!ex.includes(e.sec)) t+=e.pts; }); return t; }
+  return { sPoints, sGroupPoints };
+}
+
 /* =================== أدوات =================== */
 const $ = s => document.querySelector(s);
 const uid = () => 'x' + Date.now().toString(36) + Math.random().toString(36).slice(2,7);
@@ -1358,9 +1562,25 @@ function groupById(id){ return state.groups.find(g=>g.id===id); }
 function studentById(id){ return state.students.find(s=>s.id===id); }
 function adminById(id){ return state.admins.find(a=>a.id===id); }
 
+/* نقاط الأفراد: الأسبوع الحالي فقط، أو تجميع كل الأسابيع عند إنهاء المسابقة نهائيًا */
+function activeEntries(){
+  if(state.competitionEnded && state.archivedWeeks && state.archivedWeeks.length){
+    let all=[];
+    state.archivedWeeks.forEach(w=>{ if(Array.isArray(w.entries)) all=all.concat(w.entries); });
+    return all.concat(state.entries);
+  }
+  return state.entries;
+}
+/* نقاط المجموعات: تراكمية دائمًا (كل الأسابيع المؤرشفة + الحالي) بصرف النظر عن حالة إنهاء المسابقة */
+function allEntriesEver(){
+  let all=[];
+  (state.archivedWeeks||[]).forEach(w=>{ if(Array.isArray(w.entries)) all=all.concat(w.entries); });
+  return all.concat(state.entries);
+}
+
 function studentPoints(sid){
   let t=0;
-  for(const e of state.entries) if(e.type==='student' && e.targets.includes(sid)) t+=e.pts;
+  for(const e of activeEntries()) if(e.type==='student' && e.targets.includes(sid)) t+=e.pts;
   return t;
 }
 /* الأقسام المستثناة من مجموع المجموعات (افتراضيًا: روحًا) */
@@ -1368,17 +1588,17 @@ function noGroupSecs(){
   if(!Array.isArray(state.noGroupSecs)) state.noGroupSecs=['روحًا'];
   return state.noGroupSecs;
 }
-/* نقاط الفرد التي تُحتسب لمجموعته فقط (بدون الأقسام المستثناة) */
+/* نقاط الفرد التي تُحتسب لمجموعته — تراكمية دائمًا لأن نقاط المجموعات لا تُصفَّر أسبوعيًا */
 function studentGroupPoints(sid){
   const ex=noGroupSecs();
   let t=0;
-  for(const e of state.entries) if(e.type==='student' && e.targets.includes(sid) && !ex.includes(e.sec)) t+=e.pts;
+  for(const e of allEntriesEver()) if(e.type==='student' && e.targets.includes(sid) && !ex.includes(e.sec)) t+=e.pts;
   return t;
 }
-/* مجموع تقييمات المشرفين الخام لكل مجموعة في قسم مواهب (قبل التحويل إلى نقاط ترتيب) */
+/* مجموع تقييمات المشرفين الخام لكل مجموعة في قسم مواهب — تراكمي دائمًا */
 function talentRawSum(gid){
   let t=0;
-  for(const e of state.entries) if(e.type==='group' && e.sec==='مواهب' && e.targets.includes(gid)) t+=e.pts;
+  for(const e of allEntriesEver()) if(e.type==='group' && e.sec==='مواهب' && e.targets.includes(gid)) t+=e.pts;
   return t;
 }
 /* تحويل مجموع تقييمات كل مجموعة في مواهب إلى نقاط ثابتة حسب الترتيب (20/15/10 افتراضيًا)،
@@ -1395,10 +1615,11 @@ function talentRanks(){
   });
   return out;
 }
+/* نقاط المجموعة الذاتية — تراكمية دائمًا (لا تتأثر بأرشفة الأسبوع) */
 function groupOwnPoints(gid){
   let t=0;
   /* نقاط مواهب الخام لا تُجمع مباشرة — تُستبدل بنقاط الترتيب الثابتة أدناه */
-  for(const e of state.entries) if(e.type==='group' && e.targets.includes(gid) && e.sec!=='مواهب') t+=e.pts;
+  for(const e of allEntriesEver()) if(e.type==='group' && e.targets.includes(gid) && e.sec!=='مواهب') t+=e.pts;
   const tr=talentRanks()[gid];
   if(tr) t += tr.bonus;
   return t;
@@ -1636,40 +1857,175 @@ function renderMottoBox(container){
       <div class="mword">${state.weeklyMotto? state.weeklyMotto : '—'}</div>
     </div>`;
 }
+function fmtArDate(iso){
+  if(!iso) return '';
+  const d=new Date(iso+'T00:00:00');
+  if(isNaN(d.getTime())) return '';
+  return d.toLocaleDateString('ar-SA',{weekday:'long', day:'numeric', month:'long', year:'numeric'});
+}
 function renderDailyTab(){
   renderMottoBox(document.getElementById('dailyMottoBox'));
   const wrap=document.getElementById('dailyScheduleWrap'); if(!wrap) return;
-  const ds=state.dailySchedule;
+  const day = todayMasterDay();
+  if(!day){
+    wrap.innerHTML = `<div class="dayHead"><div class="dname">لا يوجد جدول لهذا اليوم</div></div>
+      <div class="empty">لم يُدرج اليوم الحالي بعد ضمن الجدول العام — أضِفه من تبويب «الجدول العام».</div>`;
+    return;
+  }
   let html = `<div class="dayHead">
-      <div class="dname">${ds.dayName? 'جدول يوم '+ds.dayName : 'الجدول اليومي'}</div>
-      ${ds.hijriDate? `<div class="ddate">${ds.hijriDate}</div>` : ''}
+      <div class="dname">جدول يوم ${day.name}</div>
+      <div class="ddate">${fmtArDate(day.date)}${day.hijri? ' — '+day.hijri : ''}</div>
     </div>`;
-  if(ds.slots.length){
-    html += '<div class="slotList">' + ds.slots.map(s=>
-      `<div class="slotRow"><span class="stime">${s.time}</span><span class="slabel">${s.label}</span></div>`
+  if(day.periods && day.periods.length){
+    html += '<div class="slotList">' + day.periods.map(p=>
+      `<div class="slotRow"><span class="stime">${p.time||''}</span><span class="slabel">${p.label||''}</span></div>`
     ).join('') + '</div>';
   }else{
-    html += '<div class="empty">لم تُضَف مواعيد اليوم بعد.</div>';
-  }
-  if(ds.quote && ds.quote.trim()){
-    html += `<div class="quoteBox">💬 ${ds.quote}</div>`;
+    html += '<div class="empty">لم تُضَف مواعيد لهذا اليوم بعد.</div>';
   }
   wrap.innerHTML = html;
 }
 function renderWeeklyTab(){
   renderMottoBox(document.getElementById('weeklyMottoBox'));
   const wrap=document.getElementById('weeklyTableWrap'); if(!wrap) return;
-  const ws=state.weeklySchedule;
-  if(!ws.days.length){ wrap.innerHTML='<div class="empty">لم يُضَف الجدول الأسبوعي بعد.</div>'; return; }
-  let html = '<div class="weekTableWrap"><table class="weekTable"><thead><tr><th>اليوم</th>' +
-    ws.columns.map(c=>`<th>${c}</th>`).join('') + '</tr></thead><tbody>';
-  ws.days.forEach(d=>{
-    html += `<tr><td class="dayname">${d.name}</td>` +
-      ws.columns.map((_,i)=> `<td>${d.cells[i]||''}</td>`).join('') + '</tr>';
+  const w = currentMasterWeek();
+  if(!w || !w.days || !w.days.length){ wrap.innerHTML='<div class="empty">لم يُضَف الجدول الأسبوعي بعد.</div>'; return; }
+  const todayS = todayISO();
+  let html = `<p class="hint" style="margin-bottom:14px">${w.label}${w.startDate? ' — يبدأ '+fmtArDate(w.startDate):''}</p>
+    <div class="weekDaysGrid">`;
+  w.days.forEach(d=>{
+    const isToday = d.date===todayS;
+    html += `<div class="weekDayCard${isToday?' today':''}">
+        <div class="wdHead">${d.name}${isToday?' <span class="wdTodayTag">اليوم</span>':''}</div>
+        ${d.date? `<div class="wdDate">${fmtArDate(d.date)}</div>`:''}
+        <div class="slotList" style="margin-top:8px">` +
+          (d.periods&&d.periods.length? d.periods.map(p=>`<div class="slotRow small"><span class="stime">${p.time||''}</span><span class="slabel">${p.label||''}</span></div>`).join('') : '<div class="empty" style="padding:8px">لا مواعيد</div>')
+        + `</div></div>`;
   });
-  html += '</tbody></table></div>';
+  html += '</div>';
   wrap.innerHTML = html;
 }
+
+/* =================== تبويب الأرشيف (عام) =================== */
+function renderArchiveTab(){
+  const sel=document.getElementById('archiveWeekSelect'); if(!sel) return;
+  const cur=sel.value;
+  sel.innerHTML='';
+  if(!state.archivedWeeks.length){
+    sel.add(new Option('لا توجد أسابيع مؤرشفة بعد',''));
+  }else{
+    [...state.archivedWeeks].reverse().forEach(w=> sel.add(new Option(w.label, w.id)));
+  }
+  if([...sel.options].some(o=>o.value===cur)) sel.value=cur;
+  sel.onchange=()=> renderArchiveTab();
+
+  const box=document.getElementById('archiveContent'); if(!box) return;
+  if(!state.archivedWeeks.length){
+    box.innerHTML='<div class="empty">لم يُنهِ مدير الموقع أي أسبوع بعد — ستظهر هنا نقاط الأفراد لكل أسبوع فور أرشفته. نقاط المجموعات تراكمية دائمًا وتُعرض في تبويب «عرض المجموعات».</div>';
+    return;
+  }
+  const w = state.archivedWeeks.find(x=>x.id===sel.value) || [...state.archivedWeeks].reverse()[0];
+  if(!w){ box.innerHTML=''; return; }
+  const stats = computeWeekStats(w.entries||[], w.students||[], w.groups||[]);
+  const studentsRanked = (w.students||[]).filter(s=>(w.groups||[]).some(g=>g.id===s.g))
+    .map(s=>({...s, pts:stats.sPoints(s.id)})).sort((a,b)=> b.pts-a.pts || a.name.localeCompare(b.name,'ar'));
+  const d=new Date(w.endedAt);
+
+  let html = `<p class="hint">أُرشفت نقاط الأفراد حتى ${d.toLocaleDateString('ar-SA',{day:'numeric',month:'long',year:'numeric'})} — ${arNum((w.entries||[]).length)} عملية رصد. (نقاط المجموعات تراكمية ولا تُؤرشف — راجعها في تبويب عرض المجموعات).</p>`;
+
+  html += '<h3 style="color:var(--navy);margin:14px 0 8px">🏅 ترتيب المتسابقين في هذا الأسبوع</h3><div class="lb-list">';
+  studentsRanked.forEach((s,i)=>{
+    const g=(w.groups||[]).find(x=>x.id===s.g);
+    html += `<div class="lb-item" style="cursor:default"><span class="rank">${arNum(i+1)}</span>
+      <span class="nm">${s.name}</span>
+      <span class="grp" style="background:${g?g.color:'#999'}">${g?g.name:''}</span>
+      <span class="pts">${arNum(s.pts)}</span></div>`;
+  });
+  html += '</div>';
+  box.innerHTML = html;
+}
+
+/* =================== تبويب القرعة =================== */
+let raffleSpinning = false;
+function renderRaffleTab(){
+  const canEdit = isUnlocked() && hasPerm('settings');
+  const editHint=document.getElementById('raffleEditHint');
+  const namesBox=document.getElementById('raffleNamesEditor');
+  const addRow=document.getElementById('raffleAddRow');
+  if(editHint) editHint.style.display = canEdit? 'none':'block';
+  if(addRow) addRow.style.display = canEdit? 'flex':'none';
+
+  if(namesBox){
+    namesBox.innerHTML='';
+    if(!state.raffle.names.length){
+      namesBox.innerHTML = '<div class="empty">لا توجد أسماء في القائمة بعد.</div>';
+    }else{
+      state.raffle.names.forEach((nm,i)=>{
+        const row=document.createElement('div'); row.className='schedRow';
+        if(canEdit){
+          const inp=document.createElement('input'); inp.type='text'; inp.value=nm;
+          inp.onchange=()=>{ state.raffle.names[i]=inp.value.trim()||nm; saveState(); renderRaffleTab(); };
+          const del=document.createElement('button'); del.className='iconbtn'; del.textContent='🗑️'; del.title='حذف الاسم';
+          del.onclick=()=>{ state.raffle.names.splice(i,1); saveState(); renderAll(); toast('🗑️ حُذف الاسم من القرعة'); };
+          row.append(inp, del);
+        }else{
+          const span=document.createElement('span'); span.style.cssText='flex:1;font-weight:700;padding:6px 4px'; span.textContent=nm;
+          row.appendChild(span);
+        }
+        namesBox.appendChild(row);
+      });
+    }
+  }
+
+  const winBox=document.getElementById('raffleWinnerBox');
+  const drawBtn=document.getElementById('drawRaffleBtn');
+  if(drawBtn) drawBtn.disabled = state.raffle.names.length===0 || raffleSpinning;
+  if(winBox && !raffleSpinning){
+    if(state.raffle.lastWinner){
+      winBox.innerHTML = `<div class="mottoBox" style="margin-bottom:0">
+          <div class="mlbl">🎉 الفائز</div>
+          <div class="mword">${state.raffle.lastWinner}</div>
+        </div>`;
+    }else{
+      winBox.innerHTML = '<div class="empty">لم تُسحب القرعة بعد.</div>';
+    }
+  }
+}
+document.getElementById('raffleAddBtn').onclick=()=>{
+  const inp=document.getElementById('raffleNewName');
+  const v=inp.value.trim();
+  if(!v){ toast('⚠️ اكتب اسمًا أولًا'); return; }
+  state.raffle.names.push(v);
+  inp.value='';
+  saveState(); renderAll(); toast('✅ أُضيف الاسم للقرعة');
+};
+document.getElementById('raffleNewName').addEventListener('keydown', e=>{ if(e.key==='Enter') document.getElementById('raffleAddBtn').click(); });
+document.getElementById('drawRaffleBtn').onclick=()=>{
+  const names=state.raffle.names;
+  if(!names.length || raffleSpinning) return;
+  raffleSpinning=true;
+  const winBox=document.getElementById('raffleWinnerBox');
+  const drawBtn=document.getElementById('drawRaffleBtn'); drawBtn.disabled=true;
+  let ticks=0;
+  const maxTicks=18;
+  const timer=setInterval(()=>{
+    const pick = names[Math.floor(Math.random()*names.length)];
+    winBox.innerHTML = `<div class="mottoBox" style="margin-bottom:0">
+        <div class="mlbl">🎲 جارٍ السحب…</div>
+        <div class="mword">${pick}</div>
+      </div>`;
+    ticks++;
+    if(ticks>=maxTicks){
+      clearInterval(timer);
+      const winner = names[Math.floor(Math.random()*names.length)];
+      state.raffle.lastWinner = winner;
+      state.raffle.lastWinnerAt = Date.now();
+      raffleSpinning=false;
+      saveState(); renderAll();
+      toast(`🎉 الفائز: ${winner}`);
+    }
+  }, 90);
+};
 
 /* =================== تبويب بنود المسابقة =================== */
 const SECTION_COLOR = {
@@ -1715,7 +2071,7 @@ function renderRulesTab(){
 let expandedStudents = new Set();
 let expandedGroupsDetail = new Set();
 function entryDetailHTML(filterFn){
-  const list = state.entries.filter(filterFn).sort((a,b)=> b.ts-a.ts);
+  const list = activeEntries().filter(filterFn).sort((a,b)=> b.ts-a.ts);
   if(!list.length) return '<div class="detailEmpty">لا توجد نقاط مسجلة بعد</div>';
   return '<ul class="detailList">' + list.map(e=>{
     const d=new Date(e.ts);
@@ -1724,7 +2080,54 @@ function entryDetailHTML(filterFn){
   }).join('') + '</ul>';
 }
 
+/* =================== بطاقة الأداء الأسبوعي =================== */
+/* نقاط الفرد لكل أسبوع مضى (من الأرشيف) بالإضافة إلى الأسبوع الحالي الحي */
+function studentWeekSeries(sid){
+  const weeks=[];
+  (state.archivedWeeks||[]).forEach(w=>{
+    const stats=computeWeekStats(w.entries||[], w.students||[], w.groups||[]);
+    weeks.push({label:w.label, pts:stats.sPoints(sid)});
+  });
+  let livePts=0;
+  state.entries.forEach(e=>{ if(e.type==='student' && e.targets.includes(sid)) livePts+=e.pts; });
+  weeks.push({label:state.currentWeekLabel||'الأسبوع الحالي', pts:livePts, isCurrent:true});
+  const target=state.weeklyTarget||50;
+  return weeks.map(w=>({...w, pct: target>0? Math.max(0,Math.min(100, Math.round(w.pts/target*100))) : 0}));
+}
+/* أحدث 4 أسابيع كحد أقصى (أو تعبئة بنجوم معلّقة إن كان العدد أقل) */
+function last4Weeks(series){
+  let arr=series.slice(-4);
+  while(arr.length<4) arr.push({label:'—', pts:0, pct:0, pending:true});
+  return arr;
+}
+function performanceCardHTML(s, rank){
+  const series = last4Weeks(studentWeekSeries(s.id));
+  const target = state.weeklyTarget||50;
+  const starsHtml = series.map(w=>{
+    const title = w.pending? 'لم يبدأ بعد' : `${w.label}: ${arNum(w.pts)} من ${arNum(target)}`;
+    return `<span class="perfStar" style="--pct:${w.pct}%" title="${title}">★</span>`;
+  }).join('');
+  return `<div class="perfCard">
+      <div class="perfTop">
+        <div class="perfAvatar">👤</div>
+        <div class="perfStarsRow">${starsHtml}</div>
+        <div class="perfStarsLbl">الأداء الأسبوعي</div>
+      </div>
+      <div class="perfStatsGrid">
+        <div class="perfStat"><span class="pv">${s.name}</span><span class="pl">الاسم</span></div>
+        <div class="perfStat"><span class="pv">${arNum(studentPoints(s.id))}</span><span class="pl">مجموع النقاط</span></div>
+        <div class="perfStat"><span class="pv">${arNum(rank)}</span><span class="pl">الترتيب العام</span></div>
+      </div>
+    </div>`;
+}
+
+function scoresAreHidden(){ return !!state.scoresHidden && !isUnlocked(); }
 function renderIndividual(){
+  if(scoresAreHidden()){
+    $('#podium').innerHTML='';
+    $('#lbList').innerHTML='<div class="empty">🙈 النقاط مخفية حاليًا — سيُعلن عنها قريبًا!</div>';
+    return;
+  }
   const filter = $('#lbFilter').value || 'all';
   let list = state.students.filter(s=>groupById(s.g)).map(s=>({...s, pts:studentPoints(s.id)}));
   if(filter!=='all') list = list.filter(s=>s.g===filter);
@@ -1765,7 +2168,7 @@ function renderIndividual(){
     box.appendChild(d);
     if(open){
       const panel=document.createElement('div'); panel.className='detailPanel';
-      panel.innerHTML = entryDetailHTML(e=> e.type==='student' && e.targets.includes(s.id));
+      panel.innerHTML = performanceCardHTML(s, i+1) + entryDetailHTML(e=> e.type==='student' && e.targets.includes(s.id));
       box.appendChild(panel);
     }
   });
@@ -1780,6 +2183,11 @@ function renderLbFilter(){
 
 /* =================== عرض المجموعات =================== */
 function renderGroups(){
+  if(scoresAreHidden()){
+    $('#compareBar').innerHTML='';
+    $('#gCards').innerHTML='<div class="empty">🙈 النقاط مخفية حاليًا — سيُعلن عنها قريبًا!</div>';
+    return;
+  }
   const tRanks = talentRanks();
   const data = state.groups.map(g=>({
     ...g,
@@ -1858,102 +2266,186 @@ function renderGroups(){
   });
 }
 
+function renderHideScoresToggle(){
+  const box=document.getElementById('hideScoresToggle'); if(!box) return;
+  box.innerHTML='';
+  const b=document.createElement('button'); b.type='button';
+  b.className='pill'+(state.scoresHidden?' active':''); b.dataset.color='red';
+  b.textContent = state.scoresHidden? '🙈 النقاط مخفية حاليًا عن المتسابقين' : '👁️ النقاط ظاهرة حاليًا للجميع';
+  b.onclick=()=>{
+    state.scoresHidden=!state.scoresHidden; saveState(); renderAll();
+    toast(state.scoresHidden? '🙈 أُخفيت النقاط عن المتسابقين' : '👁️ أُظهرت النقاط للجميع');
+  };
+  box.appendChild(b);
+}
+
+function renderArchiveSettings(){
+  const wt=document.getElementById('weeklyTargetInput');
+  if(wt){
+    wt.value=state.weeklyTarget||50;
+    wt.onchange=()=>{
+      const v=Number(wt.value);
+      if(!v || v<1){ toast('⚠️ أدخل رقمًا صحيحًا أكبر من صفر'); wt.value=state.weeklyTarget; return; }
+      state.weeklyTarget=v; saveState(); renderAll(); toast('✅ حُدّث الهدف الأسبوعي');
+    };
+  }
+  const li=document.getElementById('weekLabelInput');
+  if(li){
+    li.value=state.currentWeekLabel||'';
+    li.onchange=()=>{ state.currentWeekLabel=li.value.trim()||state.currentWeekLabel; saveState(); toast('✅ حُدّث اسم الأسبوع الحالي'); };
+  }
+  const archBtn=document.getElementById('archiveWeekBtn');
+  if(archBtn) archBtn.onclick=()=>{
+    const studentEntryCount = state.entries.filter(e=>e.type==='student').length;
+    if(!studentEntryCount){ toast('⚠️ لا توجد نقاط أفراد في الأسبوع الحالي لأرشفتها'); return; }
+    const cutoffInput = document.getElementById('archiveCutoffInput');
+    let cutoffTs = null;
+    if(cutoffInput && cutoffInput.value){
+      const d = new Date(cutoffInput.value+'T23:59:59');
+      cutoffTs = d.getTime();
+    }
+    const msg = cutoffTs
+      ? `أرشفة نقاط الأفراد حتى نهاية ${cutoffInput.value} وإبقاء ما بعده في الأسبوع الحالي؟`
+      : `أرشفة كل نقاط الأفراد الحالية باسم «${state.currentWeekLabel}» وتصفير عدادهم؟ نقاط المجموعات لن تتأثر.`;
+    if(confirm(msg)){
+      archiveCurrentWeek(cutoffTs);
+      if(cutoffInput) cutoffInput.value='';
+    }
+  };
+  const list=document.getElementById('archivedWeeksList');
+  if(list){
+    list.innerHTML='';
+    if(!state.archivedWeeks.length){
+      list.innerHTML='<div class="empty">لا توجد أسابيع مؤرشفة بعد.</div>';
+    }else{
+      [...state.archivedWeeks].reverse().forEach(w=>{
+        const idx = state.archivedWeeks.indexOf(w);
+        const row=document.createElement('div'); row.className='archWeekRow';
+        const nm=document.createElement('input'); nm.type='text'; nm.value=w.label;
+        nm.onchange=()=>{ w.label=nm.value.trim()||w.label; saveState(); renderArchiveSettings(); toast('✅ حُدّث اسم الأسبوع المؤرشف'); };
+        const info=document.createElement('span'); info.className='ainfo';
+        const d=new Date(w.endedAt);
+        info.textContent = `${arNum((w.entries||[]).length)} عملية رصد — ${d.toLocaleDateString('ar-SA',{day:'numeric',month:'short',year:'numeric'})}`;
+        const del=document.createElement('button'); del.className='iconbtn'; del.textContent='🗑️'; del.title='حذف هذا الأسبوع من الأرشيف نهائيًا';
+        del.onclick=()=>{
+          if(confirm(`حذف «${w.label}» نهائيًا من الأرشيف؟ هذا الإجراء لا يمكن التراجع عنه.`)){
+            state.archivedWeeks.splice(idx,1); saveState(); renderAll(); toast('🗑️ حُذف الأسبوع من الأرشيف');
+          }
+        };
+        row.append(nm, info, del);
+        list.appendChild(row);
+      });
+    }
+  }
+  const ceBox=document.getElementById('competitionEndToggle');
+  if(ceBox){
+    ceBox.innerHTML='';
+    const b=document.createElement('button'); b.type='button';
+    b.className='pill'+(state.competitionEnded?' active':''); b.dataset.color='orange';
+    b.textContent = state.competitionEnded? '🏁 المسابقة منتهية — النتيجة مجمّعة لكل الأسابيع' : '▶️ المسابقة مستمرة — عرض الأسبوع الحالي فقط';
+    b.onclick=()=>{
+      state.competitionEnded=!state.competitionEnded; saveState(); renderAll();
+      toast(state.competitionEnded? '🏁 تم إنهاء المسابقة وتجميع كل الأسابيع' : '▶️ عادت المسابقة لعرض الأسبوع الحالي فقط');
+    };
+    ceBox.appendChild(b);
+  }
+}
+
 function renderScheduleSettings(){
   const motto=document.getElementById('mottoInput');
   if(motto){
     motto.value=state.weeklyMotto||'';
     motto.onchange=()=>{ state.weeklyMotto=motto.value.trim(); saveState(); renderAll(); toast('✅ حُدّث شعار الأسبوع'); };
   }
+}
 
-  // ===== الجدول اليومي =====
-  const dName=document.getElementById('dailyDayName'), dHijri=document.getElementById('dailyHijri'), dQuote=document.getElementById('dailyQuote');
-  if(dName){
-    dName.value=state.dailySchedule.dayName||'';
-    dName.onchange=()=>{ state.dailySchedule.dayName=dName.value.trim(); saveState(); renderAll(); };
-  }
-  if(dHijri){
-    dHijri.value=state.dailySchedule.hijriDate||'';
-    dHijri.onchange=()=>{ state.dailySchedule.hijriDate=dHijri.value.trim(); saveState(); renderAll(); };
-  }
-  if(dQuote){
-    dQuote.value=state.dailySchedule.quote||'';
-    dQuote.onchange=()=>{ state.dailySchedule.quote=dQuote.value.trim(); saveState(); renderAll(); };
-  }
-  const slotsBox=document.getElementById('dailySlotsEditor');
-  if(slotsBox){
-    slotsBox.innerHTML='';
-    state.dailySchedule.slots.forEach((s,i)=>{
-      const row=document.createElement('div'); row.className='schedRow';
-      const t=document.createElement('input'); t.type='text'; t.className='stimeInput'; t.placeholder='الوقت'; t.value=s.time;
-      t.onchange=()=>{ s.time=t.value.trim(); saveState(); renderDailyTab(); };
-      const l=document.createElement('input'); l.type='text'; l.placeholder='اسم النشاط'; l.value=s.label;
-      l.onchange=()=>{ s.label=l.value.trim(); saveState(); renderDailyTab(); };
-      const del=document.createElement('button'); del.className='iconbtn'; del.textContent='🗑️'; del.title='حذف الموعد';
-      del.onclick=()=>{ state.dailySchedule.slots.splice(i,1); saveState(); renderScheduleSettings(); renderDailyTab(); toast('🗑️ حُذف الموعد'); };
-      row.append(t,l,del);
-      slotsBox.appendChild(row);
-    });
-  }
-  const addSlotBtn=document.getElementById('addDailySlotBtn');
-  if(addSlotBtn) addSlotBtn.onclick=()=>{
-    state.dailySchedule.slots.push({time:'', label:''});
-    saveState(); renderScheduleSettings(); renderDailyTab();
-  };
+/* =================== الجدول العام لأربعة أسابيع =================== */
+function renderMasterScheduleTab(){
+  const canEdit = isUnlocked() && hasPerm('settings');
+  const note=document.getElementById('masterNote');
+  if(note) note.style.display = canEdit? 'block':'none';
+  const box=document.getElementById('masterScheduleEditor'); if(!box) return;
+  box.innerHTML='';
+  const weeks = state.masterSchedule.weeks;
+  const todayS = todayISO();
 
-  // ===== الجدول الأسبوعي =====
-  const colsBox=document.getElementById('weekColsEditor');
-  if(colsBox){
-    colsBox.innerHTML='';
-    state.weeklySchedule.columns.forEach((c,ci)=>{
-      const wrap=document.createElement('div'); wrap.style.cssText='display:flex;align-items:center;gap:4px';
-      const inp=document.createElement('input'); inp.type='text'; inp.value=c; inp.style.cssText='width:200px';
-      inp.onchange=()=>{ state.weeklySchedule.columns[ci]=inp.value.trim(); saveState(); renderWeeklyTab(); };
-      const del=document.createElement('button'); del.className='iconbtn'; del.textContent='🗑️'; del.title='حذف العمود';
-      del.onclick=()=>{
-        state.weeklySchedule.columns.splice(ci,1);
-        state.weeklySchedule.days.forEach(d=> d.cells.splice(ci,1));
-        saveState(); renderScheduleSettings(); renderWeeklyTab(); toast('🗑️ حُذف العمود');
-      };
-      wrap.append(inp,del);
-      colsBox.appendChild(wrap);
-    });
-  }
-  const addColBtn=document.getElementById('addWeekColBtn');
-  if(addColBtn) addColBtn.onclick=()=>{
-    state.weeklySchedule.columns.push('فترة جديدة');
-    state.weeklySchedule.days.forEach(d=> d.cells.push(''));
-    saveState(); renderScheduleSettings(); renderWeeklyTab();
-  };
-  const daysBox=document.getElementById('weekDaysEditor');
-  if(daysBox){
-    daysBox.innerHTML='';
-    state.weeklySchedule.days.forEach((d,di)=>{
-      const card=document.createElement('div'); card.className='dayEditCard';
-      const head=document.createElement('div'); head.className='dhead';
-      const nm=document.createElement('input'); nm.type='text'; nm.value=d.name; nm.placeholder='اسم اليوم';
-      nm.onchange=()=>{ d.name=nm.value.trim(); saveState(); renderWeeklyTab(); };
-      const del=document.createElement('button'); del.className='iconbtn'; del.textContent='🗑️'; del.title='حذف اليوم';
-      del.onclick=()=>{ state.weeklySchedule.days.splice(di,1); saveState(); renderScheduleSettings(); renderWeeklyTab(); toast('🗑️ حُذف اليوم'); };
-      head.append(nm,del);
-      card.appendChild(head);
-      const grid=document.createElement('div'); grid.className='cellsGrid';
-      state.weeklySchedule.columns.forEach((c,ci)=>{
-        const f=document.createElement('div');
-        const lbl=document.createElement('div'); lbl.style.cssText='font-size:.75rem;color:#7a869c;margin-bottom:2px'; lbl.textContent=c;
-        const inp=document.createElement('input'); inp.type='text'; inp.value=d.cells[ci]||'';
-        inp.onchange=()=>{ d.cells[ci]=inp.value.trim(); saveState(); renderWeeklyTab(); };
-        f.append(lbl,inp);
-        grid.appendChild(f);
+  weeks.forEach((w,wi)=>{
+    const card=document.createElement('div'); card.className='card';
+    const head=document.createElement('div'); head.style.cssText='display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:10px';
+    if(canEdit){
+      const nm=document.createElement('input'); nm.type='text'; nm.value=w.label; nm.style.cssText='font-weight:800;flex:1;min-width:140px';
+      nm.onchange=()=>{ w.label=nm.value.trim()||w.label; saveState(); renderAll(); };
+      const sd=document.createElement('input'); sd.type='date'; sd.value=w.startDate||''; sd.title='تاريخ بداية الأسبوع (الأحد)'; sd.style.cssText='width:auto';
+      sd.onchange=()=>{ w.startDate=sd.value; saveState(); renderAll(); toast('✅ حُدّث تاريخ بداية '+w.label); };
+      head.append(nm, sd);
+    }else{
+      const h2=document.createElement('h2'); h2.style.margin='0';
+      h2.innerHTML=`<span class="dot" style="background:var(--teal)"></span> ${w.label}${w.startDate? ' — يبدأ '+fmtArDate(w.startDate):''}`;
+      head.appendChild(h2);
+    }
+    card.appendChild(head);
+
+    const daysWrap=document.createElement('div'); daysWrap.className='weekDaysGrid';
+    w.days.forEach((d,di)=>{
+      const dCard=document.createElement('div'); dCard.className='weekDayCard'+(d.date===todayS?' today':'');
+      if(canEdit){
+        const dHead=document.createElement('div'); dHead.style.cssText='display:flex;gap:6px;align-items:center;margin-bottom:6px;flex-wrap:wrap';
+        const dn=document.createElement('input'); dn.type='text'; dn.value=d.name; dn.placeholder='اسم اليوم'; dn.style.cssText='font-weight:800;flex:1;min-width:90px';
+        dn.onchange=()=>{ d.name=dn.value.trim(); saveState(); renderAll(); };
+        const dd=document.createElement('input'); dd.type='date'; dd.value=d.date||''; dd.style.cssText='width:auto;font-size:.8rem';
+        dd.onchange=()=>{ d.date=dd.value; saveState(); renderAll(); };
+        const delDay=document.createElement('button'); delDay.className='iconbtn'; delDay.textContent='🗑️'; delDay.title='حذف اليوم';
+        delDay.onclick=()=>{ w.days.splice(di,1); saveState(); renderAll(); toast('🗑️ حُذف اليوم'); };
+        dHead.append(dn,dd,delDay);
+        dCard.appendChild(dHead);
+      }else{
+        const dHead=document.createElement('div'); dHead.className='wdHead';
+        dHead.innerHTML = d.name + (d.date===todayS? ' <span class="wdTodayTag">اليوم</span>':'');
+        dCard.appendChild(dHead);
+        if(d.date){ const dt=document.createElement('div'); dt.className='wdDate'; dt.textContent=fmtArDate(d.date); dCard.appendChild(dt); }
+      }
+      const pWrap=document.createElement('div'); pWrap.style.marginTop='6px';
+      (d.periods||[]).forEach((p,pi)=>{
+        if(canEdit){
+          const pr=document.createElement('div'); pr.className='schedRow'; pr.style.marginBottom='4px';
+          const t=document.createElement('input'); t.type='text'; t.className='stimeInput'; t.placeholder='الوقت'; t.value=p.time;
+          t.onchange=()=>{ p.time=t.value.trim(); saveState(); renderAll(); };
+          const l=document.createElement('input'); l.type='text'; l.placeholder='النشاط'; l.value=p.label;
+          l.onchange=()=>{ p.label=l.value.trim(); saveState(); renderAll(); };
+          const delP=document.createElement('button'); delP.className='iconbtn'; delP.textContent='✕'; delP.title='حذف الفترة';
+          delP.onclick=()=>{ d.periods.splice(pi,1); saveState(); renderAll(); };
+          pr.append(t,l,delP);
+          pWrap.appendChild(pr);
+        }else{
+          const sr=document.createElement('div'); sr.className='slotRow small';
+          sr.innerHTML=`<span class="stime">${p.time||''}</span><span class="slabel">${p.label||''}</span>`;
+          pWrap.appendChild(sr);
+        }
       });
-      card.appendChild(grid);
-      daysBox.appendChild(card);
+      if(!canEdit && (!d.periods || !d.periods.length)){
+        pWrap.innerHTML='<div class="empty" style="padding:6px">لا مواعيد</div>';
+      }
+      dCard.appendChild(pWrap);
+      if(canEdit){
+        const addP=document.createElement('button'); addP.className='btn ghost small'; addP.style.marginTop='4px'; addP.textContent='＋ فترة';
+        addP.onclick=()=>{ d.periods.push({time:'',label:''}); saveState(); renderAll(); };
+        dCard.appendChild(addP);
+      }
+      daysWrap.appendChild(dCard);
     });
-  }
-  const addDayBtn=document.getElementById('addWeekDayBtn');
-  if(addDayBtn) addDayBtn.onclick=()=>{
-    state.weeklySchedule.days.push({name:'يوم جديد', cells: state.weeklySchedule.columns.map(()=>'')});
-    saveState(); renderScheduleSettings(); renderWeeklyTab();
-  };
+    card.appendChild(daysWrap);
+    if(canEdit){
+      const addDay=document.createElement('button'); addDay.className='btn teal small'; addDay.style.marginTop='12px'; addDay.textContent='＋ إضافة يوم';
+      addDay.onclick=()=>{
+        let nextDate='';
+        if(w.startDate){ const dt=new Date(w.startDate+'T00:00:00'); dt.setDate(dt.getDate()+w.days.length); nextDate=dt.toISOString().slice(0,10); }
+        w.days.push({name:'يوم جديد', date:nextDate, hijri:'', periods:[]});
+        saveState(); renderAll();
+      };
+      card.appendChild(addDay);
+    }
+    box.appendChild(card);
+  });
 }
 
 function renderTalentBonusSettings(){
@@ -2221,7 +2713,8 @@ function applyPermVisibility(){
 }
 function renderAll(){
   ensureSports();
-  ensureSchedule();
+  ensureMasterSchedule();
+  ensureArchive();
   renderSectionPills();
   renderCritSelect();
   renderPickGrid();
@@ -2233,12 +2726,17 @@ function renderAll(){
   renderRulesTab();
   renderWeeklyTab();
   renderDailyTab();
+  renderMasterScheduleTab();
+  renderArchiveTab();
+  renderRaffleTab();
   renderLeagues();
   renderSettingsGroups();
   renderCritSettings();
   renderLeagueSettings();
   renderTalentBonusSettings();
   renderScheduleSettings();
+  renderHideScoresToggle();
+  renderArchiveSettings();
   renderNoGroupSettings();
   renderAdminsList();
   updateLockIcons();
@@ -2247,6 +2745,15 @@ function renderAll(){
 updateLockIcons();
 renderAll();
 initCloud();
+/* تحقّق كل دقيقة من تغيّر التاريخ لتحديث الجدول اليومي/الأسبوعي تلقائيًا بعد منتصف الليل دون إعادة تحميل الصفحة */
+let __lastKnownDate = todayISO();
+setInterval(()=>{
+  const t = todayISO();
+  if(t !== __lastKnownDate){
+    __lastKnownDate = t;
+    renderDailyTab(); renderWeeklyTab();
+  }
+}, 60000);
 </script>
 </body>
 </html>
