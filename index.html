@@ -994,13 +994,14 @@ function upgradeAdmins(st){
 upgradeAdmins(state);
 
 /* =================== المزامنة السحابية (Firestore) =================== */
-let cloudSet = null;        // دالة الكتابة بعد نجاح الاتصال
+let cloudSet = null;        // دالة الكتابة الآمنة (معاملة ذرّية تمنع الكتابة فوق تعديل أحدث)
 let cloudTimer = null;
 const configFilled = !Object.values(firebaseConfig).some(v=>String(v).includes('PASTE'));
 
 /* يصير true إما فورًا (لا يوجد إعداد سحابة) أو بعد استلام أول نسخة حقيقية من Firestore.
    الترحيلات التلقائية التي تدفع للسحابة يجب أن تنتظر هذا العلم لتفادي الكتابة فوق بيانات أحدث لم تصل بعد. */
 window.__cloudSyncReady = false;
+let __lastKnownRev = 0; /* آخر رقم إصدار (__rev) رأيناه لهذا المستند — يمنع الكتابة فوق إصدار أحدث لم يصلنا بعد */
 function setStatus(mode, msg){
   const el = document.getElementById('syncStatus');
   if(!el) return;
@@ -1016,9 +1017,7 @@ function cloudSave(){
   if(!cloudSet) return;
   clearTimeout(cloudTimer);
   cloudTimer = setTimeout(()=>{
-    cloudSet(JSON.parse(JSON.stringify(state)))
-      .then(()=> setStatus('online'))
-      .catch(()=> setStatus('error','فشل الحفظ السحابي — تحقق من الاتصال'));
+    cloudSet(JSON.parse(JSON.stringify(state)));
   }, 250);
 }
 async function initCloud(){
@@ -1033,17 +1032,54 @@ async function initCloud(){
     const app = appMod.initializeApp(firebaseConfig);
     const db  = fsMod.getFirestore(app);
     const ref = fsMod.doc(db, CLOUD_COLLECTION, CLOUD_DOC);
-    cloudSet = data => fsMod.setDoc(ref, data);
+
+    /* كتابة آمنة عبر معاملة ذرّية: تقرأ المستند وتكتبه في خطوة واحدة غير قابلة للمقاطعة.
+       إن كان رقم إصدار المستند على الخادم أكبر من آخر إصدار رآه هذا الجهاز (أي أن جهازًا آخر
+       كتب تعديلًا لم يصل إلى هذا الجهاز بعد)، تُلغى الكتابة المحلية وتُتَبنّى النسخة الأحدث بدلًا
+       من الكتابة فوقها — فلا يُفقد أي تعديل نهائيًا مهما تعددت التبويبات أو الأجهزة. */
+    cloudSet = async (data)=>{
+      let conflict=null;
+      try{
+        await fsMod.runTransaction(db, async (tx)=>{
+          const fresh = await tx.get(ref);
+          const freshData = fresh.exists()? fresh.data() : null;
+          const freshRev = (freshData && typeof freshData.__rev==='number') ? freshData.__rev : 0;
+          if(freshRev > __lastKnownRev){
+            conflict = freshData;
+            return; /* لا نكتب — الأحدث موجود فعلًا على الخادم */
+          }
+          data.__rev = freshRev + 1;
+          tx.set(ref, data);
+        });
+        if(conflict){
+          state = conflict;
+          upgradeAdmins(state);
+          __lastKnownRev = conflict.__rev||0;
+          try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){}
+          renderAll();
+          toast('⚠️ عُثر على تعديل أحدث من جهاز أو تبويب آخر — عُرض تلقائيًا، وأُلغي حفظك الحالي كي لا يُفقد أي شيء. أعد تنفيذ تعديلك من فضلك.');
+        }else{
+          state.__rev = data.__rev;
+          __lastKnownRev = data.__rev;
+          setStatus('online');
+        }
+      }catch(e){
+        setStatus('error','فشل الحفظ السحابي — تحقق من الاتصال');
+      }
+    };
+
     fsMod.onSnapshot(ref, snap=>{
       if(!snap.exists()){
         /* أول تشغيل على الإطلاق: ازرع البيانات الحالية في السحابة */
         window.__cloudSyncReady = true;
-        cloudSet(JSON.parse(JSON.stringify(state)))
-          .then(()=> setStatus('online'))
+        const seed = JSON.parse(JSON.stringify(state)); seed.__rev=1;
+        fsMod.setDoc(ref, seed)
+          .then(()=>{ state.__rev=1; __lastKnownRev=1; setStatus('online'); })
           .catch(()=> setStatus('error','تحقق من قواعد الأمان في Firestore'));
         return;
       }
       const remote = snap.data();
+      __lastKnownRev = (typeof remote.__rev==='number')? remote.__rev : __lastKnownRev;
       const rj = JSON.stringify(remote);
       const firstSync = !window.__cloudSyncReady;
       window.__cloudSyncReady = true;
