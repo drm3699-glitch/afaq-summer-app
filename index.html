@@ -806,6 +806,63 @@ function defaultAdmins(){
     perms:defaultPerms()
   }));
 }
+/* الجدول التفصيلي الرسمي (المرحلة الثانوية والجامعية) — مستخرج من الملف المرفق، بتواريخه الميلادية
+   المطابقة للتواريخ الهجرية الأصلية. يُستورد فقط بضغطة صريحة من مدير الموقع، ولا يُطبَّق تلقائيًا أبدًا. */
+const OFFICIAL_SCHEDULE_TEMPLATE = {
+  weeks: [
+    {
+      id:'opening', label:'الأسبوع الافتتاحي', startDate:'2026-07-10',
+      days:[
+        {name:'الجمعة', date:'2026-07-10', hijri:'25/01/1448هـ', quote:'', periods:[{time:'', label:'الاستراحة الافتتاحية'}]}
+      ]
+    },
+    {
+      id:'w1', label:'الأسبوع الأول', startDate:'2026-07-12',
+      days:[
+        {name:'الأحد', date:'2026-07-12', hijri:'27/01/1448هـ', quote:'إذا غامرتَ في شرفٍ مرومٍ فلا تقنع بما دون النجوم', periods:[{time:'4:15 – 5:30',label:'روحاً'},{time:'5:45 – 07:00',label:'كأس آفاق لكرة الطائرة'},{time:'07:30 – 09:00',label:'اثراء (الاستقامة) - مشروع فكرة'}]},
+        {name:'الاثنين', date:'2026-07-13', hijri:'28/01/1448هـ', quote:'', periods:[{time:'4:15 – 5:30',label:'روحاً'},{time:'5:45 – 07:00',label:'تحدي'},{time:'07:30 – 09:00',label:'نافس'}]},
+        {name:'الثلاثاء', date:'2026-07-14', hijri:'29/01/1448هـ', quote:'', periods:[{time:'4:15 – 5:30',label:'روحاً'},{time:'5:45 – 07:00',label:'مهارة (إدارة الوقت)'},{time:'07:30 – 09:00',label:'المستطيل الأخضر'}]},
+        {name:'الأربعاء', date:'2026-07-15', hijri:'01/02/1448هـ', quote:'', periods:[{time:'4:15 – 5:30',label:'روحاً + قيم'},{time:'5:45 – 07:00',label:'مهرجان رياضي'},{time:'07:30 – 09:00',label:'مواهب (الانضباط)'}]}
+      ]
+    },
+    {
+      id:'w2', label:'الأسبوع الثاني', startDate:'2026-07-19',
+      days:[
+        {name:'الأحد', date:'2026-07-19', hijri:'05/02/1448هـ', quote:'', periods:[{time:'4:15 – 5:30',label:'روحاً'},{time:'5:45 – 07:00',label:'كأس آفاق لكرة الطائرة'},{time:'07:30 – 09:00',label:'اثراء (حسن الخلق) - مشروع فكرة'}]},
+        {name:'الاثنين', date:'2026-07-20', hijri:'06/02/1448هـ', quote:'', periods:[{time:'4:15 – 5:30',label:'روحاً'},{time:'5:45 – 07:00',label:'تحدي'},{time:'07:30 – 09:00',label:'نافس'}]},
+        {name:'الثلاثاء', date:'2026-07-21', hijri:'07/02/1448هـ', quote:'', periods:[{time:'4:15 – 5:30',label:'روحاً'},{time:'5:45 – 07:00',label:'مهارة (مهارات التواصل)'},{time:'07:30 – 09:00',label:'المستطيل الأخضر'}]},
+        {name:'الأربعاء', date:'2026-07-22', hijri:'08/02/1448هـ', quote:'', periods:[{time:'4:15 – 5:30',label:'روحاً + قيم'},{time:'5:45 – 07:00',label:'مهرجان رياضي'},{time:'07:30 – 09:00',label:'مواهب (الاحسان)'}]},
+        {name:'الخميس', date:'2026-07-23', hijri:'09/02/1448هـ', quote:'', periods:[{time:'', label:'استراحة'}]}
+      ]
+    },
+    {
+      id:'w3', label:'الأسبوع الثالث', startDate:'2026-07-26',
+      days:[
+        {name:'الأحد', date:'2026-07-26', hijri:'12/02/1448هـ', quote:'', periods:[{time:'4:15 – 5:30',label:'روحاً'},{time:'5:45 – 07:00',label:'كأس آفاق لكرة الطائرة'},{time:'07:30 – 09:00',label:'اثراء (المسؤولية) - مشروع فكرة'}]},
+        {name:'الاثنين', date:'2026-07-27', hijri:'13/02/1448هـ', quote:'', periods:[{time:'4:15 – 5:30',label:'روحاً'},{time:'5:45 – 07:00',label:'تحدي'},{time:'07:30 – 09:00',label:'نافس'}]},
+        {name:'الثلاثاء', date:'2026-07-28', hijri:'14/02/1448هـ', quote:'', periods:[{time:'4:15 – 5:30',label:'روحاً'},{time:'5:45 – 07:00',label:'مهارة (كيف تواجه التحديات)'},{time:'07:30 – 09:00',label:'المستطيل الأخضر'}]},
+        {name:'الأربعاء', date:'2026-07-29', hijri:'15/02/1448هـ', quote:'', periods:[{time:'4:15 – 5:30',label:'روحاً + قيم'},{time:'5:45 – 07:00',label:'المهرجان الرياضي'},{time:'07:30 – 09:00',label:'مواهب (المسؤولية)'}]}
+      ]
+    },
+    {
+      id:'w4', label:'الأسبوع الرابع', startDate:'2026-08-02',
+      days:[
+        {name:'الأحد', date:'2026-08-02', hijri:'19/02/1448هـ', quote:'', periods:[{time:'4:15 – 5:30',label:'روحاً'},{time:'5:45 – 07:00',label:'كأس افاق لكرة الطائرة'},{time:'07:30 – 09:00',label:'اثراء (رحلة قائد) - مشروع فكرة'}]},
+        {name:'الاثنين', date:'2026-08-03', hijri:'20/02/1448هـ', quote:'', periods:[{time:'4:15 – 5:30',label:'روحاً'},{time:'5:45 – 07:00',label:'تحدي'},{time:'07:30 – 09:00',label:'نافس'}]},
+        {name:'الثلاثاء', date:'2026-08-04', hijri:'21/02/1448هـ', quote:'', periods:[{time:'4:15 – 5:30',label:'روحاً'},{time:'5:45 – 07:00',label:'مهارة (كيف تكون قائدًا)'},{time:'07:30 – 09:00',label:'المستطيل الأخضر'}]},
+        {name:'الأربعاء', date:'2026-08-05', hijri:'22/02/1448هـ', quote:'', periods:[{time:'4:15 – 5:30',label:'روحاً + قيم'},{time:'5:45 – 07:00',label:'المهرجان الرياضي'},{time:'07:30 – 09:00',label:'مواهب (قيادة)'}]},
+        {name:'الخميس', date:'2026-08-06', hijri:'23/02/1448هـ', quote:'', periods:[{time:'', label:'أكاديمية البطل'}]}
+      ]
+    },
+    {
+      id:'closing', label:'الأسبوع الختامي', startDate:'2026-08-08',
+      days:[
+        {name:'السبت', date:'2026-08-08', hijri:'25/02/1448هـ', quote:'', periods:[{time:'', label:'الحفل الختامي'}]}
+      ]
+    }
+  ]
+};
+
 const DEFAULT_STATE = {
   owner: {...DEFAULT_OWNER},
   admins: defaultAdmins(),
@@ -1116,27 +1173,15 @@ function ensureSports(){
 function ensureMasterSchedule(){
   if(typeof state.weeklyMotto!=='string' || !state.weeklyMotto.trim()) state.weeklyMotto = DEFAULT_STATE.weeklyMotto;
 
-  /* دائمًا اضمن بنية صالحة (لا تُسبب كسرًا في العرض) حتى قبل تأكد المزامنة */
+  /* اضمن بنية صالحة فقط (لا تُسبب كسرًا في العرض) — لا يوجد بعد الآن أي إعادة زرع تلقائية
+     للنموذج الافتراضي مهما بدت البيانات فارغة. إن كان الجدول فارغًا فعلًا، تظهر رسالة فارغة
+     فقط، ويبقى الأمر بيد مدير الموقع حصرًا عبر تبويب «الجدول العام». هذا يمنع نهائيًا أي احتمال
+     للكتابة فوق جدول مُدخَل فعليًا بنموذج افتراضي قديم. */
   if(!state.masterSchedule || typeof state.masterSchedule!=='object'){
     state.masterSchedule = {weeks:[]};
   }
   if(!Array.isArray(state.masterSchedule.weeks)) state.masterSchedule.weeks=[];
 
-  /* لا نزرع نموذجًا افتراضيًا أو نرحّل بيانات قديمة إلا بعد تأكد أننا نملك أحدث نسخة سحابية —
-     تفاديًا للكتابة فوق تعديلات حقيقية لم تصل بعد إلى هذا الجهاز */
-  if(!state.masterSchedule.weeks.length && window.__cloudSyncReady){
-    if(state.weeklySchedule && Array.isArray(state.weeklySchedule.days) && state.weeklySchedule.days.length){
-      const oldDays = state.weeklySchedule.days.map(d=>({
-        name:d.name||'', date:'', hijri:'',
-        periods:(d.cells||[]).map(c=> (c&&typeof c==='object')? {time:c.time||'', label:c.label||''} : {time:'', label:c||''})
-      }));
-      state.masterSchedule = { weeks: [{id:uid(), label: state.currentWeekLabel||'الأسبوع 1', startDate:'', days: oldDays}] };
-    }else{
-      state.masterSchedule = JSON.parse(JSON.stringify(DEFAULT_STATE.masterSchedule));
-    }
-    try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){}
-    cloudSave();
-  }
   state.masterSchedule.weeks.forEach(w=>{
     if(!Array.isArray(w.days)) w.days=[];
     if(typeof w.startDate!=='string') w.startDate='';
@@ -1148,20 +1193,6 @@ function ensureMasterSchedule(){
       d.periods.forEach(p=>{ if(typeof p.time!=='string') p.time=''; if(typeof p.label!=='string') p.label=''; });
     });
   });
-  /* ترحيل لمرة واحدة: أعِد البيت الشعري التحفيزي الذي كان في الجدول اليومي القديم (سقط أثناء تحديث سابق) */
-  if(!state.quoteFieldSeeded && window.__cloudSyncReady && state.masterSchedule.weeks.length){
-    state.quoteFieldSeeded = true;
-    const oldQuote = (state.dailySchedule && state.dailySchedule.quote && state.dailySchedule.quote.trim())
-      ? state.dailySchedule.quote.trim()
-      : 'إذا غامرتَ في شرفٍ مرومٍ فلا تقنع بما دون النجوم';
-    const t = todayISO();
-    let target = null;
-    state.masterSchedule.weeks.forEach(w=> w.days.forEach(d=>{ if(d.date===t) target=d; }));
-    if(!target && state.masterSchedule.weeks[0] && state.masterSchedule.weeks[0].days[0]) target = state.masterSchedule.weeks[0].days[0];
-    if(target && !target.quote) target.quote = oldQuote;
-    try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){}
-    cloudSave();
-  }
 }
 /* تاريخ اليوم بصيغة yyyy-mm-dd حسب توقيت الجهاز — يُعاد حسابه دائمًا فيتغيّر تلقائيًا بعد منتصف الليل */
 function todayISO(){
@@ -1973,7 +2004,7 @@ function renderWeeklyTab(){
     const isToday = d.date===todayS;
     html += `<div class="weekDayCard${isToday?' today':''}">
         <div class="wdHead">${d.name}${isToday?' <span class="wdTodayTag">اليوم</span>':''}</div>
-        ${d.date? `<div class="wdDate">${fmtArDate(d.date)}</div>`:''}
+        ${d.date? `<div class="wdDate">${fmtArDate(d.date)}${d.hijri? ' — '+d.hijri : ''}</div>`:''}
         <div class="slotList" style="margin-top:8px">` +
           (d.periods&&d.periods.length? d.periods.map(p=>`<div class="slotRow small"><span class="stime">${p.time||''}</span><span class="slabel">${p.label||''}</span></div>`).join('') : '<div class="empty" style="padding:8px">لا مواعيد</div>')
         + `</div></div>`;
@@ -2444,8 +2475,43 @@ function renderMasterScheduleTab(){
   box.innerHTML='';
   const weeks = state.masterSchedule.weeks;
   const todayS = todayISO();
+
+  if(canEdit){
+    const importBar=document.createElement('div'); importBar.className='card'; importBar.style.cssText='background:#F2FBFB;border:2px dashed var(--teal)';
+    importBar.innerHTML = `<h2 style="margin:0 0 6px"><span class="dot" style="background:var(--teal)"></span> الجدول التفصيلي الرسمي (الثانوية والجامعية)</h2>
+      <p class="hint">استيراد الجدول الكامل لستة أسابيع (الافتتاحي، الأول إلى الرابع، الختامي) بتواريخه الفعلية كما ورد في الملف المرفق. سيستبدل هذا كل ما هو محفوظ حاليًا في الجدول العام.</p>`;
+    const impBtn=document.createElement('button'); impBtn.className='btn teal small'; impBtn.textContent='📥 استيراد الجدول الرسمي الآن';
+    impBtn.onclick=()=>{
+      if(!confirm('سيستبدل هذا الجدول العام الحالي بالكامل بالجدول التفصيلي الرسمي (6 أسابيع). لا يمكن التراجع إلا بإعادة تعديله يدويًا. متابعة؟')) return;
+      state.masterSchedule = JSON.parse(JSON.stringify(OFFICIAL_SCHEDULE_TEMPLATE));
+      saveState(); renderAll();
+      toast('✅ استُورد الجدول الرسمي — عدّله كما تريد الآن من هذا التبويب');
+    };
+    importBar.appendChild(impBtn);
+    box.appendChild(importBar);
+  }
+
   if(!weeks.length){
-    box.innerHTML = '<div class="empty">⏳ جارٍ تحميل أحدث نسخة من الجدول...</div>';
+    if(canEdit){
+      const empty=document.createElement('div'); empty.className='empty'; empty.style.marginBottom='12px'; empty.textContent='لا يوجد جدول محفوظ حاليًا.';
+      box.appendChild(empty);
+      const startBtn=document.createElement('button'); startBtn.className='btn ghost small'; startBtn.textContent='📋 أو ابدأ بنموذج فارغ (4 أسابيع بلا محتوى)';
+      startBtn.onclick=()=>{
+        if(!confirm('سيُنشئ هذا هيكلًا فارغًا لأربعة أسابيع تستطيع تعبئته بنفسك بالكامل. متابعة؟')) return;
+        state.masterSchedule = JSON.parse(JSON.stringify(DEFAULT_STATE.masterSchedule));
+        state.masterSchedule.weeks.forEach(w=> w.days.forEach(d=> d.periods.forEach(p=> p.label='')));
+        saveState(); renderAll();
+        toast('✅ أُنشئ الهيكل — عبّئه كما تريد الآن');
+      };
+      const addWeekBtn=document.createElement('button'); addWeekBtn.className='btn ghost small'; addWeekBtn.style.marginRight='8px'; addWeekBtn.textContent='＋ أو أضف أسبوعًا فارغًا واحدًا';
+      addWeekBtn.onclick=()=>{
+        state.masterSchedule.weeks.push({id:uid(), label:'الأسبوع 1', startDate:'', days:[]});
+        saveState(); renderAll();
+      };
+      box.appendChild(startBtn); box.appendChild(addWeekBtn);
+    }else{
+      box.innerHTML += '<div class="empty">لم يُنشئ مدير الموقع الجدول العام بعد.</div>';
+    }
     return;
   }
 
@@ -2474,15 +2540,17 @@ function renderMasterScheduleTab(){
         dn.onchange=()=>{ d.name=dn.value.trim(); saveState(); renderAll(); };
         const dd=document.createElement('input'); dd.type='date'; dd.value=d.date||''; dd.style.cssText='width:auto;font-size:.8rem';
         dd.onchange=()=>{ d.date=dd.value; saveState(); renderAll(); };
+        const dh=document.createElement('input'); dh.type='text'; dh.value=d.hijri||''; dh.placeholder='التاريخ الهجري (مثال: 27/01/1448هـ)'; dh.style.cssText='width:auto;font-size:.8rem;min-width:150px';
+        dh.onchange=()=>{ d.hijri=dh.value.trim(); saveState(); renderAll(); };
         const delDay=document.createElement('button'); delDay.className='iconbtn'; delDay.textContent='🗑️'; delDay.title='حذف اليوم';
         delDay.onclick=()=>{ w.days.splice(di,1); saveState(); renderAll(); toast('🗑️ حُذف اليوم'); };
-        dHead.append(dn,dd,delDay);
+        dHead.append(dn,dd,dh,delDay);
         dCard.appendChild(dHead);
       }else{
         const dHead=document.createElement('div'); dHead.className='wdHead';
         dHead.innerHTML = d.name + (d.date===todayS? ' <span class="wdTodayTag">اليوم</span>':'');
         dCard.appendChild(dHead);
-        if(d.date){ const dt=document.createElement('div'); dt.className='wdDate'; dt.textContent=fmtArDate(d.date); dCard.appendChild(dt); }
+        if(d.date){ const dt=document.createElement('div'); dt.className='wdDate'; dt.textContent=fmtArDate(d.date)+(d.hijri? ' — '+d.hijri : ''); dCard.appendChild(dt); }
       }
       const pWrap=document.createElement('div'); pWrap.style.marginTop='6px';
       (d.periods||[]).forEach((p,pi)=>{
