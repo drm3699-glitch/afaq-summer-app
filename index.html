@@ -1185,6 +1185,7 @@ function ensureMasterSchedule(){
   state.masterSchedule.weeks.forEach(w=>{
     if(!Array.isArray(w.days)) w.days=[];
     if(typeof w.startDate!=='string') w.startDate='';
+    if(typeof w.motto!=='string') w.motto='';
     w.days.forEach(d=>{
       if(!Array.isArray(d.periods)) d.periods=[];
       if(typeof d.date!=='string') d.date='';
@@ -1954,11 +1955,12 @@ function renderLog(){
 
 /* =================== عرض الأفراد =================== */
 /* =================== شعار الأسبوع + الجدولان =================== */
-function renderMottoBox(container){
+function renderMottoBox(container, weekMotto){
   if(!container) return;
+  const text = (weekMotto && weekMotto.trim()) ? weekMotto.trim() : (state.weeklyMotto || '—');
   container.innerHTML = `<div class="mottoBox">
       <div class="mlbl">🌟 شعار الأسبوع</div>
-      <div class="mword">${state.weeklyMotto? state.weeklyMotto : '—'}</div>
+      <div class="mword">${text}</div>
     </div>`;
 }
 function fmtArDate(iso){
@@ -1968,7 +1970,8 @@ function fmtArDate(iso){
   return d.toLocaleDateString('ar-SA',{weekday:'long', day:'numeric', month:'long', year:'numeric'});
 }
 function renderDailyTab(){
-  renderMottoBox(document.getElementById('dailyMottoBox'));
+  const curW = currentMasterWeek();
+  renderMottoBox(document.getElementById('dailyMottoBox'), curW && curW.motto);
   const wrap=document.getElementById('dailyScheduleWrap'); if(!wrap) return;
   const day = todayMasterDay();
   if(!day){
@@ -1993,9 +1996,9 @@ function renderDailyTab(){
   wrap.innerHTML = html;
 }
 function renderWeeklyTab(){
-  renderMottoBox(document.getElementById('weeklyMottoBox'));
-  const wrap=document.getElementById('weeklyTableWrap'); if(!wrap) return;
   const w = currentMasterWeek();
+  renderMottoBox(document.getElementById('weeklyMottoBox'), w && w.motto);
+  const wrap=document.getElementById('weeklyTableWrap'); if(!wrap) return;
   if(!w || !w.days || !w.days.length){ wrap.innerHTML='<div class="empty">لم يُضَف الجدول الأسبوعي بعد.</div>'; return; }
   const todayS = todayISO();
   let html = `<p class="hint" style="margin-bottom:14px">${w.label}${w.startDate? ' — يبدأ '+fmtArDate(w.startDate):''}</p>
@@ -2530,6 +2533,19 @@ function renderMasterScheduleTab(){
       head.appendChild(h2);
     }
     card.appendChild(head);
+
+    if(canEdit){
+      const mottoRow=document.createElement('div'); mottoRow.className='field'; mottoRow.style.marginBottom='14px';
+      const mLbl=document.createElement('label'); mLbl.textContent='🌟 شعار هذا الأسبوع (يظهر في الجدولين الأسبوعي واليومي عندما يكون هذا هو الأسبوع الحالي)';
+      const mInp=document.createElement('input'); mInp.type='text'; mInp.value=w.motto||''; mInp.placeholder='اتركه فارغًا لاستخدام الشعار العام من الإعدادات';
+      mInp.onchange=()=>{ w.motto=mInp.value.trim(); saveState(); renderAll(); toast('✅ حُدّث شعار '+w.label); };
+      mottoRow.append(mLbl, mInp);
+      card.appendChild(mottoRow);
+    }else if(w.motto && w.motto.trim()){
+      const mView=document.createElement('div'); mView.className='hint'; mView.style.marginTop='-6px';
+      mView.textContent='🌟 شعار الأسبوع: '+w.motto;
+      card.appendChild(mView);
+    }
 
     const daysWrap=document.createElement('div'); daysWrap.className='weekDaysGrid';
     w.days.forEach((d,di)=>{
